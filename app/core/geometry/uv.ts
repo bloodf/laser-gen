@@ -18,10 +18,8 @@
  * `φ = atan2(x, z)`.
  */
 
-import { normalizeAngle } from './unwrap'
+import { cylindricalUVs } from './cylindricalUVs'
 import type { VesselProfile } from './types'
-
-const TWO_PI = 2 * Math.PI
 
 /**
  * Compute per-vertex UVs for a lathe-revolved vessel mesh, remapped so the
@@ -37,19 +35,9 @@ const TWO_PI = 2 * Math.PI
  *   `BufferAttribute` of itemSize 2.
  */
 export function latheSurfaceUVs(profile: VesselProfile, positions: ArrayLike<number>): Float32Array {
-  const count = Math.floor(positions.length / 3)
-  const uvs = new Float32Array(count * 2)
-  const seamRad = (profile.seamAngleDeg * Math.PI) / 180
-  const zoneHeight = profile.engraveTop - profile.engraveBottom
-
-  for (let i = 0; i < count; i++) {
-    const x = positions[i * 3] as number
-    const y = positions[i * 3 + 1] as number
-    const z = positions[i * 3 + 2] as number
-    const theta = Math.atan2(x, z)
-    const vRaw = (y - profile.engraveBottom) / zoneHeight
-    uvs[i * 2] = normalizeAngle(theta - seamRad) / TWO_PI
-    uvs[i * 2 + 1] = Math.min(1, Math.max(0, vRaw))
-  }
-  return uvs
+  return cylindricalUVs(positions, {
+    seamAngleDeg: profile.seamAngleDeg,
+    engraveBottom: profile.engraveBottom,
+    engraveTop: profile.engraveTop,
+  })
 }

@@ -65,6 +65,51 @@ export const STANLEY_CAMP_MUG_24OZ: VesselProfile = {
   engraveTop: 100,
   seamAngleDeg: 0,
   handle: { angleDeg: 180, widthDeg: 90 },
+  // M12: the 3D preview renders the Sketchfab "Stanley Mug" GLB (CC-BY-4.0);
+  // as loaded, the body mesh ("Circle_Circle_0") measures Ø1.39 × 3.52 in
+  // model units, so the loader scales it ~63× (x/z) and ~34× (y) to match
+  // this profile and maps the artboard onto it with cylindrical UVs.
+  // Handle/lid meshes keep their original materials.
+  model: {
+    url: '/models/stanley-camp-mug.glb',
+    bodyMeshName: 'Circle_Circle_0',
+    credit: {
+      title: 'Stanley Mug',
+      author: 'Lime Zigubre',
+      sourceUrl: 'https://sketchfab.com/3d-models/stanley-mug-54bd8c61fadc44919e9b9da949295d3f',
+      authorUrl: 'https://sketchfab.com/LimeZigubre',
+    },
+  },
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Classic 11oz ceramic mug — straight-walled, with handle. */
+export const PLAIN_MUG: VesselProfile = {
+  id: 'plain-mug',
+  nameKey: 'presets.plainMug',
+  category: 'mug',
+  // ~Ø82 body, ~95 tall; handle opposite the seam blocks a ~90° arc.
+  points: [
+    { r: 40, y: 0 },
+    { r: 41, y: 12 },
+    { r: 41, y: 95 },
+  ],
+  engraveBottom: 10,
+  engraveTop: 80,
+  seamAngleDeg: 0,
+  handle: { angleDeg: 180, widthDeg: 90 },
+  // M12: the 3D preview renders the Sketchfab "Plain Mug" GLB (CC-BY-4.0);
+  // the single mesh (body + handle) measures Ø0.122 × 0.150 in model units
+  // (meters), so the loader scales it ~670× (x/z) and ~632× (y) to match.
+  model: {
+    url: '/models/plain-mug.glb',
+    credit: {
+      title: 'Plain Mug',
+      author: 'LightSwitch',
+      sourceUrl: 'https://sketchfab.com/3d-models/plain-mug-19c8fe5702b544d0a1409d3dac1cf90e',
+      authorUrl: 'https://sketchfab.com/edwardlewis450',
+    },
+  },
   sourceNote: COMMUNITY_NOTE,
 }
 
@@ -134,6 +179,143 @@ export const STANLEY_PINT_16OZ: VesselProfile = {
   engraveBottom: 15,
   engraveTop: 125,
   seamAngleDeg: 0,
+  // M12: stainless rim band + steel base band around the powder-coat body.
+  parts: [
+    // Rolled stainless rim ring at the lip.
+    { kind: 'torus', material: 'steel', ringMm: 43.6, tubeMm: 2.3, yMm: 145.5, horizontal: true },
+    // Steel base band: open sleeve slightly proud of the tapered body.
+    {
+      kind: 'lathe',
+      material: 'steel',
+      points: [
+        { r: 32.6, y: 0 },
+        { r: 33.4, y: 3 },
+        { r: 33.8, y: 11 },
+        { r: 33.4, y: 14 },
+      ],
+    },
+  ],
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Stanley Classic Beer Stein 24oz — big cylindrical stein with flared base. */
+export const STANLEY_BEER_STEIN_24OZ: VesselProfile = {
+  id: 'stanley-beer-stein-24oz',
+  nameKey: 'presets.stanleyBeerStein24oz',
+  category: 'mug',
+  // ~Ø88 body, ~170 tall, flared base ring; large stein handle opposite the
+  // seam blocks a ~100° arc (bigger ring/tube than a mug handle).
+  points: [
+    { r: 43, y: 0 },
+    { r: 46, y: 4 },
+    { r: 46, y: 9 },
+    { r: 44, y: 14 },
+    { r: 44, y: 164 },
+    { r: 44.5, y: 170 },
+  ],
+  engraveBottom: 18,
+  engraveTop: 150,
+  seamAngleDeg: 0,
+  handle: { angleDeg: 180, widthDeg: 100, ringMm: 26, tubeMm: 8 },
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Aluminum sport bottle with carabiner (Karrimor-style) 750ml. */
+export const SPORT_BOTTLE_CARABINER_750ML: VesselProfile = {
+  id: 'sport-bottle-carabiner-750ml',
+  nameKey: 'presets.sportBottleCarabiner750ml',
+  category: 'bottle',
+  // ~Ø73 straight body to y≈185, domed shoulder, narrow ~Ø29 neck with a
+  // loop lid (~256 tall overall). Bare aluminum — pick the stainless finish.
+  points: [
+    { r: 36.5, y: 0 },
+    { r: 36.5, y: 185 },
+    { r: 33, y: 205 },
+    { r: 24, y: 220 },
+    { r: 14.5, y: 232 },
+    { r: 14.5, y: 244 },
+  ],
+  engraveBottom: 20,
+  engraveTop: 175,
+  seamAngleDeg: 0,
+  parts: [
+    // Loop-lid cap sleeve on the neck.
+    {
+      kind: 'lathe',
+      material: 'plastic',
+      points: [
+        { r: 16.5, y: 238 },
+        { r: 16.5, y: 252 },
+        { r: 14, y: 254 },
+      ],
+    },
+    // Lid loop the carabiner clips through (vertical ring on the axis).
+    { kind: 'torus', material: 'plastic', ringMm: 5.5, tubeMm: 2.2, yMm: 257 },
+    // Carabiner clipped to the loop, hanging at 90° from the seam.
+    { kind: 'torus', material: 'steel', ringMm: 11, tubeMm: 1.8, yMm: 252, centerMm: 15, angleDeg: 90, arcDeg: 300 },
+  ],
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Screw-cap insulated bottle 500ml — gentle shoulder, flat-top cap. */
+export const INSULATED_BOTTLE_500ML: VesselProfile = {
+  id: 'insulated-bottle-500ml',
+  nameKey: 'presets.insulatedBottle500ml',
+  category: 'bottle',
+  // ~Ø68 body, ~204 tall overall; gentle shoulder under a flat-top screw cap.
+  points: [
+    { r: 33, y: 0 },
+    { r: 34, y: 8 },
+    { r: 34, y: 150 },
+    { r: 32, y: 168 },
+    { r: 26, y: 180 },
+    { r: 24, y: 184 },
+  ],
+  engraveBottom: 15,
+  engraveTop: 160,
+  seamAngleDeg: 0,
+  parts: [
+    // Flat-top screw cap sleeve over the neck.
+    {
+      kind: 'lathe',
+      material: 'plastic',
+      points: [
+        { r: 24.5, y: 182 },
+        { r: 24.5, y: 201 },
+        { r: 23, y: 203 },
+      ],
+    },
+    // Knurl ring around the cap's grip band.
+    { kind: 'torus', material: 'plastic', ringMm: 24.8, tubeMm: 1.2, yMm: 192, horizontal: true },
+  ],
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Cola-shaped insulated bottle 750ml (S'well-style) — classic curve. */
+export const COLA_BOTTLE_750ML: VesselProfile = {
+  id: 'cola-bottle-750ml',
+  nameKey: 'presets.colaBottle750ml',
+  category: 'bottle',
+  // Narrow base flare, wide ~Ø76 belly, long concave neck taper, small cap;
+  // ~262 tall overall.
+  points: [
+    { r: 31, y: 0 },
+    { r: 34, y: 6 },
+    { r: 36.5, y: 24 },
+    { r: 38, y: 70 },
+    { r: 37, y: 115 },
+    { r: 33.5, y: 155 },
+    { r: 27, y: 190 },
+    { r: 21, y: 214 },
+    { r: 19, y: 232 },
+    { r: 19, y: 244 },
+    { r: 21.5, y: 246 },
+    { r: 21.5, y: 260 },
+    { r: 19, y: 262 },
+  ],
+  engraveBottom: 15,
+  engraveTop: 165,
+  seamAngleDeg: 0,
   sourceNote: COMMUNITY_NOTE,
 }
 
@@ -161,9 +343,14 @@ export const VESSEL_PRESETS: VesselProfile[] = [
   STANLEY_QUENCHER_40OZ,
   STANLEY_QUENCHER_30OZ,
   STANLEY_CAMP_MUG_24OZ,
+  PLAIN_MUG,
+  STANLEY_BEER_STEIN_24OZ,
   STANLEY_PINT_16OZ,
   WINE_TUMBLER_12OZ,
   SPORTS_BOTTLE_32OZ,
+  SPORT_BOTTLE_CARABINER_750ML,
+  INSULATED_BOTTLE_500ML,
+  COLA_BOTTLE_750ML,
   WATER_BOTTLE_750ML,
   GENERIC_CYLINDER_80MM,
 ]

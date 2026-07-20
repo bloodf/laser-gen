@@ -25,7 +25,12 @@
     "wineTumbler12oz": "Wine tumbler 12oz",
     "sportsBottle32oz": "Sports bottle 32oz",
     "waterBottle750ml": "Water bottle 750ml",
-    "genericCylinder80mm": "Straight cylinder 80mm"
+    "genericCylinder80mm": "Straight cylinder 80mm",
+    "plainMug": "Classic ceramic mug",
+    "stanleyBeerStein24oz": "Stanley Classic Beer Stein 24oz",
+    "sportBottleCarabiner750ml": "Sport bottle with carabiner 750ml",
+    "insulatedBottle500ml": "Screw-cap insulated bottle 500ml",
+    "colaBottle750ml": "Cola-shape insulated bottle 750ml"
   },
   "vessels": {
     "custom": {
@@ -83,6 +88,9 @@
       "cylinder": "Cylinder"
     },
     "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "modelCredit": "3D model:",
+    "modelCreditBy": "by",
+
     "color": {
       "custom": "Custom color"
     }
@@ -612,7 +620,9 @@
       "measureTitle": "Measure your own",
       "measureBody": "Presets are approximate community measurements, not manufacturer specs. For production work, measure height and diameter at a few points with a ruler or calipers — wall taper changes the circumference your art wraps across.",
       "contributeTitle": "Contribute a preset",
-      "contributeBody": "Measured a vessel we're missing? Presets are small profile definitions — see"
+      "contributeBody": "Measured a vessel we're missing? Presets are small profile definitions — see",
+      "modelCreditsTitle": "3D model credits",
+      "modelCreditsBody": "The camp mug and classic ceramic mug presets render community 3D models from Sketchfab, licensed CC-BY-4.0: \u201cStanley Mug\u201d by Lime Zigubre and \u201cPlain Mug\u201d by LightSwitch. The same attribution appears next to the 3D preview when one of these vessels is active, and in the repository's NOTICE.md. All other vessels are parametric lathe profiles rendered by laser-gen itself."
     }
   }
 }

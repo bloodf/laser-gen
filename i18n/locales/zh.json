@@ -25,7 +25,12 @@
     "wineTumbler12oz": "红酒杯 12oz",
     "sportsBottle32oz": "运动水壶 32oz",
     "waterBottle750ml": "水瓶 750ml",
-    "genericCylinder80mm": "直圆柱 80mm"
+    "genericCylinder80mm": "直圆柱 80mm",
+    "plainMug": "经典陶瓷马克杯",
+    "stanleyBeerStein24oz": "Stanley Classic Beer Stein 24oz",
+    "sportBottleCarabiner750ml": "带登山扣运动水壶 750ml",
+    "insulatedBottle500ml": "旋盖保温瓶 500ml",
+    "colaBottle750ml": "可乐瓶形保温瓶 750ml"
   },
   "vessels": {
     "custom": {
@@ -83,6 +88,9 @@
       "cylinder": "圆柱"
     },
     "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "modelCredit": "3D 模型:",
+    "modelCreditBy": "作者:",
+
     "color": {
       "custom": "自定义颜色"
     }

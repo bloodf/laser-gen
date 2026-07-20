@@ -106,6 +106,23 @@ laser-gen is developed in milestones. Each milestone ships working, verifiable s
   (object diameter / circumference / artboard size / step-by-step instructions,
   copy-to-clipboard and `.txt` download).
 
+- **M12 — GLB-backed vessels & five new vessel types** ✅
+  GLB-backed 3D previews: CC-BY-4.0 Sketchfab models in `public/models/`
+  (attribution in NOTICE.md, the README, and in-app next to the viewer) —
+  the camp mug and a new classic ceramic mug preset render real models via
+  `app/composables/useGlbVessel.ts` (body-mesh detection by name or
+  largest-cylindrical heuristic, Z-up→Y-up + unit normalization to the
+  profile's mm dimensions) with `app/core/geometry/cylindricalUVs.ts` baking
+  lathe-convention UVs onto the body mesh, so the artboard texture, seam,
+  safe-zone, and laser sweep work unchanged (the parametric profile stays the
+  source of truth for unwrap/export). A `parts` concept on `VesselProfile`
+  (lathe bands / torus rings with coated/steel/plastic roles, built by
+  `useVesselGeometry`) adds rim bands, caps, and carabiners; handles gained
+  `ringMm`/`tubeMm` size overrides. New presets: classic ceramic mug (GLB),
+  Stanley Beer Stein 24oz, carabiner sport bottle 750ml, screw-cap insulated
+  bottle 500ml, cola-shape insulated bottle 750ml; the camp mug preview moved
+  to the Stanley GLB and the pint 16oz gained stainless rim + base bands.
+
 ## Next (post-0.1.0)
 
 Not shipped yet — contributions welcome:

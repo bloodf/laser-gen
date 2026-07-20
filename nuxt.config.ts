@@ -82,7 +82,8 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico,json,woff2}'],
+      // GLB vessel models are precached too so the 3D preview works offline.
+      globPatterns: ['**/*.{js,css,html,png,svg,ico,json,woff2,glb}'],
     },
     devOptions: {
       enabled: false,

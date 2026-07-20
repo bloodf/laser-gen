@@ -31,6 +31,7 @@ const IGNORE_PREFIXES = [
   'docsPages.aiProviders.securityBody',
   'docsPages.vessels.contributeBody',
   'docsPages.vessels.measureBody',
+  'docsPages.vessels.modelCredits',
 ]
 
 const ignored = key => IGNORE_PREFIXES.some(prefix => key.startsWith(prefix))

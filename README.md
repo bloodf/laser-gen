@@ -20,8 +20,8 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 | Area | What you get |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Wrap studio** | mm-accurate 2D canvas that maps exactly onto your vessel's surface: pen, rect, ellipse, polygon, star, freehand, live text, layers, snapping, seam & handle-safe-zone guides, undo/redo with IndexedDB autosave |
-| **Vessels** | Parametric cylinders and tapered cones from real millimeter dimensions, with community presets (Stanley Quencher 30/40 oz, camp mug, stacking beer pint 16 oz, wine tumbler, sports bottle, 750 ml water bottle, straight cylinder) — plus a custom vessel builder: measure diameter *or* circumference at the bottom and (for tapered vessels) the top |
-| **3D preview** | Live TresJS/three.js vessel with your wrap applied as a texture — turntable, laser-sweep animation, finish materials with a custom powder-coat color picker, seam & safe-zone overlays |
+| **Vessels** | Parametric lathe profiles from real millimeter dimensions, with community presets (Stanley Quencher 30/40 oz, camp mug, classic ceramic mug, beer stein 24 oz, stacking beer pint 16 oz with steel rim, wine tumbler, sports bottle, carabiner sport bottle 750 ml, screw-cap and cola-shape insulated bottles, 750 ml water bottle, straight cylinder) — plus a custom vessel builder: measure diameter *or* circumference at the bottom and (for tapered vessels) the top |
+| **3D preview** | Live TresJS/three.js vessel with your wrap applied as a texture — parametric lathes with multi-part extras (rim bands, caps, carabiners) or GLB-backed models for the two mugs — turntable, laser-sweep animation, finish materials with a custom powder-coat color picker, seam & safe-zone overlays |
 | **Vectorize** | In-browser raster→vector tracing (imagetracerjs in a Web Worker) with threshold, smoothing, and simplify controls |
 | **Photo prep** | Grayscale, levels/contrast, sharpening, dithering (Floyd–Steinberg, ordered, halftone, stipple), material presets, corner flood-fill background removal, halftone→vector dots |
 | **Export** | Physical-size SVG with per-program presets for LightBurn, xTool Creative Space, and LaserGRBL; DPI-correct raster PNG (pHYs chunk); rotary setup metadata embedded in the file plus a copy/download rotary-setup panel |
@@ -113,6 +113,17 @@ A ready-made `vercel.json` is included for one-command Vercel deploys; see
 Contributions are very welcome — code, translations, vessel presets, docs, and bug reports.
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) and our
 [Code of Conduct](CODE_OF_CONDUCT.md) first.
+
+## Credits
+
+The 3D preview models in `public/models/` are community works from
+[Sketchfab](https://sketchfab.com), licensed
+[CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) (see [NOTICE.md](NOTICE.md)):
+
+- **[Plain Mug](https://sketchfab.com/3d-models/plain-mug-19c8fe5702b544d0a1409d3dac1cf90e)**
+  by [LightSwitch](https://sketchfab.com/edwardlewis450)
+- **[Stanley Mug](https://sketchfab.com/3d-models/stanley-mug-54bd8c61fadc44919e9b9da949295d3f)**
+  by [Lime Zigubre](https://sketchfab.com/LimeZigubre)
 
 ## License
 

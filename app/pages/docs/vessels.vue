@@ -67,6 +67,9 @@ const rows = VESSEL_PRESETS.map((profile) => {
       <h2>{{ t('docsPages.vessels.measureTitle') }}</h2>
       <p>{{ t('docsPages.vessels.measureBody') }}</p>
 
+      <h2>{{ t('docsPages.vessels.modelCreditsTitle') }}</h2>
+      <p>{{ t('docsPages.vessels.modelCreditsBody') }}</p>
+
       <h2>{{ t('docsPages.vessels.contributeTitle') }}</h2>
       <p>
         {{ t('docsPages.vessels.contributeBody') }}

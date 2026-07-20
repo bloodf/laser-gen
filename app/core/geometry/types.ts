@@ -30,6 +30,94 @@ export interface HandleExclusion {
   angleDeg: number
   /** Total angular width of the exclusion arc, in degrees. */
   widthDeg: number
+  /**
+   * Optional handle ring radius override (mm) for the 3D preview — large
+   * stein-style handles. Defaults to the standard mug handle size.
+   */
+  ringMm?: number
+  /** Optional handle tube thickness override (mm) for the 3D preview. */
+  tubeMm?: number
+}
+
+/**
+ * Material role of an extra vessel part (`VesselProfile.parts`):
+ * - `coated`: powder-coat — follows the viewer's finish color.
+ * - `steel`: bare stainless — metalness 1.
+ * - `plastic`: dark matte plastic (caps, lid loops).
+ *
+ * The main body is not a part: it always carries the artboard texture.
+ */
+export type VesselPartMaterial = 'coated' | 'steel' | 'plastic'
+
+/**
+ * An open lathe-revolved part (no caps), e.g. a steel base band sleeve.
+ * Points follow the same convention as `VesselProfile.points` (r, y in mm,
+ * bottom → top) and revolve around the vessel axis.
+ */
+export interface VesselLathePart {
+  kind: 'lathe'
+  material: VesselPartMaterial
+  /** Open radial profile, bottom → top, strictly increasing `y`. */
+  points: ProfilePoint[]
+}
+
+/**
+ * A torus part (rim bands, lid loops, carabiners).
+ *
+ * By default the ring lies in the *vertical radial plane* at `angleDeg`
+ * (like a mug handle or a carabiner clipped to a lid loop); `horizontal: true`
+ * lays it flat around the axis (rim bands, knurl rings).
+ */
+export interface VesselTorusPart {
+  kind: 'torus'
+  material: VesselPartMaterial
+  /** Ring radius (mm) — center of the ring to center of the tube. */
+  ringMm: number
+  /** Tube radius (mm). */
+  tubeMm: number
+  /** Center height above the vessel base, in mm. */
+  yMm: number
+  /** Radial offset of the ring center from the vessel axis (mm); default 0. */
+  centerMm?: number
+  /** Direction of the radial offset, degrees (0 = seam); default 0. */
+  angleDeg?: number
+  /** Arc length in degrees; default 360 (closed ring). Arc gaps face the axis. */
+  arcDeg?: number
+  /** Lay the ring flat around the axis (rim bands); default false (vertical). */
+  horizontal?: boolean
+}
+
+/** An extra rigid part rendered in the 3D preview (bands, caps, carabiners). */
+export type VesselPart = VesselLathePart | VesselTorusPart
+
+/** CC-BY attribution for a GLB-backed vessel model (license-required). */
+export interface VesselModelCredit {
+  /** Model title, e.g. `'Plain Mug'`. */
+  title: string
+  /** Author name, e.g. `'LightSwitch'`. */
+  author: string
+  /** Source page URL (Sketchfab). */
+  sourceUrl: string
+  /** Author profile URL. */
+  authorUrl: string
+}
+
+/**
+ * Reference to a GLB model used for the 3D preview of this vessel. The
+ * parametric profile stays the source of truth for unwrap/artboard/export —
+ * the GLB is a richer visual skin whose body mesh gets cylindrical UVs that
+ * match the lathe UV convention (see `cylindricalUVs`).
+ */
+export interface VesselModelRef {
+  /** Public URL of the GLB, e.g. `'/models/plain-mug.glb'`. */
+  url: string
+  /**
+   * Name of the engravable body mesh inside the GLB scene. When omitted, the
+   * loader falls back to a heuristic (largest roughly-cylindrical mesh).
+   */
+  bodyMeshName?: string
+  /** CC-BY attribution shown in-app and in NOTICE.md. */
+  credit: VesselModelCredit
 }
 
 /**
@@ -60,6 +148,14 @@ export interface VesselProfile {
   seamAngleDeg: number
   /** Optional handle exclusion arc (mugs). */
   handle?: HandleExclusion
+  /**
+   * Optional GLB-backed 3D model for the preview (`useGlbVessel`). The
+   * parametric profile still drives unwrap/artboard/export; the GLB only
+   * replaces the preview visuals.
+   */
+  model?: VesselModelRef
+  /** Optional extra rigid parts (rim bands, caps, carabiners) for the 3D preview. */
+  parts?: VesselPart[]
   /** Optional provenance note for preset/community measurements. */
   sourceNote?: string
 }

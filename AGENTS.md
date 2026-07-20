@@ -43,14 +43,20 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      CustomVesselDialog — M11 user-defined vessel builder)
   components/library/  Library dashboard pieces (ProjectCard, ProjectDetail
                        with job tracker, AssetGrid)
-  composables/       useVesselGeometry (three.js lathe from core profiles),
+  composables/       useVesselGeometry (three.js lathe from core profiles +
+                     M12 `parts`: lathe bands / torus rings with coated/steel/
+                     plastic material roles), useGlbVessel (M12 GLB-backed
+                     vessels: GLTFLoader, body-mesh detection, mm
+                     normalization, cylindrical-UV artboard mapping),
                      useArtboardTexture (CanvasTexture artboard + demo pattern),
                      useDocumentTexture (project doc → texture live sync),
                      useRasterImport (shared PNG/JPG → image element import)
   core/              pure-TS domain logic — no Vue/DOM/Nuxt imports here:
-                     geometry/ (profiles, unwrap math, lathe, presets, custom
-                     user-measured vessels + resolveVessel, rotary incl.
-                     rotarySetupText, UV remap), svg/ (document model, path math,
+                     geometry/ (profiles, unwrap math, lathe, presets — incl.
+                     M12 optional `model` (GLB ref + CC-BY credit) and `parts`
+                     on VesselProfile — custom user-measured vessels +
+                     resolveVessel, rotary incl. rotarySetupText, UV remap +
+                     cylindricalUVs for GLB bodies), svg/ (document model, path math,
                      mm serializer,
                      SVG import/sanitize, RDP simplify, seam wrap, Canvas2D
                      renderer), vectorize/ (imagetracerjs Web Worker trace),
@@ -79,7 +85,8 @@ e2e/                 Playwright e2e specs (excluded from vitest), fixtures/ with
                      generated sample PNG (regenerate: node e2e/fixtures/create-fixture.mjs)
 scripts/             Repo maintenance scripts (check-i18n.mjs, capture-screenshots.mjs)
 i18n/locales/        Translation JSON, lazy-loaded; en.json is the source of truth
-public/              PWA icons, favicon
+public/              PWA icons, favicon, models/ (M12 CC-BY-4.0 GLB vessel
+                     models — attribution required: NOTICE.md + in-app credit)
 test/                Vitest tests (unit tests also live beside core modules)
 ```
 

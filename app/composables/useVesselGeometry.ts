@@ -8,15 +8,21 @@
  * UVs are remapped *before* the geometry is recentered around mid-height.
  *
  * Mug handles are a 270° torus arc (6 mm tube) whose 90° gap faces the body,
- * centered on `handle.angleDeg` at mid-body height and radius.
+ * centered on `handle.angleDeg` at mid-body height and radius; `handle.ringMm`
+ * / `handle.tubeMm` override the size for stein-style handles.
+ *
+ * `profile.parts` (rim bands, caps, carabiners) are built alongside and
+ * returned in `parts` with their material role — the viewer maps roles to
+ * shared materials (powder-coat / stainless / plastic).
  *
  * All returned geometries share one lifetime: call `dispose()` (automatic on
  * scope dispose and on profile change) before dropping the result.
  */
 
 import { BufferAttribute, LatheGeometry, TorusGeometry, Vector2 } from 'three'
+import type { BufferGeometry } from 'three'
 import { lathePoints, latheSurfaceUVs, radiusAt } from '~/core/geometry'
-import type { VesselProfile } from '~/core/geometry'
+import type { VesselPart, VesselPartMaterial, VesselProfile } from '~/core/geometry'
 
 /** Handle ring radius (mm) — the hole is `HANDLE_RING - HANDLE_TUBE`. */
 const HANDLE_RING_MM = 18
@@ -27,11 +33,20 @@ const HANDLE_ARC_RAD = (3 * Math.PI) / 2
 /** How far (mm) the handle embeds into the body so it reads as attached. */
 const HANDLE_EMBED_MM = 5
 
+export interface BuiltVesselPart {
+  /** Part geometry, recentered around mid-height like the body. */
+  geometry: BufferGeometry
+  /** Material role — the viewer maps it to a shared material. */
+  material: VesselPartMaterial
+}
+
 export interface VesselGeometryResult {
   /** Revolved vessel body, recentered so y = 0 is mid-height. */
   body: LatheGeometry
   /** Handle torus (mugs only), already positioned and recentered. */
   handle: TorusGeometry | null
+  /** Extra rigid parts (rim bands, caps, carabiners), recentered like the body. */
+  parts: BuiltVesselPart[]
   /** Total vessel height in mm. */
   heightMm: number
   /** Maximum outer radius over the whole profile, in mm. */
@@ -44,6 +59,36 @@ export interface VesselGeometryResult {
   seamAngleRad: number
   /** Handle center angle (same convention) + exclusion width, when present. */
   handleArc?: { angleRad: number, widthRad: number }
+}
+
+/**
+ * Build one extra part (lathe band or torus ring) from a `VesselPart`.
+ * Returned geometry is recentered by `-midY` like the body.
+ */
+function buildPart(part: VesselPart, midY: number): BuiltVesselPart {
+  if (part.kind === 'lathe') {
+    // Open revolved surface (no caps) — a sleeve around the body.
+    const geometry = new LatheGeometry(part.points.map(p => new Vector2(p.r, p.y)), 96)
+    geometry.translate(0, -midY, 0)
+    return { geometry, material: part.material }
+  }
+
+  const arcRad = ((part.arcDeg ?? 360) * Math.PI) / 180
+  const angleRad = ((part.angleDeg ?? 0) * Math.PI) / 180
+  const centerMm = part.centerMm ?? 0
+  const geometry = new TorusGeometry(part.ringMm, part.tubeMm, 16, 48, arcRad)
+  if (part.horizontal) {
+    // Flat ring around the axis (rim bands, knurl rings).
+    geometry.rotateX(Math.PI / 2)
+  }
+  else {
+    // Vertical radial plane (handles, loops, carabiners): center any arc gap
+    // on the side facing the vessel axis, then point local +X radially out.
+    if (part.arcDeg !== undefined) geometry.rotateZ((5 * Math.PI) / 4)
+    geometry.rotateY(angleRad - Math.PI / 2)
+  }
+  geometry.translate(Math.sin(angleRad) * centerMm, part.yMm - midY, Math.cos(angleRad) * centerMm)
+  return { geometry, material: part.material }
 }
 
 /** Build body + handle geometry for a profile. Pure construction, no state. */
@@ -66,6 +111,7 @@ export function buildVesselGeometry(profile: VesselProfile): VesselGeometryResul
   const result: VesselGeometryResult = {
     body,
     handle: null,
+    parts: (profile.parts ?? []).map(part => buildPart(part, midY)),
     heightMm: lastY - firstY,
     maxRadiusMm,
     zoneMidY: (profile.engraveBottom + profile.engraveTop) / 2 - midY,
@@ -74,13 +120,15 @@ export function buildVesselGeometry(profile: VesselProfile): VesselGeometryResul
   }
 
   if (profile.handle) {
+    const ringMm = profile.handle.ringMm ?? HANDLE_RING_MM
+    const tubeMm = profile.handle.tubeMm ?? HANDLE_TUBE_MM
     const seamRad = result.seamAngleRad
     const angleRad = seamRad + (profile.handle.angleDeg * Math.PI) / 180
     const bodyMidY = (firstY + lastY) / 2
     const rMid = radiusAt(profile, bodyMidY)
-    const centerR = rMid + HANDLE_RING_MM + HANDLE_TUBE_MM - HANDLE_EMBED_MM
+    const centerR = rMid + ringMm + tubeMm - HANDLE_EMBED_MM
 
-    const handle = new TorusGeometry(HANDLE_RING_MM, HANDLE_TUBE_MM, 16, 48, HANDLE_ARC_RAD)
+    const handle = new TorusGeometry(ringMm, tubeMm, 16, 48, HANDLE_ARC_RAD)
     // Torus arc gap is centered at local -45°; rotate it to face -X (the body).
     handle.rotateZ((5 * Math.PI) / 4)
     // Point local +X (away from the gap) along the handle's radial direction.
@@ -101,6 +149,7 @@ export function buildVesselGeometry(profile: VesselProfile): VesselGeometryResul
 export function disposeVesselGeometry(result: VesselGeometryResult): void {
   result.body.dispose()
   result.handle?.dispose()
+  for (const part of result.parts) part.geometry.dispose()
 }
 
 /**

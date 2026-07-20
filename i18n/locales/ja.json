@@ -25,7 +25,12 @@
     "wineTumbler12oz": "ワインタンブラー 12oz",
     "sportsBottle32oz": "スポーツボトル 32oz",
     "waterBottle750ml": "ウォーターボトル 750ml",
-    "genericCylinder80mm": "直円筒 80mm"
+    "genericCylinder80mm": "直円筒 80mm",
+    "plainMug": "クラシックセラミックマグ",
+    "stanleyBeerStein24oz": "Stanley Classic Beer Stein 24oz",
+    "sportBottleCarabiner750ml": "カラビナ付きスポーツボトル 750ml",
+    "insulatedBottle500ml": "スクリューキャップ保冷ボトル 500ml",
+    "colaBottle750ml": "コーラ型保冷ボトル 750ml"
   },
   "vessels": {
     "custom": {
@@ -83,6 +88,9 @@
       "cylinder": "円筒"
     },
     "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "modelCredit": "3Dモデル:",
+    "modelCreditBy": "制作:",
+
     "color": {
       "custom": "カスタムカラー"
     }

@@ -46,6 +46,16 @@ Examples of profiles:
 The same profile drives the `LatheGeometry` 3D preview and the unwrapped canvas — see
 [architecture.md](architecture.md) and [wrap-math.md](wrap-math.md).
 
+Presets may also carry optional preview-only fields (M12, both in
+[`app/core/geometry/types.ts`](../app/core/geometry/types.ts)):
+
+- **`parts`** — rigid extras rendered in the 3D preview: lathe-revolved bands (steel
+  base bands, cap sleeves) and torus rings (rim bands, lid loops, carabiners), each with
+  a material role (`coated` / `steel` / `plastic`).
+- **`model`** — a GLB in `public/models/` rendered instead of the lathe (see
+  "GLB-backed vessels" in [architecture.md](architecture.md)). Third-party GLBs need a
+  `credit` block and a NOTICE.md entry (CC-BY attribution is a license requirement).
+
 ## Measuring a vessel
 
 1. **Height**: ruler or calipers, base to rim.

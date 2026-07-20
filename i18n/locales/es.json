@@ -25,7 +25,12 @@
     "wineTumbler12oz": "Vaso de vino 12oz",
     "sportsBottle32oz": "Botella deportiva 32oz",
     "waterBottle750ml": "Botella de agua 750ml",
-    "genericCylinder80mm": "Cilindro recto 80mm"
+    "genericCylinder80mm": "Cilindro recto 80mm",
+    "plainMug": "Taza de cerámica clásica",
+    "stanleyBeerStein24oz": "Stanley Classic Beer Stein 24oz",
+    "sportBottleCarabiner750ml": "Botella deportiva con mosquetón 750ml",
+    "insulatedBottle500ml": "Botella térmica con tapa de rosca 500ml",
+    "colaBottle750ml": "Botella térmica estilo cola 750ml"
   },
   "vessels": {
     "custom": {
@@ -83,6 +88,9 @@
       "cylinder": "Cilindro"
     },
     "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "modelCredit": "Modelo 3D:",
+    "modelCreditBy": "por",
+
     "color": {
       "custom": "Color personalizado"
     }

@@ -44,6 +44,25 @@ For 3D preview (M5, TresJS/Three.js), the profile feeds directly into
 the 2D profile around the Y axis to produce the vessel mesh. The same profile drives the
 unwrapped canvas dimensions, so the 2D editor and the 3D preview can never disagree.
 
+Profiles may additionally declare **`parts`** (M12): rigid extras such as steel rim/base
+bands, screw caps, lid loops, and carabiners — lathe-revolved bands or torus rings with a
+material role (`coated` follows the powder-coat finish, `steel` is bare metal, `plastic`
+is dark matte). Parts are preview-only; they never affect the unwrap or exports.
+
+### GLB-backed vessels
+
+A preset can also declare a **`model`** (M12): a GLB in `public/models/` that replaces the
+lathe visuals in the 3D preview (`useGlbVessel`). The loader finds the engravable body
+mesh (by name or a largest-cylindrical heuristic), normalizes the model to the profile's
+millimeter dimensions (models ship in arbitrary units; scale is per-axis so the body's
+engrave surface matches the profile exactly), and bakes
+**cylindrical UVs** (`app/core/geometry/cylindricalUVs.ts`) onto the body mesh — the same
+u/v convention as the lathe, so the artboard texture, seam, safe-zone, and laser-sweep
+overlays work unchanged. The parametric profile remains the source of truth for the
+artboard, unwrap math, and exports; the GLB is a preview-only skin. GLB models are
+third-party CC-BY-4.0 works — attribution lives in [NOTICE.md](../NOTICE.md) and in-app
+next to the preview.
+
 ## Wrap / unwrap math
 
 The editor works on a **flat, unwrapped rectangle** that represents the vessel's lateral

@@ -25,7 +25,12 @@
     "wineTumbler12oz": "Weinbecher 12oz",
     "sportsBottle32oz": "Sportflasche 32oz",
     "waterBottle750ml": "Wasserflasche 750 ml",
-    "genericCylinder80mm": "Gerader Zylinder 80 mm"
+    "genericCylinder80mm": "Gerader Zylinder 80 mm",
+    "plainMug": "Klassischer Keramikbecher",
+    "stanleyBeerStein24oz": "Stanley Classic Beer Stein 24oz",
+    "sportBottleCarabiner750ml": "Sportflasche mit Karabiner 750 ml",
+    "insulatedBottle500ml": "Isolierflasche mit Schraubdeckel 500 ml",
+    "colaBottle750ml": "Isolierflasche in Cola-Form 750 ml"
   },
   "vessels": {
     "custom": {
@@ -83,6 +88,9 @@
       "cylinder": "Zylinder"
     },
     "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "modelCredit": "3D-Modell:",
+    "modelCreditBy": "von",
+
     "color": {
       "custom": "Eigene Farbe"
     }
