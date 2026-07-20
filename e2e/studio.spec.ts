@@ -28,6 +28,8 @@ test.describe('studio', () => {
   })
 
   test('draw → layers panel → undo → redo', async ({ page }) => {
+    await page.getByRole('tab', { name: 'Layers' }).click()
+    await expect(page.getByTestId('layers-panel')).toBeVisible()
     const count = page.getByTestId('layer-item').first().getByTestId('layer-element-count')
     await expect(count).toHaveText(/no elements/)
 

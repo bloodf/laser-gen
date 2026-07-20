@@ -112,6 +112,8 @@
     "zoomReset": "Reset zoom",
     "tabEditor": "Editor",
     "tabPreview": "3D preview",
+    "tabVessel": "Vessel",
+    "inspector": "Inspector",
     "textPlaceholder": "Enter text…",
     "align": {
       "title": "Align",

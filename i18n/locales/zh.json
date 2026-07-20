@@ -112,6 +112,8 @@
     "zoomReset": "重置缩放",
     "tabEditor": "编辑器",
     "tabPreview": "3D 预览",
+    "tabVessel": "器皿",
+    "inspector": "检查器",
     "textPlaceholder": "输入文字…",
     "align": {
       "title": "对齐",

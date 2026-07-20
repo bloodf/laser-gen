@@ -112,6 +112,8 @@
     "zoomReset": "ズームをリセット",
     "tabEditor": "エディター",
     "tabPreview": "3Dプレビュー",
+    "tabVessel": "容器",
+    "inspector": "インスペクター",
     "textPlaceholder": "テキストを入力…",
     "align": {
       "title": "整列",

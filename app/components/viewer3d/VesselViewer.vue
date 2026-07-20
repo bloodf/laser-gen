@@ -189,7 +189,7 @@ const fillLightPosition = new Vector3(-200, 120, -250)
 </script>
 
 <template>
-  <div class="relative h-[420px] overflow-hidden rounded-lg border border-ink-800 bg-ink-900 lg:h-[60vh]" data-testid="vessel-viewer">
+  <div class="relative h-[38vh] min-h-64 overflow-hidden bg-ink-900 lg:h-[min(42vh,420px)]" data-testid="vessel-viewer">
     <div v-if="!webglAvailable" class="grid h-full place-items-center p-6 text-center text-sm text-ink-400">
       {{ t('viewer.webglUnavailable') }}
     </div>

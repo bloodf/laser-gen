@@ -112,6 +112,8 @@
     "zoomReset": "Redefinir zoom",
     "tabEditor": "Editor",
     "tabPreview": "Prévia 3D",
+    "tabVessel": "Recipiente",
+    "inspector": "Inspetor",
     "textPlaceholder": "Digite o texto…",
     "align": {
       "title": "Alinhar",

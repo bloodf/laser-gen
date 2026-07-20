@@ -112,6 +112,8 @@
     "zoomReset": "Restablecer zoom",
     "tabEditor": "Editor",
     "tabPreview": "Vista 3D",
+    "tabVessel": "Recipiente",
+    "inspector": "Inspector",
     "textPlaceholder": "Escribe el texto…",
     "align": {
       "title": "Alinear",

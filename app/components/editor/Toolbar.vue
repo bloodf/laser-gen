@@ -1,74 +1,10 @@
 <script setup lang="ts">
-/**
- * Vertical tool strip: tool buttons with inline SVG icons. The active tool
- * is highlighted; hovering shows the localized tool name as a tooltip. A
- * "Photo" action button at the bottom imports a raster photo onto the
- * artboard (opening the photo panel flow), and a save button stores the
- * current document in the library (M6).
- */
-import { RASTER_ACCEPT, useRasterImport } from '~/composables/useRasterImport'
-import { LASERPACK_ACCEPT, useLaserpack } from '~/composables/useLaserpack'
+/** Creation tools only; project actions live in the Studio command bar. */
 import { useEditorStore } from '~/stores/editor'
 import type { ToolId } from '~/stores/editor'
-import { useLibraryStore } from '~/stores/library'
-import { useProjectStore } from '~/stores/project'
 
 const { t } = useI18n()
 const editor = useEditorStore()
-const library = useLibraryStore()
-const project = useProjectStore()
-const { importRasterFile } = useRasterImport()
-const { openPackIntoStudio } = useLaserpack()
-
-const photoInput = ref<HTMLInputElement | null>(null)
-const packInput = ref<HTMLInputElement | null>(null)
-
-/** Whether the M8 export dialog is open. */
-const showExport = ref(false)
-
-/** Brief confirmation shown after a library save. */
-const savedFlash = ref(false)
-let savedFlashTimer: ReturnType<typeof setTimeout> | undefined
-
-async function saveToLibrary(): Promise<void> {
-  let name: string | undefined
-  if (!library.currentProjectId) {
-    const picked = window.prompt(t('library.namePrompt'), t('library.defaultName'))
-    if (picked === null) return
-    name = picked.trim() || t('library.defaultName')
-  }
-  await library.saveCurrentProject(name)
-  savedFlash.value = true
-  clearTimeout(savedFlashTimer)
-  savedFlashTimer = setTimeout(() => savedFlash.value = false, 1500)
-}
-
-async function onPhotoFile(e: Event): Promise<void> {
-  const file = (e.target as HTMLInputElement).files?.[0]
-  ;(e.target as HTMLInputElement).value = ''
-  if (!file) return
-  try {
-    await importRasterFile(file)
-  }
-  catch {
-    // Undecodable file — ignore (the import menu reports errors for picks).
-  }
-}
-
-/** Open a .laserpack picked from the file dialog (confirms when dirty). */
-async function onPackFile(e: Event): Promise<void> {
-  const file = (e.target as HTMLInputElement).files?.[0]
-  ;(e.target as HTMLInputElement).value = ''
-  if (!file) return
-  if (project.dirty && !window.confirm(t('pack.confirmReplace'))) return
-  try {
-    await openPackIntoStudio(new Uint8Array(await file.arrayBuffer()))
-  }
-  catch {
-    window.alert(t('pack.openError'))
-  }
-}
-
 const tools: Array<{ id: ToolId, icon: string }> = [
   { id: 'select', icon: 'M4 3 L4 20 L9 15 L12 21 L14.5 19.5 L11.5 13.5 L18 13.5 Z' },
   { id: 'pen', icon: 'M4 20 L4 16 L15 5 L19 9 L8 20 Z M13 7 L17 11' },
@@ -83,13 +19,13 @@ const tools: Array<{ id: ToolId, icon: string }> = [
 </script>
 
 <template>
-  <div class="flex w-11 flex-col items-center gap-1 border-r border-ink-800 bg-ink-900 py-2">
+  <div class="order-2 flex h-12 shrink-0 items-center gap-1 overflow-x-auto border-t border-ink-800 bg-ink-900 px-2 lg:order-none lg:h-auto lg:w-13 lg:flex-col lg:overflow-x-visible lg:overflow-y-auto lg:border-r lg:border-t-0 lg:py-2">
     <button
       v-for="tool in tools"
       :key="tool.id"
       type="button"
-      class="grid size-8 place-items-center rounded-md transition-colors"
-      :class="editor.tool === tool.id ? 'bg-laser text-ink-950' : 'text-ink-300 hover:bg-ink-800 hover:text-ink-100'"
+      class="grid size-10 shrink-0 place-items-center rounded-md transition-colors"
+      :class="editor.tool === tool.id ? 'bg-laser text-ink-950 shadow-[0_0_0_1px_var(--color-laser-bright)]' : 'text-ink-300 hover:bg-ink-800 hover:text-ink-100'"
       :title="t(`tools.${tool.id}`)"
       :aria-label="t(`tools.${tool.id}`)"
       :aria-pressed="editor.tool === tool.id"
@@ -101,66 +37,6 @@ const tools: Array<{ id: ToolId, icon: string }> = [
       </svg>
     </button>
 
-    <!-- photo import action -->
-    <span class="my-1 h-px w-6 bg-ink-700" />
-    <button
-      type="button"
-      class="grid size-8 place-items-center rounded-md text-ink-300 transition-colors hover:bg-ink-800 hover:text-ink-100"
-      :title="t('photo.add')"
-      :aria-label="t('photo.add')"
-      data-testid="photo-button"
-      @click="photoInput?.click()"
-    >
-      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 5 H20 V19 H4 Z M4 15 L9 10 L13 14 L16 11 L20 15 M15.5 8.5 h.01" />
-      </svg>
-    </button>
-    <input ref="photoInput" type="file" :accept="RASTER_ACCEPT" class="hidden" data-testid="photo-input" @change="onPhotoFile">
 
-    <!-- save to library action -->
-    <button
-      type="button"
-      class="grid size-8 place-items-center rounded-md transition-colors"
-      :class="savedFlash ? 'bg-emerald-500/20 text-emerald-300' : 'text-ink-300 hover:bg-ink-800 hover:text-ink-100'"
-      :title="savedFlash ? t('library.saved') : t('library.saveToLibrary')"
-      :aria-label="t('library.saveToLibrary')"
-      data-testid="save-to-library"
-      @click="saveToLibrary"
-    >
-      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path v-if="savedFlash" d="M4 12 L10 18 L20 6" />
-        <path v-else d="M5 4 H19 V20 H5 Z M5 8 H19 M9 4 V8 M9 13 H15" />
-      </svg>
-    </button>
-
-    <!-- open .laserpack action -->
-    <button
-      type="button"
-      class="grid size-8 place-items-center rounded-md text-ink-300 transition-colors hover:bg-ink-800 hover:text-ink-100"
-      :title="t('pack.open')"
-      :aria-label="t('pack.open')"
-      data-testid="open-pack-button"
-      @click="packInput?.click()"
-    >
-      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 14 V3 M12 3 L8 7 M12 3 L16 7 M5 17 V19 H19 V17" />
-      </svg>
-    </button>
-    <input ref="packInput" type="file" :accept="LASERPACK_ACCEPT" class="hidden" data-testid="open-pack-input" @change="onPackFile">
-
-    <!-- export action (M8) -->
-    <button
-      type="button"
-      class="grid size-8 place-items-center rounded-md bg-laser text-ink-950 transition-opacity hover:opacity-90"
-      :title="t('export.button')"
-      :aria-label="t('export.button')"
-      data-testid="export-button"
-      @click="showExport = true"
-    >
-      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3 V14 M12 14 L8 10 M12 14 L16 10 M5 17 V19 H19 V17" />
-      </svg>
-    </button>
-    <EditorExportDialog v-if="showExport" @close="showExport = false" />
   </div>
 </template>

@@ -97,7 +97,7 @@ const zoomPercent = computed(() => `${Math.round(editor.zoom * 100)}%`)
 <template>
   <div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-ink-800 bg-ink-900 px-3 py-1.5 text-sm">
     <!-- undo/redo -->
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-1 lg:hidden">
       <button
         type="button"
         class="rounded-md p-1.5 text-ink-300 transition-colors hover:bg-ink-800 disabled:opacity-30"
@@ -120,7 +120,7 @@ const zoomPercent = computed(() => `${Math.round(editor.zoom * 100)}%`)
       </button>
     </div>
 
-    <span class="h-5 w-px bg-ink-700" />
+    <span class="h-5 w-px bg-ink-700 lg:hidden" />
 
     <!-- per-tool options -->
     <label v-if="editor.tool === 'polygon'" class="flex items-center gap-1.5 text-ink-400">
@@ -237,6 +237,6 @@ const zoomPercent = computed(() => `${Math.round(editor.zoom * 100)}%`)
 
     <span class="h-5 w-px bg-ink-700" />
 
-    <EditorImportMenu />
+    <div class="lg:hidden"><EditorImportMenu /></div>
   </div>
 </template>

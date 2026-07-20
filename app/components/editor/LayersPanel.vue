@@ -7,6 +7,14 @@
 import { useEditorStore } from '~/stores/editor'
 import { useProjectStore } from '~/stores/project'
 
+withDefaults(defineProps<{
+  /** Render inside the Studio inspector instead of as a fixed canvas sidebar. */
+  embedded?: boolean
+}>(), {
+  embedded: false,
+})
+
+
 const { t } = useI18n()
 const project = useProjectStore()
 const editor = useEditorStore()
@@ -57,7 +65,7 @@ function setOpacity(id: string, opacity: number): void {
 </script>
 
 <template>
-  <div class="flex w-52 shrink-0 flex-col border-l border-ink-800 bg-ink-900" data-testid="layers-panel">
+  <div class="flex flex-col bg-ink-900" :class="embedded ? 'min-h-0 w-full' : 'w-52 shrink-0 border-l border-ink-800'" data-testid="layers-panel">
     <div class="flex items-center gap-1 border-b border-ink-800 px-2 py-1.5">
       <button
         type="button"
@@ -70,7 +78,7 @@ function setOpacity(id: string, opacity: number): void {
       </button>
       <button
         type="button"
-        class="rounded p-1 text-ink-300 hover:bg-ink-800"
+        class="grid size-9 place-items-center rounded-md text-ink-300 hover:bg-ink-800"
         :title="t('layers.add')"
         :aria-label="t('layers.add')"
         @click="addLayer"
@@ -80,11 +88,11 @@ function setOpacity(id: string, opacity: number): void {
     </div>
 
     <template v-if="!collapsed">
-      <ul class="max-h-64 flex-1 overflow-y-auto">
+      <ul class="min-h-0 flex-1 overflow-y-auto">
         <li
           v-for="layer in orderedLayers"
           :key="layer.id"
-          class="group flex items-center gap-1 border-b border-ink-800/50 px-2 py-1.5 text-sm"
+          class="group flex min-h-12 items-center gap-2 border-b border-ink-800/50 px-2 py-2 text-sm"
           :class="layer.id === activeId ? 'bg-ink-800' : 'hover:bg-ink-800/50'"
           data-testid="layer-item"
         >
@@ -137,7 +145,7 @@ function setOpacity(id: string, opacity: number): void {
             </template>
           </div>
 
-          <div class="flex flex-col opacity-0 transition-opacity group-hover:opacity-100">
+          <div class="flex flex-col opacity-100 transition-opacity lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100">
             <button type="button" class="p-0.5 text-ink-400 hover:text-ink-100" :title="t('layers.up')" :aria-label="t('layers.up')" @click="project.moveLayer(layer.id, 1)">
               <svg viewBox="0 0 24 24" class="size-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 15 L12 9 L18 15" /></svg>
             </button>
@@ -145,12 +153,12 @@ function setOpacity(id: string, opacity: number): void {
               <svg viewBox="0 0 24 24" class="size-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9 L12 15 L18 9" /></svg>
             </button>
           </div>
-          <button type="button" class="p-0.5 text-ink-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-ink-100" :title="t('layers.duplicate')" :aria-label="t('layers.duplicate')" @click="project.duplicateLayer(layer.id)">
+          <button type="button" class="p-1 text-ink-400 opacity-100 transition-opacity hover:text-ink-100 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100" :title="t('layers.duplicate')" :aria-label="t('layers.duplicate')" @click="project.duplicateLayer(layer.id)">
             <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="8" y="8" width="12" height="12" rx="1" /><path d="M16 8 V5 A1 1 0 0 0 15 4 H5 A1 1 0 0 0 4 5 V15 A1 1 0 0 0 5 16 H8" /></svg>
           </button>
           <button
             type="button"
-            class="p-0.5 text-ink-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-laser disabled:opacity-20"
+            class="p-1 text-ink-400 opacity-100 transition-opacity hover:text-laser disabled:opacity-20 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
             :disabled="project.doc.layers.length <= 1"
             :title="t('layers.remove')"
             :aria-label="t('layers.remove')"

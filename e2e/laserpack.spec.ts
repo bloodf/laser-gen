@@ -73,6 +73,8 @@ test.describe('laserpack (M16)', () => {
     const download = await downloadLaserpack(page)
     const path = await download.path()
 
+    await page.getByRole('tab', { name: 'Layers' }).click()
+    await expect(page.getByTestId('layers-panel')).toBeVisible()
     const count = page.getByTestId('layer-item').first().getByTestId('layer-element-count')
     await expect(count).toHaveText(/1 element$/)
 

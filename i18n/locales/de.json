@@ -112,6 +112,8 @@
     "zoomReset": "Zoom zurücksetzen",
     "tabEditor": "Editor",
     "tabPreview": "3D-Vorschau",
+    "tabVessel": "Gefäß",
+    "inspector": "Inspektor",
     "textPlaceholder": "Text eingeben …",
     "align": {
       "title": "Ausrichten",
