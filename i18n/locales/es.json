@@ -400,7 +400,6 @@
   },
   "ai": {
     "title": "Asistente de IA",
-    "noProvider": "El asistente de IA necesita un proveedor. Añade tu propia clave de API en Configuración — nunca sale de este dispositivo excepto hacia el proveedor que elijas.",
     "setupCta": "Configurar un proveedor de IA",
     "using": "Usando {label} ({model})",
     "generating": "Generando…",
@@ -420,6 +419,19 @@
         "monogram": "Monograma",
         "geometric": "Patrón geométrico",
         "halftone-friendly": "Apto para semitonos"
+      },
+      "examplesLabel": "Prueba un ejemplo:",
+      "examples": {
+        "example1": "Franja de silueta de montañas",
+        "example2": "Anillo de mandala floral",
+        "example3": "Monograma ‘H’ art déco con rayos de sol"
+      },
+      "styleHints": {
+        "line-art": "Trazos limpios de grosor único, sin rellenos.",
+        "mandala": "Diseño con simetría radial, centrado en el lienzo.",
+        "monogram": "Iniciales elegantes dibujadas en line art.",
+        "geometric": "Patrón repetido que encaja sin costuras alrededor de los 360°.",
+        "halftone-friendly": "Formas audaces de alto contraste, aptas para grabado con tramado/mediotono."
       }
     },
     "image": {
@@ -428,16 +440,42 @@
       "generate": "Generar imagen",
       "vectorize": "Vectorizar…",
       "vectorizeHint": "La imagen está en el lienzo — ejecútale Vectorizar para obtener trazados listos para grabar.",
-      "assetName": "Imagen de IA"
+      "assetName": "Imagen de IA",
+      "hiddenNote": "Texto a imagen requiere un proveedor con generación de imágenes (OpenAI) — el proveedor activo solo tiene chat.",
+      "hiddenTooltip": "Añade un proveedor de OpenAI en Ajustes para desbloquear texto a imagen."
     },
     "copilot": {
       "title": "Copiloto de diseño",
-      "hint": "Pregunta sobre composición, idoneidad para grabado, o deja que ajuste el diseño.",
       "placeholder": "Pregunta al copiloto…",
       "send": "Enviar",
       "sending": "Enviando…",
       "clear": "Limpiar",
-      "unknownAction": "Acción desconocida \"{action}\" — ignorada."
+      "unknownAction": "Acción desconocida \"{action}\" — ignorada.",
+      "contextHint": "El copiloto ve tu proyecto actual — recipiente, tamaño del lienzo y capas.",
+      "examples": {
+        "example1": "Añade el texto ‘Adventure Awaits’ a 24 mm",
+        "example2": "Redimensiona el arte seleccionado para ajustarlo a la pieza",
+        "example3": "Repite este diseño 4× alrededor del vaso"
+      }
+    },
+    "onboarding": {
+      "intro": "El asistente convierte ideas en arte listo para grabar y puede editar el diseño por ti — con tu propia clave de API.",
+      "promptToArt": {
+        "title": "Texto a arte",
+        "body": "Describe una idea y obtén una capa vectorial editable ajustada a la pieza — con estilos como mandala, monograma y line art."
+      },
+      "image": {
+        "title": "Imagen a grabado",
+        "body": "Genera una imagen a partir de texto y luego aplícale tramado o vectorízala — requiere un proveedor con generación de imágenes, como OpenAI."
+      },
+      "copilot": {
+        "title": "Copiloto de diseño",
+        "body": "Instrucciones de chat que editan el proyecto: «añade ‘Est. 2026’ en texto de 20 mm», «repite este patrón alrededor del vaso»."
+      },
+      "private": {
+        "title": "Privado por diseño",
+        "body": "Las claves permanecen en este dispositivo; las llamadas van directo del navegador al proveedor."
+      }
     }
   },
   "settings": {
@@ -511,7 +549,7 @@
       },
       "ai": {
         "title": "Asistente de IA (BYOK)",
-        "body": "Prompt a SVG, prompt a imagen y un copiloto de diseño con tu propia clave de Anthropic, OpenAI o compatible. Las claves solo salen del dispositivo hacia el proveedor que elijas."
+        "body": "Arte vectorial a partir de texto ajustado a la pieza, generación de imágenes para tramado y un copiloto de chat que edita el proyecto — con tu propia clave de Anthropic, OpenAI o compatible, que permanece en tu dispositivo."
       },
       "library": {
         "title": "Biblioteca y trabajos",
@@ -623,6 +661,9 @@
     },
     "aiProviders": {
       "intro": "El asistente de IA es bring-your-own-key: tu navegador habla directamente con el proveedor que configures.",
+      "whatTitle": "Qué hace el asistente de IA",
+      "whatIntro": "Cuatro funciones, una vez configurado un proveedor:",
+      "examplesTitle": "Prompts para probar",
       "modelTitle": "El modelo BYOK",
       "providersTitle": "Proveedores soportados",
       "thProvider": "Proveedor",
@@ -634,7 +675,8 @@
       "setupTitle": "Configurar un proveedor",
       "featuresTitle": "Qué puede hacer el asistente",
       "altSettings": "La página de ajustes con la sección de proveedores de IA y el formulario para añadir proveedor.",
-      "altPanel": "El panel de IA en el estudio con la llamada a la configuración."
+      "altPanel": "El panel de IA en el estudio mostrando la presentación de funciones.",
+      "altOnboarding": "La vista de presentación del panel de IA con las cuatro tarjetas de funciones: texto a arte, imagen a grabado, copiloto de diseño y privacidad."
     },
     "vessels": {
       "intro": "Los presets te ahorran el calibre: elige un recipiente y su perfil controla la vista 3D y el lienzo.",

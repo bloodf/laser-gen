@@ -13,7 +13,7 @@ pnpm typecheck     # nuxi typecheck (vue-tsc)
 pnpm test          # vitest run
 pnpm test:e2e      # Playwright e2e — builds + previews automatically (chromium only)
 pnpm i18n:check    # locale key parity against i18n/locales/en.json
-pnpm screenshots   # recapture docs/screenshots/*.png (18 guarded shots) + mirror to public/screenshots/
+pnpm screenshots   # recapture docs/screenshots/*.png (19 guarded shots) + mirror to public/screenshots/
 pnpm build         # production build
 pnpm generate      # static output in .output/public (deployable PWA)
 ```

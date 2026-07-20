@@ -400,7 +400,6 @@
   },
   "ai": {
     "title": "Assistente de IA",
-    "noProvider": "O assistente de IA precisa de um provedor. Adicione sua própria chave de API nas Configurações — ela nunca sai deste dispositivo, exceto para o provedor que você escolher.",
     "setupCta": "Configurar um provedor de IA",
     "using": "Usando {label} ({model})",
     "generating": "Gerando…",
@@ -420,6 +419,19 @@
         "monogram": "Monograma",
         "geometric": "Padrão geométrico",
         "halftone-friendly": "Adequado a meio-tom"
+      },
+      "examplesLabel": "Experimente um exemplo:",
+      "examples": {
+        "example1": "Faixa de silhueta de montanhas",
+        "example2": "Anel de mandala floral",
+        "example3": "Monograma ‘H’ art déco com raios de sol"
+      },
+      "styleHints": {
+        "line-art": "Traços limpos de espessura única, sem preenchimento.",
+        "mandala": "Desenho com simetria radial, centralizado na tela.",
+        "monogram": "Iniciais elegantes desenhadas em line art.",
+        "geometric": "Padrão repetido que se encaixa sem emendas ao redor dos 360°.",
+        "halftone-friendly": "Formas fortes de alto contraste, ideais para gravação com dither/meio-tom."
       }
     },
     "image": {
@@ -428,16 +440,42 @@
       "generate": "Gerar imagem",
       "vectorize": "Vetorizar…",
       "vectorizeHint": "A imagem está na prancheta — execute Vetorizar nela para obter traçados prontos para gravação.",
-      "assetName": "Imagem de IA"
+      "assetName": "Imagem de IA",
+      "hiddenNote": "Texto para imagem requer um provedor com geração de imagens (OpenAI) — o provedor ativo só faz chat.",
+      "hiddenTooltip": "Adicione um provedor OpenAI nas Configurações para liberar texto para imagem."
     },
     "copilot": {
       "title": "Copiloto de design",
-      "hint": "Pergunte sobre layout, adequação à gravação, ou deixe-o ajustar o design.",
       "placeholder": "Pergunte ao copiloto…",
       "send": "Enviar",
       "sending": "Enviando…",
       "clear": "Limpar",
-      "unknownAction": "Ação desconhecida \"{action}\" — ignorada."
+      "unknownAction": "Ação desconhecida \"{action}\" — ignorada.",
+      "contextHint": "O copiloto enxerga seu projeto atual — recipiente, tamanho da área e camadas.",
+      "examples": {
+        "example1": "Adicione o texto ‘Adventure Awaits’ com 24 mm",
+        "example2": "Redimensione a arte selecionada para caber na peça",
+        "example3": "Replique este desenho 4× ao redor do copo"
+      }
+    },
+    "onboarding": {
+      "intro": "O assistente transforma ideias em arte pronta para gravação e pode editar o projeto por você — com a sua própria chave de API.",
+      "promptToArt": {
+        "title": "Texto para arte",
+        "body": "Descreva uma ideia e receba uma camada vetorial editável ajustada à peça — com estilos como mandala, monograma e line art."
+      },
+      "image": {
+        "title": "Imagem para gravação",
+        "body": "Gere uma imagem a partir de texto e depois aplique dither ou vetorize — requer um provedor com geração de imagens, como a OpenAI."
+      },
+      "copilot": {
+        "title": "Copiloto de design",
+        "body": "Comandos de chat que editam o projeto: “adicione ‘Est. 2026’ em texto de 20 mm”, “replique este padrão ao redor do copo”."
+      },
+      "private": {
+        "title": "Privado por padrão",
+        "body": "As chaves ficam neste dispositivo; as chamadas vão direto do navegador para o provedor."
+      }
     }
   },
   "settings": {
@@ -511,7 +549,7 @@
       },
       "ai": {
         "title": "Assistente de IA (BYOK)",
-        "body": "Prompt para SVG, prompt para imagem e um copiloto de design com sua própria chave Anthropic, OpenAI ou compatível. As chaves só saem do dispositivo para o provedor que você escolher."
+        "body": "Arte vetorial a partir de texto ajustada à peça, geração de imagens para dither e um copiloto de chat que edita o projeto — com sua própria chave Anthropic, OpenAI ou compatível, que fica no seu dispositivo."
       },
       "library": {
         "title": "Biblioteca e jobs",
@@ -623,6 +661,9 @@
     },
     "aiProviders": {
       "intro": "O assistente de IA é bring-your-own-key: o navegador fala diretamente com o provedor que você configurar.",
+      "whatTitle": "O que o assistente de IA faz",
+      "whatIntro": "Quatro recursos, assim que um provedor estiver configurado:",
+      "examplesTitle": "Prompts para experimentar",
       "modelTitle": "O modelo BYOK",
       "providersTitle": "Provedores suportados",
       "thProvider": "Provedor",
@@ -634,7 +675,8 @@
       "setupTitle": "Configurar um provedor",
       "featuresTitle": "O que o assistente faz",
       "altSettings": "A página de configurações com a seção de provedores de IA e o formulário de novo provedor.",
-      "altPanel": "O painel de IA no estúdio com a chamada para configuração."
+      "altPanel": "O painel de IA no estúdio mostrando a tela de apresentação dos recursos.",
+      "altOnboarding": "A tela de apresentação do painel de IA com os quatro cartões de recursos: texto para arte, imagem para gravação, copiloto de design e privacidade."
     },
     "vessels": {
       "intro": "Os presets poupam o paquímetro: escolha um recipiente e o perfil dele controla a pré-visualização 3D e a prancheta.",

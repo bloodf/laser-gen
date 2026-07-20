@@ -5,7 +5,8 @@
  * that can apply a small, fixed set of document commands.
  *
  * Every feature needs a configured provider (Settings → AI providers);
- * without one the panel shows a setup call-to-action. Generated art is
+ * without one the panel shows a capability showcase with a setup
+ * call-to-action. Generated art is
  * guarded by `sanitizeAiSvg` before import and can be saved to the library
  * as an `ai-generation` asset.
  */
@@ -32,7 +33,40 @@ const { importRasterFile } = useRasterImport()
 
 const open = ref(false)
 
+// --- Onboarding (no provider configured) ------------------------------------------
+
+/** Capability showcase entries, in display order. */
+const CAPABILITIES = ['promptToArt', 'image', 'copilot', 'private'] as const
+type Capability = typeof CAPABILITIES[number]
+
+/** Minimal SVG node descriptor for the inline capability icons. */
+interface IconNode {
+  tag: string
+  attrs: Record<string, string>
+}
+
+const capabilityIcons: Record<Capability, IconNode[]> = {
+  promptToArt: [
+    { tag: 'path', attrs: { d: 'M4 20c4-1 5-4 6-8s3-7 10-8c-1 7-4 9-8 10s-7 2-8 6Z' } },
+  ],
+  image: [
+    { tag: 'rect', attrs: { x: '3', y: '4', width: '18', height: '16', rx: '2' } },
+    { tag: 'circle', attrs: { cx: '9', cy: '10', r: '2' } },
+    { tag: 'path', attrs: { d: 'm5 19 5-6 4 4 3-3 4 5' } },
+  ],
+  copilot: [
+    { tag: 'path', attrs: { d: 'M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V5Z' } },
+  ],
+  private: [
+    { tag: 'rect', attrs: { x: '5', y: '11', width: '14', height: '9', rx: '2' } },
+    { tag: 'path', attrs: { d: 'M8 11V7a4 4 0 0 1 8 0v4' } },
+  ],
+}
+
 // --- Prompt to SVG ---------------------------------------------------------------
+
+/** Example prompt chip ids (1-based, matching i18n keys ai.svg.examples.exampleN). */
+const SVG_EXAMPLES = [1, 2, 3] as const
 
 const svgPrompt = ref('')
 const svgStyle = ref<AiSvgStyle>('line-art')
@@ -158,6 +192,8 @@ async function saveImageToAssets(): Promise<void> {
 // --- Copilot ---------------------------------------------------------------
 
 const chatInput = ref('')
+/** Example command chip ids (1-based, matching i18n keys ai.copilot.examples.exampleN). */
+const COPILOT_EXAMPLES = [1, 2, 3] as const
 
 async function sendChat(): Promise<void> {
   const text = chatInput.value.trim()
@@ -194,12 +230,29 @@ async function sendChat(): Promise<void> {
     </button>
 
     <div v-if="open" class="mt-3 space-y-5 text-sm">
-      <!-- setup CTA -->
-      <div v-if="!ai.hasProviders" class="space-y-2">
-        <p class="text-xs text-ink-500">
-          {{ t('ai.noProvider') }}
+      <!-- capability showcase (no provider configured) -->
+      <div v-if="!ai.hasProviders" class="space-y-3" data-testid="ai-onboarding">
+        <p class="text-xs text-ink-400">
+          {{ t('ai.onboarding.intro') }}
         </p>
-        <NuxtLink :to="localePath('/settings')" class="inline-block rounded-md bg-laser px-3 py-1.5 text-sm font-medium text-ink-950 transition-colors hover:bg-laser-bright">
+        <ul class="space-y-2.5">
+          <li v-for="cap in CAPABILITIES" :key="cap" class="flex items-start gap-2.5" data-testid="ai-capability">
+            <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded bg-ink-800 text-laser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true">
+                <component :is="node.tag" v-for="(node, i) in capabilityIcons[cap]" :key="i" v-bind="node.attrs" />
+              </svg>
+            </span>
+            <div class="min-w-0">
+              <p class="text-xs font-medium text-ink-200">
+                {{ t(`ai.onboarding.${cap}.title`) }}
+              </p>
+              <p class="text-xs text-ink-500">
+                {{ t(`ai.onboarding.${cap}.body`) }}
+              </p>
+            </div>
+          </li>
+        </ul>
+        <NuxtLink :to="localePath('/settings')" data-testid="ai-setup-cta" class="inline-block rounded-md bg-laser px-3 py-1.5 text-sm font-medium text-ink-950 transition-colors hover:bg-laser-bright">
           {{ t('ai.setupCta') }}
         </NuxtLink>
       </div>
@@ -214,6 +267,19 @@ async function sendChat(): Promise<void> {
           <h3 class="text-xs font-semibold tracking-wide text-ink-400 uppercase">
             {{ t('ai.svg.title') }}
           </h3>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-xs text-ink-500">{{ t('ai.svg.examplesLabel') }}</span>
+            <button
+              v-for="n in SVG_EXAMPLES"
+              :key="n"
+              type="button"
+              data-testid="ai-svg-example"
+              class="rounded-full border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition-colors hover:border-laser hover:text-ink-100"
+              @click="svgPrompt = t(`ai.svg.examples.example${n}`)"
+            >
+              {{ t(`ai.svg.examples.example${n}`) }}
+            </button>
+          </div>
           <textarea
             v-model="svgPrompt"
             rows="2"
@@ -226,6 +292,7 @@ async function sendChat(): Promise<void> {
                 {{ t(`ai.svg.styles.${style}`) }}
               </option>
             </select>
+            <span class="min-w-0 flex-1 text-xs text-ink-500">{{ t(`ai.svg.styleHints.${svgStyle}`) }}</span>
             <button
               type="button"
               class="rounded-md bg-laser px-3 py-1.5 text-sm font-medium text-ink-950 transition-colors hover:bg-laser-bright disabled:opacity-40"
@@ -309,6 +376,11 @@ async function sendChat(): Promise<void> {
           </div>
         </section>
 
+        <!-- why prompt-to-image is hidden (chat-only providers) -->
+        <p v-if="!ai.canGenerateImages" class="border-t border-ink-800 pt-3 text-xs text-ink-500" :title="t('ai.image.hiddenTooltip')">
+          {{ t('ai.image.hiddenNote') }}
+        </p>
+
         <!-- copilot -->
         <section class="space-y-2 border-t border-ink-800 pt-3">
           <div class="flex items-center justify-between">
@@ -334,9 +406,23 @@ async function sendChat(): Promise<void> {
               {{ message.content }}
             </div>
           </div>
-          <p v-else class="text-xs text-ink-500">
-            {{ t('ai.copilot.hint') }}
-          </p>
+          <div v-else class="space-y-2">
+            <p class="text-xs text-ink-500">
+              {{ t('ai.copilot.contextHint') }}
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <button
+                v-for="n in COPILOT_EXAMPLES"
+                :key="n"
+                type="button"
+                data-testid="ai-copilot-example"
+                class="rounded-full border border-ink-700 px-2 py-0.5 text-xs text-ink-300 transition-colors hover:border-laser hover:text-ink-100"
+                @click="chatInput = t(`ai.copilot.examples.example${n}`)"
+              >
+                {{ t(`ai.copilot.examples.example${n}`) }}
+              </button>
+            </div>
+          </div>
           <div class="flex items-center gap-2">
             <input
               v-model="chatInput"

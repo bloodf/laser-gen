@@ -1,8 +1,9 @@
 <script setup lang="ts">
 /**
- * Docs: AI providers (M9, expanded in M14). The BYOK model, per-provider
- * setup (incl. custom OpenAI-compatible), CORS notes, the assistant's
- * features, and key privacy.
+ * Docs: AI providers (M9, expanded in M14/M15). A "what it does" capability
+ * overview with example prompts, the BYOK model, per-provider setup (incl.
+ * custom OpenAI-compatible), CORS notes, the assistant's features, and key
+ * privacy.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -28,6 +29,36 @@ useSeoMeta({
     <p class="mt-3 max-w-2xl text-lg text-ink-300">
       {{ t('docsPages.aiProviders.intro') }}
     </p>
+
+    <div class="prose-docs mt-8">
+      <h2>{{ t('docsPages.aiProviders.whatTitle') }}</h2>
+      <p>{{ t('docsPages.aiProviders.whatIntro') }}</p>
+      <ul>
+        <li><strong>{{ t('ai.onboarding.promptToArt.title') }}</strong> — {{ t('ai.onboarding.promptToArt.body') }}</li>
+        <li><strong>{{ t('ai.onboarding.image.title') }}</strong> — {{ t('ai.onboarding.image.body') }}</li>
+        <li><strong>{{ t('ai.onboarding.copilot.title') }}</strong> — {{ t('ai.onboarding.copilot.body') }}</li>
+        <li><strong>{{ t('ai.onboarding.private.title') }}</strong> — {{ t('ai.onboarding.private.body') }}</li>
+      </ul>
+
+      <h3>{{ t('docsPages.aiProviders.examplesTitle') }}</h3>
+      <ul>
+        <li>{{ t('ai.svg.examples.example1') }}</li>
+        <li>{{ t('ai.svg.examples.example2') }}</li>
+        <li>{{ t('ai.svg.examples.example3') }}</li>
+        <li>{{ t('ai.copilot.examples.example1') }}</li>
+        <li>{{ t('ai.copilot.examples.example2') }}</li>
+        <li>{{ t('ai.copilot.examples.example3') }}</li>
+      </ul>
+    </div>
+
+    <figure class="mt-6 max-w-md">
+      <img
+        :src="'/screenshots/ai-panel-onboarding.png'"
+        :alt="t('docsPages.aiProviders.altOnboarding')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
 
     <div class="prose-docs mt-8">
       <h2>{{ t('docsPages.aiProviders.modelTitle') }}</h2>

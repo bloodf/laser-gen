@@ -400,7 +400,6 @@
   },
   "ai": {
     "title": "KI-Assistent",
-    "noProvider": "Der KI-Assistent benötigt einen Anbieter. Füge deinen eigenen API-Schlüssel in den Einstellungen hinzu — er verlässt dieses Gerät nur in Richtung des von dir gewählten Anbieters.",
     "setupCta": "KI-Anbieter einrichten",
     "using": "Verwendet {label} ({model})",
     "generating": "Wird erzeugt…",
@@ -420,6 +419,19 @@
         "monogram": "Monogramm",
         "geometric": "Geometrisches Muster",
         "halftone-friendly": "Rasterungstauglich"
+      },
+      "examplesLabel": "Beispiel ausprobieren:",
+      "examples": {
+        "example1": "Bergketten-Silhouettenband",
+        "example2": "Floraler Mandala-Ring",
+        "example3": "Art-déco-Sonnenstrahlen-Monogramm ‚H‘"
+      },
+      "styleHints": {
+        "line-art": "Saubere Striche einheitlicher Stärke, ohne Füllungen.",
+        "mandala": "Radialsymmetrisches Design, zentriert auf der Fläche.",
+        "monogram": "Elegante Initialen als Line-Art gezeichnet.",
+        "geometric": "Sich wiederholendes Muster, das nahtlos um die 360°-Hülle läuft.",
+        "halftone-friendly": "Kräftige, kontrastreiche Formen für Dither-/Halbton-Gravuren."
       }
     },
     "image": {
@@ -428,16 +440,42 @@
       "generate": "Bild erzeugen",
       "vectorize": "Vektorisieren…",
       "vectorizeHint": "Das Bild liegt auf der Zeichenfläche — führe Vektorisieren darauf aus, um gravierfertige Pfade zu erhalten.",
-      "assetName": "KI-Bild"
+      "assetName": "KI-Bild",
+      "hiddenNote": "Prompt zu Bild erfordert einen Anbieter mit Bildgenerierung (OpenAI) — der aktive Anbieter kann nur Chat.",
+      "hiddenTooltip": "Füge in den Einstellungen einen OpenAI-Anbieter hinzu, um Prompt zu Bild freizuschalten."
     },
     "copilot": {
       "title": "Design-Copilot",
-      "hint": "Frage zu Layout, Gravurtauglichkeit — oder lass den Copiloten das Design anpassen.",
       "placeholder": "Frag den Copiloten…",
       "send": "Senden",
       "sending": "Wird gesendet…",
       "clear": "Leeren",
-      "unknownAction": "Unbekannte Aktion \"{action}\" — ignoriert."
+      "unknownAction": "Unbekannte Aktion \"{action}\" — ignoriert.",
+      "contextHint": "Der Copilot kennt dein aktuelles Projekt — Gefäß, Zeichenfläche und Ebenen.",
+      "examples": {
+        "example1": "Füge den Text ‚Adventure Awaits‘ in 24 mm hinzu",
+        "example2": "Skaliere die ausgewählte Grafik passend zur Hülle",
+        "example3": "Wiederhole dieses Design 4× um den Becher"
+      }
+    },
+    "onboarding": {
+      "intro": "Der Assistent verwandelt Ideen in gravierfertige Grafiken und kann das Design für dich bearbeiten — mit deinem eigenen API-Schlüssel.",
+      "promptToArt": {
+        "title": "Prompt zu Grafik",
+        "body": "Beschreibe eine Idee und erhalte eine bearbeitbare Vektorebene, passend zur Hülle — mit Stilen wie Mandala, Monogramm und Line-Art."
+      },
+      "image": {
+        "title": "Bild zur Gravur",
+        "body": "Erzeuge ein Bild aus Text und rastere oder vektorisiere es — erfordert einen Anbieter mit Bildgenerierung wie OpenAI."
+      },
+      "copilot": {
+        "title": "Design-Copilot",
+        "body": "Chat-Anweisungen, die das Projekt bearbeiten: „füge ‚Est. 2026‘ als 20-mm-Text hinzu“, „wiederhole dieses Muster um den Becher“."
+      },
+      "private": {
+        "title": "Datenschutz von Anfang an",
+        "body": "Schlüssel bleiben auf diesem Gerät; Aufrufe gehen direkt vom Browser zum Anbieter."
+      }
     }
   },
   "settings": {
@@ -511,7 +549,7 @@
       },
       "ai": {
         "title": "KI-Assistent (BYOK)",
-        "body": "Prompt-zu-SVG, Prompt-zu-Bild und ein Design-Copilot mit deinem eigenen Anthropic-, OpenAI- oder kompatiblem Schlüssel. Schlüssel verlassen dein Gerät nur zum gewählten Anbieter."
+        "body": "Vektorgrafiken per Prompt, passend zur Hülle, Bildgenerierung fürs Rastern und ein Chat-Copilot, der das Projekt bearbeitet — mit deinem eigenen Anthropic-, OpenAI- oder kompatiblen Schlüssel, der auf deinem Gerät bleibt."
       },
       "library": {
         "title": "Bibliothek & Jobs",
@@ -623,6 +661,9 @@
     },
     "aiProviders": {
       "intro": "Der KI-Assistent ist Bring-your-own-key: Dein Browser spricht direkt mit dem Anbieter, den du konfigurierst.",
+      "whatTitle": "Was der KI-Assistent kann",
+      "whatIntro": "Vier Funktionen, sobald ein Anbieter eingerichtet ist:",
+      "examplesTitle": "Prompts zum Ausprobieren",
       "modelTitle": "Das BYOK-Modell",
       "providersTitle": "Unterstützte Anbieter",
       "thProvider": "Anbieter",
@@ -634,7 +675,8 @@
       "setupTitle": "Anbieter einrichten",
       "featuresTitle": "Was der Assistent kann",
       "altSettings": "Die Einstellungsseite mit dem KI-Anbieter-Bereich und dem Formular zum Hinzufügen.",
-      "altPanel": "Das KI-Panel im Studio mit dem Einrichtungs-Hinweis."
+      "altPanel": "Das KI-Panel im Studio mit der Onboarding-Übersicht der Funktionen.",
+      "altOnboarding": "Die Onboarding-Ansicht des KI-Panels mit den vier Funktionskarten: Prompt zu Grafik, Bild zur Gravur, Design-Copilot und Datenschutz."
     },
     "vessels": {
       "intro": "Presets ersparen dir den Messschieber: Wähle ein Gefäß und sein Profil steuert 3D-Vorschau und Zeichenfläche.",

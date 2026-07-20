@@ -400,7 +400,6 @@
   },
   "ai": {
     "title": "AI 助手",
-    "noProvider": "AI 助手需要一个提供商。请在设置中添加你自己的 API 密钥——除了你选择的提供商，密钥绝不会离开此设备。",
     "setupCta": "设置 AI 提供商",
     "using": "正在使用 {label}（{model}）",
     "generating": "正在生成…",
@@ -420,6 +419,19 @@
         "monogram": "花押字",
         "geometric": "几何图案",
         "halftone-friendly": "适合半色调"
+      },
+      "examplesLabel": "试试示例：",
+      "examples": {
+        "example1": "山脉剪影横带",
+        "example2": "花卉曼陀罗圆环",
+        "example3": "装饰艺术风格放射光芒花押字“H”"
+      },
+      "styleHints": {
+        "line-art": "干净的等宽线条，无填充。",
+        "mandala": "以画布为中心的放射对称图案。",
+        "monogram": "以线条画绘制的优雅首字母组合。",
+        "geometric": "沿 360° 环绕面无缝拼接的重复图案。",
+        "halftone-friendly": "对比强烈的粗块形状，适合抖动/半调雕刻。"
       }
     },
     "image": {
@@ -428,16 +440,42 @@
       "generate": "生成图像",
       "vectorize": "矢量化…",
       "vectorizeHint": "图像已放入画布——对其运行矢量化即可获得可用于雕刻的路径。",
-      "assetName": "AI 图像"
+      "assetName": "AI 图像",
+      "hiddenNote": "文字生成图片需要支持图像生成的服务商（OpenAI）——当前服务商仅支持对话。",
+      "hiddenTooltip": "在设置中添加 OpenAI 服务商即可解锁文字生成图片。"
     },
     "copilot": {
       "title": "设计副驾驶",
-      "hint": "询问布局、雕刻适用性，或让它调整设计。",
       "placeholder": "向副驾驶提问…",
       "send": "发送",
       "sending": "发送中…",
       "clear": "清空",
-      "unknownAction": "未知操作“{action}”——已忽略。"
+      "unknownAction": "未知操作“{action}”——已忽略。",
+      "contextHint": "副驾驶能了解你当前的项目——容器、画布尺寸和图层。",
+      "examples": {
+        "example1": "添加 24 毫米大小的文字“Adventure Awaits”",
+        "example2": "将选中的图案缩放到适合环绕面",
+        "example3": "把这个图案环绕杯子重复 4 次"
+      }
+    },
+    "onboarding": {
+      "intro": "助手可以把想法变成可直接雕刻的图案，还能替你编辑设计——使用你自己的 API 密钥。",
+      "promptToArt": {
+        "title": "文字生成图案",
+        "body": "描述一个想法，即可获得贴合杯身环绕面的可编辑矢量图层——内置曼陀罗、花押字、线条画等风格预设。"
+      },
+      "image": {
+        "title": "图片生成雕刻",
+        "body": "用文字生成图片，然后进行抖动或矢量化处理——需要支持图像生成的服务商（如 OpenAI）。"
+      },
+      "copilot": {
+        "title": "设计副驾驶",
+        "body": "用聊天指令直接编辑项目，例如“添加 20 毫米的‘Est. 2026’文字”“把这个图案环绕杯子铺满”。"
+      },
+      "private": {
+        "title": "隐私优先设计",
+        "body": "密钥只保存在本设备上，请求从浏览器直接发送给服务商。"
+      }
     }
   },
   "settings": {
@@ -511,7 +549,7 @@
       },
       "ai": {
         "title": "AI 助手(BYOK)",
-        "body": "提示词生成 SVG、提示词生成图像,以及设计副驾驶。使用你自己的 Anthropic、OpenAI 或兼容接口密钥,密钥只发送给你选择的服务商。"
+        "body": "文字生成贴合环绕面的矢量图案、生成可抖动处理的图片，还有能编辑项目的聊天副驾驶——使用你自己的 Anthropic、OpenAI 或兼容密钥，密钥只保存在你的设备上。"
       },
       "library": {
         "title": "作品库与任务",
@@ -623,6 +661,9 @@
     },
     "aiProviders": {
       "intro": "AI 助手采用 BYOK(自带密钥)模式:浏览器直接与你配置的服务商通信。",
+      "whatTitle": "AI 助手能做什么",
+      "whatIntro": "配置好服务商后，助手可以做四件事：",
+      "examplesTitle": "可以尝试的提示词",
       "modelTitle": "BYOK 模式",
       "providersTitle": "支持的服务商",
       "thProvider": "服务商",
@@ -634,7 +675,8 @@
       "setupTitle": "配置提供商",
       "featuresTitle": "助手能做什么",
       "altSettings": "设置页面中的 AI 提供商部分和添加提供商表单。",
-      "altPanel": "工作室中的 AI 面板，显示设置引导。"
+      "altPanel": "工作室中的 AI 面板，显示功能引导界面。",
+      "altOnboarding": "AI 面板的引导界面，展示四张功能卡片：文字生成图案、图片生成雕刻、设计副驾驶和隐私保护。"
     },
     "vessels": {
       "intro": "预设让你省去卡尺:选择器皿后,其轮廓将驱动 3D 预览和画布。",

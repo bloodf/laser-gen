@@ -237,6 +237,11 @@ try {
     await panel.screenshot({ path: `${OUT_DIR}/ai-panel.png` })
   })
 
+  // M15: just the capability showcase inside the unconfigured AI panel.
+  await capture('ai-panel-onboarding', async () => {
+    await page.getByTestId('ai-onboarding').screenshot({ path: `${OUT_DIR}/ai-panel-onboarding.png` })
+  })
+
   // Export dialog: SVG tab, then the rotary setup tab.
   await capture('export-svg', async () => {
     await page.getByTestId('export-button').click()

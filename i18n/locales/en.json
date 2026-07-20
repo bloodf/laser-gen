@@ -400,7 +400,6 @@
   },
   "ai": {
     "title": "AI assistant",
-    "noProvider": "The AI assistant needs a provider. Add your own API key in Settings — it never leaves this device except to the provider you choose.",
     "setupCta": "Set up an AI provider",
     "using": "Using {label} ({model})",
     "generating": "Generating…",
@@ -420,6 +419,19 @@
         "monogram": "Monogram",
         "geometric": "Geometric pattern",
         "halftone-friendly": "Halftone-friendly"
+      },
+      "examplesLabel": "Try an example:",
+      "examples": {
+        "example1": "Mountain range silhouette band",
+        "example2": "Floral mandala ring",
+        "example3": "Art-deco sunburst monogram ‘H’"
+      },
+      "styleHints": {
+        "line-art": "Clean single-weight strokes, no fills.",
+        "mandala": "Radially symmetric design centered on the canvas.",
+        "monogram": "Elegant initials drawn as line art.",
+        "geometric": "Repeating pattern that tiles seamlessly around the 360° wrap.",
+        "halftone-friendly": "Bold high-contrast shapes suited to dither/halftone engraving."
       }
     },
     "image": {
@@ -428,16 +440,42 @@
       "generate": "Generate image",
       "vectorize": "Vectorize…",
       "vectorizeHint": "The image is on the artboard — run Vectorize on it for engraving-ready paths.",
-      "assetName": "AI image"
+      "assetName": "AI image",
+      "hiddenNote": "Prompt to image needs an image-capable provider (OpenAI) — the active provider is chat-only.",
+      "hiddenTooltip": "Add an OpenAI provider in Settings to unlock prompt-to-image."
     },
     "copilot": {
       "title": "Design copilot",
-      "hint": "Ask about layout, engraving suitability, or let it tweak the design.",
       "placeholder": "Ask the copilot…",
       "send": "Send",
       "sending": "Sending…",
       "clear": "Clear",
-      "unknownAction": "Unknown action \"{action}\" — ignored."
+      "unknownAction": "Unknown action \"{action}\" — ignored.",
+      "contextHint": "The copilot sees your current project — vessel, artboard size and layers.",
+      "examples": {
+        "example1": "Add the text ‘Adventure Awaits’ at 24 mm",
+        "example2": "Resize the selected art to fit the wrap",
+        "example3": "Tile this design 4× around the cup"
+      }
+    },
+    "onboarding": {
+      "intro": "The assistant turns ideas into engraving-ready art and can edit the design for you — powered by your own API key.",
+      "promptToArt": {
+        "title": "Prompt to art",
+        "body": "Describe an idea and get an editable vector layer fitted to the wrap — style presets like mandala, monogram and line art."
+      },
+      "image": {
+        "title": "Image to engraving",
+        "body": "Generate an image from words, then dither or vectorize it — needs an image-capable provider like OpenAI."
+      },
+      "copilot": {
+        "title": "Design copilot",
+        "body": "Chat instructions that edit the project: “add ‘Est. 2026’ in 20 mm text”, “tile this pattern around the cup”."
+      },
+      "private": {
+        "title": "Private by design",
+        "body": "Keys stay on this device; calls go straight from your browser to the provider."
+      }
     }
   },
   "settings": {
@@ -511,7 +549,7 @@
       },
       "ai": {
         "title": "AI assistant (BYOK)",
-        "body": "Prompt-to-SVG, prompt-to-image and a design copilot with your own Anthropic, OpenAI or OpenAI-compatible key. Keys never leave your device except to the provider you choose."
+        "body": "Prompt-to-vector art fitted to your wrap, prompt-to-image for dithering, and a chat copilot that edits the project — with your own Anthropic, OpenAI or compatible key, which stays on your device."
       },
       "library": {
         "title": "Library & jobs",
@@ -637,6 +675,9 @@
     },
     "aiProviders": {
       "intro": "The AI assistant is bring-your-own-key: your browser talks directly to the provider you configure.",
+      "whatTitle": "What the AI assistant does",
+      "whatIntro": "Four things it can do, once a provider is configured:",
+      "examplesTitle": "Prompts to try",
       "modelTitle": "The BYOK model",
       "model1": "No backend, no proxy — requests go straight from your browser to the provider API.",
       "model2": "Keys are encrypted at rest (AES-GCM in IndexedDB) and never shown again after saving.",
@@ -660,7 +701,7 @@
       "setupTitle": "Set up a provider",
       "featuresTitle": "What the assistant can do",
       "altSettings": "The settings page with the AI providers section and the add-provider form.",
-      "altPanel": "The AI panel in the studio with the setup call-to-action.",
+      "altPanel": "The AI panel in the studio showing the onboarding capability showcase.",
       "body": {
         "setup1": "Open Settings → AI providers → Add provider. Every entry needs a label and a model id; the rest depends on the kind:",
         "setupAnthropic": "Anthropic — create a key at console.anthropic.com and paste it; the default chat model is claude-sonnet-4-5.",
@@ -671,7 +712,8 @@
         "featImage": "Prompt → image (OpenAI only): generates a raster onto the artboard, one click away from the Vectorize panel.",
         "featCopilot": "Copilot: a chat that knows your current document and can run a small fixed command set — addText, resizeToFit, tile360 — each action reported line by line, never executed silently.",
         "featSave": "Every generation can be saved to the library as an asset."
-      }
+      },
+      "altOnboarding": "The AI panel’s onboarding view with four capability cards: prompt to art, image to engraving, design copilot and privacy."
     },
     "vessels": {
       "intro": "Presets spare you the calipers: pick a vessel and its profile drives both the 3D preview and the artboard.",
