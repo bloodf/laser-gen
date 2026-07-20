@@ -84,6 +84,16 @@ export default defineNuxtConfig({
       navigateFallback: '/',
       // GLB vessel models are precached too so the 3D preview works offline.
       globPatterns: ['**/*.{js,css,html,png,svg,ico,json,woff2,glb}'],
+      // Docs screenshots (M14) are excluded from the precache to keep the
+      // install lean; they are cached on first view instead.
+      globIgnores: ['screenshots/**'],
+      runtimeCaching: [
+        {
+          urlPattern: /\/screenshots\/.*\.png$/,
+          handler: 'CacheFirst',
+          options: { cacheName: 'docs-screenshots' },
+        },
+      ],
     },
     devOptions: {
       enabled: false,

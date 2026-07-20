@@ -576,6 +576,30 @@
       "vessels": {
         "title": "Recipientes",
         "description": "Presets prontos, suas dimensões e como contribuir com um."
+      },
+      "studio": {
+        "title": "O estúdio",
+        "description": "Todas as ferramentas de desenho, camadas, alinhamento, guias de emenda e a prévia 3D ao vivo."
+      },
+      "photo": {
+        "title": "Preparação de fotos",
+        "description": "Importe uma foto e ajuste-a para gravação: tonalidade, pontilhamento, predefinições de material."
+      },
+      "vectorize": {
+        "title": "Vetorização",
+        "description": "Converta imagens raster em caminhos vetoriais — quando e como."
+      },
+      "export": {
+        "title": "Exportação",
+        "description": "SVG e PNG em milímetros reais, predefinições por programa e configuração do rotativo."
+      },
+      "uploads": {
+        "title": "Uploads",
+        "description": "Traga seus próprios recipientes GLB/STL e artes PNG/JPG/SVG — calibrados em milímetros reais."
+      },
+      "library": {
+        "title": "Biblioteca e trabalhos",
+        "description": "Projetos, registro de gravações, recursos reutilizáveis e backups."
       }
     },
     "gettingStarted": {
@@ -587,7 +611,15 @@
       "diagramUnwrap": "desenrolar 360°",
       "diagramArtboard": "Prancheta (circunferência total)",
       "diagramSeam": "emenda = emenda",
-      "offlineTitle": "Funciona offline"
+      "offlineTitle": "Funciona offline",
+      "walkTitle": "Seu primeiro wrap, passo a passo",
+      "step1Title": "Escolha um recipiente",
+      "step2Title": "Desenhe",
+      "step3Title": "Visualize",
+      "step4Title": "Exporte",
+      "step5Title": "Grave",
+      "altStudio": "O estúdio do laser-gen: prancheta de wrap à esquerda, prévia 3D ao vivo de um copo à direita.",
+      "altExport": "A caixa de exportação na aba SVG, com predefinições para LightBurn, xTool Creative Space e LaserGRBL."
     },
     "aiProviders": {
       "intro": "O assistente de IA é bring-your-own-key: o navegador fala diretamente com o provedor que você configurar.",
@@ -598,7 +630,11 @@
       "thNotes": "Observações",
       "customName": "Personalizado (compatível com OpenAI)",
       "corsTitle": "Notas de CORS",
-      "securityTitle": "Segurança"
+      "securityTitle": "Segurança",
+      "setupTitle": "Configurar um provedor",
+      "featuresTitle": "O que o assistente faz",
+      "altSettings": "A página de configurações com a seção de provedores de IA e o formulário de novo provedor.",
+      "altPanel": "O painel de IA no estúdio com a chamada para configuração."
     },
     "vessels": {
       "intro": "Os presets poupam o paquímetro: escolha um recipiente e o perfil dele controla a pré-visualização 3D e a prancheta.",
@@ -607,7 +643,66 @@
       "thSize": "Tamanho",
       "thEngrave": "Janela de gravação",
       "measureTitle": "Meça o seu",
-      "contributeTitle": "Contribua com um preset"
+      "contributeTitle": "Contribua com um preset",
+      "customTitle": "Recipientes personalizados",
+      "colorTitle": "Acabamentos e cores personalizadas",
+      "altSwitcher": "O seletor de recipientes com predefinições e recipientes personalizados.",
+      "altCustom": "A caixa de recipiente personalizado com diâmetro, altura e janela de gravação preenchidos.",
+      "altColor": "O estúdio com uma cor personalizada de powder-coat aplicada à prévia do copo."
+    },
+    "moreGuides": "Mais guias",
+    "studio": {
+      "intro": "O estúdio é onde os wraps nascem: uma prancheta precisa ao milímetro que é a superfície do recipiente desenrolada, mais uma prévia 3D ao vivo.",
+      "toolsTitle": "Ferramentas",
+      "layersTitle": "Camadas",
+      "alignTitle": "Alinhar e distribuir",
+      "seamTitle": "Emenda e zona segura",
+      "shortcutsTitle": "Atalhos de teclado",
+      "importTitle": "Importar SVG e imagens",
+      "previewTitle": "Prévia 3D ao vivo",
+      "altTools": "Prancheta do estúdio com formas e texto desenhados; a barra de ferramentas fica na borda esquerda.",
+      "altLayers": "O painel de camadas com três camadas, uma delas ativa.",
+      "altViewer": "Prévia 3D de um copo com um wrap desenhado e a animação de varredura do laser."
+    },
+    "photo": {
+      "intro": "O pipeline de fotos transforma um PNG ou JPG em algo que o laser consegue gravar: tons de cinza, ajustes de tonalidade e um pontilhamento adequado ao material.",
+      "importTitle": "Importar uma foto",
+      "adjustTitle": "Ajustes de tonalidade",
+      "materialsTitle": "Predefinições de material",
+      "ditherTitle": "Modos de pontilhamento",
+      "halftoneTitle": "Meio-tom → vetor",
+      "bgTitle": "Remoção de fundo",
+      "alt": "O painel de foto com uma foto importada, pontilhamento Floyd–Steinberg aplicado, controles de tonalidade e predefinição de material visíveis."
+    },
+    "vectorize": {
+      "intro": "O vetorizador converte imagens raster em caminhos vetoriais — no seu navegador, em um Web Worker, com imagetracerjs.",
+      "modesTitle": "Modos e controles",
+      "whenTitle": "Vetorizar ou pontilhar?",
+      "alt": "O painel de vetorização após a conversão: imagem de origem selecionada, modo mono com limiar, resultado na prancheta."
+    },
+    "export": {
+      "intro": "As exportações saem em milímetros reais, então o software do laser importa em escala 1:1 — sem redimensionar, sem adivinhar.",
+      "svgTitle": "SVG",
+      "rasterTitle": "PNG raster",
+      "projectTitle": "Backup do projeto",
+      "rotaryTitle": "Configuração do rotativo",
+      "altSvg": "A caixa de exportação na aba SVG com predefinições de programa e opções.",
+      "altRotary": "A aba de configuração do rotativo: diâmetro do objeto, circunferência, tamanho da prancheta e instruções passo a passo."
+    },
+    "uploads": {
+      "intro": "Os uploads trazem seus arquivos para a biblioteca: modelos 3D viram recipientes, imagens viram recursos de arte. Os arquivos nunca saem deste dispositivo.",
+      "modelsTitle": "Recipientes GLB e STL",
+      "artTitle": "Imagens e SVG",
+      "limitsTitle": "Limites",
+      "alt": "A página de uploads após calibrar um STL, com o modelo salvo na lista."
+    },
+    "library": {
+      "intro": "A biblioteca é a sua estante local de projetos: cada projeto, recurso e gravação fica no IndexedDB deste dispositivo.",
+      "projectsTitle": "Projetos",
+      "jobsTitle": "Registro de gravações",
+      "assetsTitle": "Recursos",
+      "transferTitle": "Backup e transferência",
+      "alt": "A biblioteca de projetos com wraps salvos, miniaturas e selos de status."
     }
   },
   "help": {

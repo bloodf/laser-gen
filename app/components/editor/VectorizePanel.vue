@@ -112,7 +112,9 @@ async function run(): Promise<void> {
   errorMessage.value = ''
   try {
     const src = await sourcePixels()
-    job = traceRasterImage(src.width, src.height, src.data, options.value)
+    // Spread into a plain object — a reactive proxy can't be structured-cloned
+    // into the worker.
+    job = traceRasterImage(src.width, src.height, src.data, { ...options.value })
     const svg = await job.promise
     job = null
     importResult(svg, src.width, src.height, src.placement)
@@ -167,7 +169,7 @@ onScopeDispose(() => job?.cancel())
 </script>
 
 <template>
-  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4">
+  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4" data-testid="vectorize-panel">
     <h2 class="text-sm font-semibold tracking-wide text-ink-300 uppercase">
       {{ t('vectorize.title') }}
     </h2>

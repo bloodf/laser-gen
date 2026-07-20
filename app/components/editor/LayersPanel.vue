@@ -57,7 +57,7 @@ function setOpacity(id: string, opacity: number): void {
 </script>
 
 <template>
-  <div class="flex w-52 shrink-0 flex-col border-l border-ink-800 bg-ink-900">
+  <div class="flex w-52 shrink-0 flex-col border-l border-ink-800 bg-ink-900" data-testid="layers-panel">
     <div class="flex items-center gap-1 border-b border-ink-800 px-2 py-1.5">
       <button
         type="button"

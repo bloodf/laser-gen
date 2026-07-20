@@ -4,34 +4,48 @@ laser-gen is a **fully client-side PWA**: a Nuxt 4 application built with `ssr: 
 deployable as static files, with all state in the browser (IndexedDB / localStorage) and
 no backend of any kind.
 
-## Directory layout (current and planned)
+## Directory layout
 
 ```
 app/
   assets/css/          Tailwind 4 CSS-first theme (@theme, OKLCH palette)
-  components/          Shared Vue components
-  layouts/             App shell (top nav, language switcher)
-  pages/               /, /studio, /library, /settings
+  assets/shaders/      GLSL shaders imported as ?raw (e.g. the laser sweep)
+  components/          Vue components, grouped by area:
+    editor/            Studio: artboard canvas, toolbar, layers, photo/vectorize/AI
+                       panels, export dialog
+    viewer3d/          TresJS 3D preview: vessel viewer, laser sweep, vessel
+                       switcher, custom vessel dialog
+    site/              Marketing site (shader hero, feature grid, footer, …)
+    library/           Library dashboard (project cards, job tracker, asset grid)
+    docs/              Docs-page building blocks (M14 "More guides" nav)
+  layouts/             Two shells: default.vue (marketing/docs site) and
+                       app.vue (studio/library/uploads/settings)
+  pages/               /, /docs/*, /help (site shell); /studio, /library, /uploads,
+                       /settings (app shell)
   stores/              Pinia stores (persisted)
   core/                Framework-free domain logic — pure TypeScript, unit-testable
-    geometry/          Vessel profiles, parametric cylinders/cones, presets (M3)
-    wrap/              Wrap ↔ unwrap math: canvas coords ↔ surface coords (M3)
-    svg/               SVG parsing, path manipulation, flattening (M4/M6)
-    export/            SVG + raster export sized in real millimeters (M6)
-    vectorize/         WASM raster→vector pipeline (M8)
-    photo/             Grayscale, levels, dithering for engraving prep (M7)
-    ai/                BYOK provider clients: Anthropic, OpenAI, compatible (M10)
-docs/                  Architecture and how-to guides
+    geometry/          Vessel profiles, presets, wrap ↔ unwrap math, lathe, rotary,
+                       custom vessels, GLB/STL + cylindrical UVs
+    svg/               Document model, path math, mm serializer, import/sanitize
+    export/            SVG + raster export sized in real millimeters
+    vectorize/         imagetracerjs raster→vector pipeline (Web Worker)
+    photo/             Grayscale, levels, dithering, bg removal (Web Worker)
+    library/           Project/asset types, repo abstraction (IndexedDB), jobs
+    ai/                BYOK provider clients: Anthropic, OpenAI, compatible
+docs/                  User guide, architecture and how-to guides (+ screenshots/)
 i18n/locales/          Lazy-loaded translation JSON (en is the source of truth)
-public/                PWA icons, favicon, static assets
-test/                  Test setup; unit tests also live beside core modules
+public/                PWA icons, favicon, models/ (CC-BY GLBs),
+                       screenshots/ (in-app docs imagery, mirrored from
+                       docs/screenshots/ by `pnpm screenshots`)
+test/                  Vitest setup; unit tests also live beside core modules
+e2e/                   Playwright specs + fixtures
 ```
 
 The key architectural rule: **everything under `app/core/` is pure TypeScript with no Vue,
 no DOM, and no Nuxt imports.** Core modules take numbers and data structures in and return
 numbers and data structures out. The Vue layer is a thin shell over the core. This keeps
 the geometry, wrap math, and export code testable with plain Vitest and reusable from
-web workers (needed for WASM vectorization later).
+web workers (the photo and vectorize pipelines run this way).
 
 ## Parametric vessels
 
@@ -87,9 +101,10 @@ and 3D preview are renderers of the same document.
 
 ## PWA and offline
 
-`@vite-pwa/nuxt` with Workbox precaches the app shell (`registerType: 'autoUpdate'`), so
-the whole app works offline after first load. WASM vectorization payloads (M8) will be
-cached on demand at runtime rather than precached, to keep initial install small.
+`@vite-pwa/nuxt` with Workbox precaches the app shell (`registerType: 'autoUpdate'`),
+so the whole app works offline after first load. GLB vessel models are precached too;
+the docs screenshots under `/screenshots/` are deliberately excluded from the precache
+and cached on first view instead, to keep the install lean.
 
 ## AI providers
 

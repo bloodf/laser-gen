@@ -576,6 +576,30 @@
       "vessels": {
         "title": "Vessels",
         "description": "Built-in presets, their dimensions, and how to contribute one."
+      },
+      "studio": {
+        "title": "The studio",
+        "description": "Every drawing tool, layers, alignment, seam guides and the live 3D preview."
+      },
+      "photo": {
+        "title": "Photo prep",
+        "description": "Import a photo and tune it for engraving: tone, dithering, material presets."
+      },
+      "vectorize": {
+        "title": "Vectorizing",
+        "description": "Trace raster images into vector paths — when and how."
+      },
+      "export": {
+        "title": "Exporting",
+        "description": "SVG and PNG sized in real millimeters, program presets and rotary setup."
+      },
+      "uploads": {
+        "title": "Uploads",
+        "description": "Bring your own GLB/STL vessels and PNG/JPG/SVG art — calibrated to real millimeters."
+      },
+      "library": {
+        "title": "Library & jobs",
+        "description": "Projects, burn-job tracking, reusable assets and backups."
       }
     },
     "gettingStarted": {
@@ -594,7 +618,22 @@
       "diagramArtboard": "Artboard (full circumference)",
       "diagramSeam": "seam = seam",
       "offlineTitle": "Works offline",
-      "offlineBody": "laser-gen is an installable PWA: the whole app is cached on your device and every project is stored locally in IndexedDB. Design on the shop network — or with no network at all."
+      "offlineBody": "laser-gen is an installable PWA: the whole app is cached on your device and every project is stored locally in IndexedDB. Design on the shop network — or with no network at all.",
+      "walkTitle": "Your first wrap, step by step",
+      "step1Title": "Pick a vessel",
+      "step2Title": "Design",
+      "step3Title": "Preview",
+      "step4Title": "Export",
+      "step5Title": "Burn",
+      "altStudio": "The laser-gen studio: wrap artboard on the left, live 3D tumbler preview on the right.",
+      "altExport": "The export dialog on the SVG tab, with program presets for LightBurn, xTool Creative Space and LaserGRBL.",
+      "walk": {
+        "step1Body": "Open the Studio and choose a preset in the vessel switcher on the right — or click Custom vessel and enter your own measurements. The artboard resizes to that vessel’s engrave window.",
+        "step2Body": "Draw with the toolbar tools, import an SVG, prep a photo in the photo panel, or ask the AI assistant. Everything you place maps straight onto the vessel’s surface.",
+        "step3Body": "Watch the live 3D preview: wrap, seam and handle safe zone update as you edit. Drag to rotate and check the full 360°.",
+        "step4Body": "Click Export and download the SVG with the preset for your laser software. The file carries real millimeter dimensions.",
+        "step5Body": "In LightBurn’s rotary setup, enter the object diameter from the export dialog’s Rotary tab, frame the job, and burn."
+      }
     },
     "aiProviders": {
       "intro": "The AI assistant is bring-your-own-key: your browser talks directly to the provider you configure.",
@@ -617,7 +656,22 @@
       "corsLocal": "Local servers: start Ollama with OLLAMA_ORIGINS set (e.g. OLLAMA_ORIGINS=\"*\" for local use) or your requests will be blocked.",
       "corsHosted": "Hosted gateways: OpenRouter and most hosted OpenAI-compatible endpoints send permissive CORS headers; Anthropic and OpenAI's official APIs accept browser requests with your own key.",
       "securityTitle": "Security",
-      "securityBody": "Encryption at rest protects keys on an intact device — it cannot protect against a compromised device. Use scoped keys where possible; see SECURITY.md in the repo for the full threat model."
+      "securityBody": "Encryption at rest protects keys on an intact device — it cannot protect against a compromised device. Use scoped keys where possible; see SECURITY.md in the repo for the full threat model.",
+      "setupTitle": "Set up a provider",
+      "featuresTitle": "What the assistant can do",
+      "altSettings": "The settings page with the AI providers section and the add-provider form.",
+      "altPanel": "The AI panel in the studio with the setup call-to-action.",
+      "body": {
+        "setup1": "Open Settings → AI providers → Add provider. Every entry needs a label and a model id; the rest depends on the kind:",
+        "setupAnthropic": "Anthropic — create a key at console.anthropic.com and paste it; the default chat model is claude-sonnet-4-5.",
+        "setupOpenai": "OpenAI — create a key at platform.openai.com. Also unlocks prompt-to-image via gpt-image-1.",
+        "setupCustom": "Custom — any OpenAI-compatible chat-completions endpoint: Ollama (http://localhost:11434/v1), LM Studio, OpenRouter, vLLM, corporate gateways. Needs a base URL and model id; the key is optional if the endpoint doesn’t require one.",
+        "setupTest": "Then hit Test connection: a green dot means the browser really reached the endpoint, and failures name the cause — bad key, network, or CORS.",
+        "featSvg": "Prompt → SVG: describe line art (“mountain range band, 20 mm tall”) and it lands as a sanitized vector layer, fitted to your artboard.",
+        "featImage": "Prompt → image (OpenAI only): generates a raster onto the artboard, one click away from the Vectorize panel.",
+        "featCopilot": "Copilot: a chat that knows your current document and can run a small fixed command set — addText, resizeToFit, tile360 — each action reported line by line, never executed silently.",
+        "featSave": "Every generation can be saved to the library as an asset."
+      }
     },
     "vessels": {
       "intro": "Presets spare you the calipers: pick a vessel and its profile drives both the 3D preview and the artboard.",
@@ -630,7 +684,141 @@
       "contributeTitle": "Contribute a preset",
       "contributeBody": "Measured a vessel we're missing? Presets are small profile definitions — see",
       "modelCreditsTitle": "3D model credits",
-      "modelCreditsBody": "The camp mug and classic ceramic mug presets render community 3D models from Sketchfab, licensed CC-BY-4.0: “Stanley Mug” by Lime Zigubre and “Plain Mug” by LightSwitch. The same attribution appears next to the 3D preview when one of these vessels is active, and in the repository's NOTICE.md. All other vessels are parametric lathe profiles rendered by laser-gen itself."
+      "modelCreditsBody": "The camp mug and classic ceramic mug presets render community 3D models from Sketchfab, licensed CC-BY-4.0: “Stanley Mug” by Lime Zigubre and “Plain Mug” by LightSwitch. The same attribution appears next to the 3D preview when one of these vessels is active, and in the repository's NOTICE.md. All other vessels are parametric lathe profiles rendered by laser-gen itself.",
+      "customTitle": "Custom vessels",
+      "colorTitle": "Finishes & custom colors",
+      "altSwitcher": "The vessel switcher with preset and custom vessels.",
+      "altCustom": "The custom vessel dialog with diameter, height and engrave-window fields filled in.",
+      "altColor": "The studio with a custom powder-coat color applied to the tumbler preview.",
+      "body": {
+        "custom1": "Measure your vessel and click Custom vessel in the switcher. Enter diameter or circumference — circumference is often easier: wrap a tape measure around the cup and the app divides by π for you.",
+        "custom2": "Tapered vessels (most tumblers) need the diameter at both the bottom and the top of the engrave window; straight cylinders need just one. Set the engrave window to the band you can actually burn — below the lip, above the base step.",
+        "custom3": "Custom vessels persist on this device and behave exactly like presets: they drive the artboard size, the 3D preview and the rotary numbers in the export dialog.",
+        "color": "The finish selector under the 3D preview switches between powder-coat colors and bare stainless; Custom powder-coat unlocks the color picker, which tints the vessel and the wrap texture to match your real cup. The choice is cosmetic — it never changes the exports."
+      }
+    },
+    "moreGuides": "More guides",
+    "studio": {
+      "intro": "The studio is where wraps are made: a millimeter-accurate artboard that is the vessel’s surface unrolled flat, plus a live 3D preview.",
+      "toolsTitle": "Tools",
+      "layersTitle": "Layers",
+      "alignTitle": "Align & distribute",
+      "seamTitle": "Seam & safe zone",
+      "shortcutsTitle": "Keyboard shortcuts",
+      "importTitle": "Importing SVG & images",
+      "previewTitle": "Live 3D preview",
+      "altTools": "Studio artboard with drawn shapes and text; the tool strip runs down the left edge.",
+      "altLayers": "The layers panel with three layers, one of them active.",
+      "altViewer": "3D preview of a tumbler with a drawn wrap and the laser-sweep animation.",
+      "body": {
+        "toolsIntro": "The toolbar on the left holds nine tools. Shape tools drag out a bounding box; the pen clicks node by node (double-click or Enter to finish); freehand draws while you drag.",
+        "toolSelect": "Click to select, move, resize and rotate elements. Double-click a path to edit its nodes.",
+        "toolPen": "Place nodes one click at a time — double-click or press Enter to finish the path.",
+        "toolRect": "Drag out rectangles and squares.",
+        "toolEllipse": "Drag out ellipses and circles.",
+        "toolPolygon": "Regular polygons — set the side count in the tool options bar.",
+        "toolStar": "Stars — points and inner ratio in the tool options bar.",
+        "toolFreehand": "Draw freehand strokes; smoothing (RDP simplification) is configurable in the tool options.",
+        "toolText": "Click anywhere and type. Text stays live and editable — exports reference font stacks, so the laser PC needs a similar font installed.",
+        "toolPan": "Drag the artboard around. Hold Space with any tool for temporary pan; zoom with the mouse wheel.",
+        "layers1": "Every element lives on a layer — and layers map to assignable layers in LightBurn, so split line art, fills and photos across layers to get separate power/speed settings per pass.",
+        "layers2": "The layers panel adds, reorders, duplicates, locks, hides and deletes layers, and sets per-layer opacity.",
+        "align": "Select multiple elements and use the align, distribute and flip controls in the tool options bar to line them up or space them evenly — horizontally, vertically, or across the full wrap.",
+        "seam1": "The dashed vertical lines mark the seam: the artboard’s left and right edges are the same line on the vessel. Elements crossing an edge wrap around automatically, so continuous patterns stay continuous.",
+        "seam2": "On mugs, the handle safe zone is shown as a guide in the editor and the 3D preview — keep critical art out of it.",
+        "import1": "The import menu in the toolbar merges an SVG file into the active layer — files are sanitized on import (scripts and external references stripped).",
+        "import2": "PNG/JPG photos land via the Photo button and open the photo pipeline; SVGs can also be stored as library assets on the Uploads page.",
+        "preview": "The right column renders the active vessel with your wrap as its texture — turntable rotation, a laser-sweep animation, seam and safe-zone overlays, finish materials and a custom powder-coat color."
+      }
+    },
+    "photo": {
+      "intro": "The photo pipeline turns a PNG or JPG into something a laser can burn: grayscale, tone adjustments and a dither matched to your material.",
+      "importTitle": "Import a photo",
+      "adjustTitle": "Tone adjustments",
+      "materialsTitle": "Material presets",
+      "ditherTitle": "Dither modes",
+      "halftoneTitle": "Halftone → vector",
+      "bgTitle": "Background removal",
+      "alt": "The photo panel with an imported photo, Floyd–Steinberg dither applied, tone sliders and material preset visible.",
+      "body": {
+        "import": "Use the Photo button in the studio toolbar (or drop a file on the artboard). Processing is non-destructive: the pristine original stays attached to the element and Reset restores it at any time.",
+        "adjust": "Brightness, contrast and gamma shape the midtones; grayscale, invert and sharpen prepare tricky sources. Everything re-renders live in a Web Worker — the artboard and the 3D preview update as you drag.",
+        "materials": "Presets bundle a mode and tone curve per material — powder-coated steel, bare stainless, wood, glass and coated ceramic ship built in. Engraving convention: black pixels are where the laser fires, and invert flips that for materials that turn bright under the beam (like glass). Pick a preset as a starting point, then fine-tune.",
+        "ditherIntro": "Lasers can’t print gray — dithering fakes it with dots. The right mode depends on the material and the look you want:",
+        "modeNone": "None — plain grayscale; only for workflows that dither downstream.",
+        "modeThreshold": "Threshold — a hard black/white cut at a level you set. Logos, stencils, text.",
+        "modeFloyd": "Floyd–Steinberg — error-diffusion dither and the best-looking photos on coated metal and wood. The default for a reason.",
+        "modeBayer": "Bayer 4×4 / 8×8 — ordered dither with a visible crosshatch texture; a stylistic choice (the wood preset uses it).",
+        "modeHalftone": "Halftone — a classic dot grid with adjustable cell size. The choice for slate, glass and ceramic — and the only mode that converts to vector dots.",
+        "modeStipple": "Stipple — sparse random dots, tuned by density. A delicate look on light materials.",
+        "halftone": "Halftone mode can convert its dot grid into a layer of real vector circles — resolution-independent dots for SVG export. Keep the cell size reasonable: tens of thousands of dots get heavy, and the conversion is capped for safety.",
+        "bg": "Remove background flood-fills from the image corners with a tolerance slider — great for solid studio backgrounds, not for complex scenes. If it eats your subject, lower the tolerance and try again."
+      }
+    },
+    "vectorize": {
+      "intro": "The vectorizer traces raster images into vector paths — in your browser, in a Web Worker, with imagetracerjs.",
+      "modesTitle": "Modes & controls",
+      "whenTitle": "Vectorize or dither?",
+      "alt": "The vectorize panel after tracing: source image selected, mono mode with threshold, result on the artboard.",
+      "body": {
+        "modes": "Mono traces at a single brightness threshold — the right choice for logos, stamps and silhouettes. Color quantizes to a palette (2–32 colors) for multi-tone art. Smoothing rounds the traced paths; simplification (RDP) drops redundant nodes.",
+        "result": "The trace lands as a new layer fitted over the source image — the white background is dropped automatically. Hide or delete the raster layer afterwards.",
+        "when1": "Vectorize flat art: logos, icons, text, anything with hard edges. Vector paths scale losslessly and engrave as crisp lines.",
+        "when2": "Dither continuous tones: photos, gradients, shading. A traced photo becomes banded poster art; a dithered photo keeps its tonal range."
+      }
+    },
+    "export": {
+      "intro": "Exports are sized in real millimeters, so your laser software imports them 1:1 — no rescaling, no guessing.",
+      "svgTitle": "SVG",
+      "rasterTitle": "Raster PNG",
+      "projectTitle": "Project backup",
+      "rotaryTitle": "Rotary setup",
+      "altSvg": "The export dialog on the SVG tab with program presets and options.",
+      "altRotary": "The export dialog’s rotary setup tab: object diameter, circumference, artboard size and step-by-step instructions.",
+      "body": {
+        "svg1": "Physical-size SVG (width/height in mm plus a viewBox). Pick the preset for your program:",
+        "programLightburn": "Layers preserved as named groups — assign power and speed per layer.",
+        "programXtool": "Layers merged into one group and shapes flattened to paths — XCS prefers a simple structure.",
+        "programLasergrbl": "Merged, all colors forced to black — GRBL treats everything as one engrave.",
+        "programGeneric": "Exported as-is.",
+        "svg2": "Options: flatten shapes to paths, embed rotary metadata as a comment, and override the layer mode. The dialog shows live warnings (live text needs the font on the laser PC; rasters embed as data URIs) and a file-size estimate.",
+        "raster": "The flat artboard rendered at 254/300/600 DPI with the DPI embedded as a pHYs chunk — programs that honor PNG resolution import at the correct physical size. The right choice when the design relies on dithered photos.",
+        "project": "Download the working document as .lasergen.json, or save a copy to the library. Re-import project files from the Library page.",
+        "rotaryIntro": "The Rotary tab computes everything your laser software’s rotary setup asks for — and the same numbers are embedded in the SVG metadata comment. For LightBurn:",
+        "rotary1": "Note the object diameter and circumference shown in the Rotary tab (or download the .txt summary).",
+        "rotary2": "In LightBurn: Laser Tools → Rotary Setup, enable the rotary and choose roller or chuck.",
+        "rotary3": "Enter the object diameter — LightBurn derives steps-per-rotation from it.",
+        "rotary4": "Import the exported SVG; it arrives at exactly the artboard size.",
+        "rotary5": "Frame the job — tape a test band if it’s your first run on this vessel — and burn."
+      }
+    },
+    "uploads": {
+      "intro": "Uploads bring your own files into the library: 3D models become vessels, images become art assets. Files never leave this device.",
+      "modelsTitle": "GLB & STL vessels",
+      "artTitle": "Images & SVG",
+      "limitsTitle": "Limits",
+      "alt": "The uploads page after calibrating an STL upload, with the saved model in the list.",
+      "body": {
+        "models1": "Drop a GLB or STL and the calibration form asks for the real-world max diameter (or circumference), height, engrave zone and category. The model is scaled to those millimeters — that calibration is what keeps the wrap preview and the exports accurate.",
+        "models2": "Saving creates a library asset and a linked custom vessel, which appears in the studio’s vessel switcher under Custom. GLB models may carry multi-part materials; STL wraps as a single piece (the whole mesh takes the texture) and is assumed Z-up.",
+        "art": "PNG/JPG uploads become photo assets and SVG uploads become sanitized svg-layer assets — insert them onto the artboard from the Library’s assets tab.",
+        "limits1": "Files above 20 MB warn, above 50 MB are rejected — large meshes make the 3D preview sluggish.",
+        "limits2": "Model blobs don’t travel with the library JSON export: re-upload them after restoring a backup on another device."
+      }
+    },
+    "library": {
+      "intro": "The library is your local-first project shelf: every project, asset and burn job lives in IndexedDB on this device.",
+      "projectsTitle": "Projects",
+      "jobsTitle": "Job tracker",
+      "assetsTitle": "Assets",
+      "transferTitle": "Backup & transfer",
+      "alt": "The project library with saved wrap projects, thumbnails and status badges.",
+      "body": {
+        "projects": "Save from the studio toolbar, then search, tag, duplicate, rename and set a status. Each card shows a live-rendered thumbnail of the wrap.",
+        "jobs": "Open a project to log burn attempts: material, power, speed, passes, notes and result photos. The tracker is where “which settings worked on the black Stanley?” gets answered once, permanently.",
+        "assets": "Reusable art: imported SVGs, photos, AI generations and your uploaded 3D models. Insert them into any project, or send a model to the studio as your active vessel.",
+        "transfer": "Export the whole library as one versioned JSON file and import it on another device. Photos and SVGs travel inside the JSON; 3D model blobs do not — re-upload those after an import."
+      }
     }
   },
   "help": {

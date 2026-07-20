@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /**
- * Docs index (M9): in-app documentation hub.
+ * Docs index (M9, expanded in M14): the user-manual home — one card per
+ * guide with a one-line summary.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -13,8 +14,14 @@ useSeoMeta({
 
 const pages = computed(() => [
   { slug: 'getting-started', title: t('docsPages.pages.gettingStarted.title'), description: t('docsPages.pages.gettingStarted.description') },
-  { slug: 'ai-providers', title: t('docsPages.pages.aiProviders.title'), description: t('docsPages.pages.aiProviders.description') },
+  { slug: 'studio', title: t('docsPages.pages.studio.title'), description: t('docsPages.pages.studio.description') },
   { slug: 'vessels', title: t('docsPages.pages.vessels.title'), description: t('docsPages.pages.vessels.description') },
+  { slug: 'photo', title: t('docsPages.pages.photo.title'), description: t('docsPages.pages.photo.description') },
+  { slug: 'vectorize', title: t('docsPages.pages.vectorize.title'), description: t('docsPages.pages.vectorize.description') },
+  { slug: 'export', title: t('docsPages.pages.export.title'), description: t('docsPages.pages.export.description') },
+  { slug: 'uploads', title: t('docsPages.pages.uploads.title'), description: t('docsPages.pages.uploads.description') },
+  { slug: 'ai-providers', title: t('docsPages.pages.aiProviders.title'), description: t('docsPages.pages.aiProviders.description') },
+  { slug: 'library', title: t('docsPages.pages.library.title'), description: t('docsPages.pages.library.description') },
 ])
 </script>
 
@@ -27,7 +34,7 @@ const pages = computed(() => [
       {{ t('docsPages.intro') }}
     </p>
 
-    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <NuxtLink
         v-for="page in pages"
         :key="page.slug"

@@ -1,8 +1,9 @@
 # Exporting
 
-The studio's **Export** button (toolbar, bottom) opens the export dialog with three
-tabs: **SVG**, **Raster PNG**, and **Project**. Everything is generated client-side by
-the framework-free core in `app/core/export/` — no server, no uploads.
+The studio's **Export** button (toolbar, bottom) opens the export dialog with four
+tabs: **SVG**, **Raster PNG**, **Rotary setup**, and **Project**. Everything is
+generated client-side by the framework-free core in `app/core/export/` — no server,
+no uploads. (For the user-facing walkthrough see [user-guide.md](user-guide.md).)
 
 ## SVG
 
@@ -12,7 +13,7 @@ software imports at true scale. Pick a target program preset:
 | Program | What changes |
 | --- | --- |
 | **LightBurn** | Layers preserved as named top-level groups — LightBurn maps these to assignable layers. |
-| **xTool Creative Space** | Layers merged into a single group; XCS prefers a simple structure. |
+| **xTool Creative Space** | Layers merged into a single group and shapes flattened to paths; XCS prefers a simple structure. |
 | **LaserGRBL** | Merged, and every stroke/fill forced to black — GRBL treats all colors as one engrave. |
 | **Generic** | Preserved as-is. |
 
@@ -29,6 +30,15 @@ The flat artboard rendered at **254 / 300 / 600 DPI** (pixel dimensions are
 convention) or transparent. The DPI is embedded as a PNG **pHYs chunk**
 (pixels-per-meter, CRC recomputed — see `setPngDpi` in `app/core/export/png.ts`), so
 programs that honor PNG resolution import at the correct physical size.
+
+## Rotary setup
+
+The rotary tab (M11) shows everything the laser software's rotary attachment setup
+asks for — object diameter at mid-engrave-zone, circumference, exact artboard size,
+and step-by-step instructions — with copy-to-clipboard and a `.txt` download. The
+text comes from a single source, `rotarySetupText` in `app/core/geometry/rotary.ts`,
+which also generates the SVG metadata comment, so the file, the dialog and the
+printout can never disagree.
 
 ## Project
 

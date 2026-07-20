@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
- * Docs: AI providers (M9). Summarizes docs/ai-providers.md — the BYOK model,
- * supported providers, and CORS notes for custom endpoints.
+ * Docs: AI providers (M9, expanded in M14). The BYOK model, per-provider
+ * setup (incl. custom OpenAI-compatible), CORS notes, the assistant's
+ * features, and key privacy.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -37,6 +38,26 @@ useSeoMeta({
         <li>{{ t('docsPages.aiProviders.model4') }}</li>
       </ul>
 
+      <h2>{{ t('docsPages.aiProviders.setupTitle') }}</h2>
+      <p>{{ t('docsPages.aiProviders.body.setup1') }}</p>
+      <ul>
+        <li>{{ t('docsPages.aiProviders.body.setupAnthropic') }}</li>
+        <li>{{ t('docsPages.aiProviders.body.setupOpenai') }}</li>
+        <li>{{ t('docsPages.aiProviders.body.setupCustom') }}</li>
+      </ul>
+      <p>{{ t('docsPages.aiProviders.body.setupTest') }}</p>
+    </div>
+
+    <figure class="mt-6 max-w-2xl">
+      <img
+        :src="'/screenshots/settings-ai.png'"
+        :alt="t('docsPages.aiProviders.altSettings')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
+    <div class="prose-docs mt-8">
       <h2>{{ t('docsPages.aiProviders.providersTitle') }}</h2>
       <p>{{ t('docsPages.aiProviders.providersBody') }}</p>
       <table>
@@ -66,6 +87,25 @@ useSeoMeta({
         </tbody>
       </table>
 
+      <h2>{{ t('docsPages.aiProviders.featuresTitle') }}</h2>
+      <ul>
+        <li>{{ t('docsPages.aiProviders.body.featSvg') }}</li>
+        <li>{{ t('docsPages.aiProviders.body.featImage') }}</li>
+        <li>{{ t('docsPages.aiProviders.body.featCopilot') }}</li>
+        <li>{{ t('docsPages.aiProviders.body.featSave') }}</li>
+      </ul>
+    </div>
+
+    <figure class="mt-6 max-w-xl">
+      <img
+        :src="'/screenshots/ai-panel.png'"
+        :alt="t('docsPages.aiProviders.altPanel')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
+    <div class="prose-docs mt-8">
       <h2>{{ t('docsPages.aiProviders.corsTitle') }}</h2>
       <p>{{ t('docsPages.aiProviders.corsBody') }}</p>
       <ul>
@@ -76,5 +116,7 @@ useSeoMeta({
       <h2>{{ t('docsPages.aiProviders.securityTitle') }}</h2>
       <p>{{ t('docsPages.aiProviders.securityBody') }}</p>
     </div>
+
+    <DocsMoreGuides current="ai-providers" />
   </article>
 </template>

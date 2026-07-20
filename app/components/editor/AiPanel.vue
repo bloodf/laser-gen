@@ -185,8 +185,8 @@ async function sendChat(): Promise<void> {
 </script>
 
 <template>
-  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4">
-    <button type="button" class="flex w-full items-center justify-between" @click="open = !open">
+  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4" data-testid="ai-panel">
+    <button type="button" class="flex w-full items-center justify-between" data-testid="ai-panel-toggle" @click="open = !open">
       <h2 class="text-sm font-semibold tracking-wide text-ink-300 uppercase">
         {{ t('ai.title') }}
       </h2>

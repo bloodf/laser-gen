@@ -576,6 +576,30 @@
       "vessels": {
         "title": "Gefäße",
         "description": "Integrierte Presets, ihre Maße und wie du eines beisteuerst."
+      },
+      "studio": {
+        "title": "Das Studio",
+        "description": "Alle Zeichenwerkzeuge, Ebenen, Ausrichtung, Naht-Hilfslinien und die Live-3D-Vorschau."
+      },
+      "photo": {
+        "title": "Foto-Vorbereitung",
+        "description": "Foto importieren und für die Gravur optimieren: Tonwerte, Dithering, Material-Presets."
+      },
+      "vectorize": {
+        "title": "Vektorisieren",
+        "description": "Rasterbilder in Vektorpfade umwandeln — wann und wie."
+      },
+      "export": {
+        "title": "Export",
+        "description": "SVG und PNG in echten Millimetern, Programm-Presets und Rotary-Setup."
+      },
+      "uploads": {
+        "title": "Uploads",
+        "description": "Eigene GLB/STL-Gefäße und PNG/JPG/SVG-Designs — auf echte Millimeter kalibriert."
+      },
+      "library": {
+        "title": "Bibliothek & Jobs",
+        "description": "Projekte, Gravur-Protokoll, wiederverwendbare Assets und Backups."
       }
     },
     "gettingStarted": {
@@ -587,7 +611,15 @@
       "diagramUnwrap": "abwickeln 360°",
       "diagramArtboard": "Zeichenfläche (voller Umfang)",
       "diagramSeam": "Naht = Naht",
-      "offlineTitle": "Funktioniert offline"
+      "offlineTitle": "Funktioniert offline",
+      "walkTitle": "Dein erster Wrap, Schritt für Schritt",
+      "step1Title": "Gefäß wählen",
+      "step2Title": "Gestalten",
+      "step3Title": "Vorschau",
+      "step4Title": "Exportieren",
+      "step5Title": "Gravieren",
+      "altStudio": "Das laser-gen-Studio: Wrap-Zeichenfläche links, Live-3D-Vorschau eines Tumblers rechts.",
+      "altExport": "Der Export-Dialog auf dem SVG-Tab mit Presets für LightBurn, xTool Creative Space und LaserGRBL."
     },
     "aiProviders": {
       "intro": "Der KI-Assistent ist Bring-your-own-key: Dein Browser spricht direkt mit dem Anbieter, den du konfigurierst.",
@@ -598,7 +630,11 @@
       "thNotes": "Hinweise",
       "customName": "Benutzerdefiniert (OpenAI-kompatibel)",
       "corsTitle": "CORS-Hinweise",
-      "securityTitle": "Sicherheit"
+      "securityTitle": "Sicherheit",
+      "setupTitle": "Anbieter einrichten",
+      "featuresTitle": "Was der Assistent kann",
+      "altSettings": "Die Einstellungsseite mit dem KI-Anbieter-Bereich und dem Formular zum Hinzufügen.",
+      "altPanel": "Das KI-Panel im Studio mit dem Einrichtungs-Hinweis."
     },
     "vessels": {
       "intro": "Presets ersparen dir den Messschieber: Wähle ein Gefäß und sein Profil steuert 3D-Vorschau und Zeichenfläche.",
@@ -607,7 +643,66 @@
       "thSize": "Maße",
       "thEngrave": "Gravurfenster",
       "measureTitle": "Selbst messen",
-      "contributeTitle": "Preset beisteuern"
+      "contributeTitle": "Preset beisteuern",
+      "customTitle": "Eigene Gefäße",
+      "colorTitle": "Oberflächen & eigene Farben",
+      "altSwitcher": "Die Gefäß-Auswahl mit Presets und eigenen Gefäßen.",
+      "altCustom": "Der Dialog für eigene Gefäße mit ausgefülltem Durchmesser, Höhe und Gravurfenster.",
+      "altColor": "Das Studio mit einer eigenen Pulverlack-Farbe auf der Tumbler-Vorschau."
+    },
+    "moreGuides": "Weitere Anleitungen",
+    "studio": {
+      "intro": "Im Studio entstehen die Wraps: eine millimetergenaue Zeichenfläche — die abgewickelte Gefäßoberfläche — plus Live-3D-Vorschau.",
+      "toolsTitle": "Werkzeuge",
+      "layersTitle": "Ebenen",
+      "alignTitle": "Ausrichten & verteilen",
+      "seamTitle": "Naht & Sicherheitszone",
+      "shortcutsTitle": "Tastenkürzel",
+      "importTitle": "SVG & Bilder importieren",
+      "previewTitle": "Live-3D-Vorschau",
+      "altTools": "Studio-Zeichenfläche mit gezeichneten Formen und Text; die Werkzeugleiste verläuft am linken Rand.",
+      "altLayers": "Das Ebenen-Panel mit drei Ebenen, eine davon aktiv.",
+      "altViewer": "3D-Vorschau eines Tumblers mit gezeichnetem Wrap und der Laser-Sweep-Animation."
+    },
+    "photo": {
+      "intro": "Die Foto-Pipeline macht aus einem PNG oder JPG etwas Gravierbares: Graustufen, Tonwerte und ein Dithering passend zum Material.",
+      "importTitle": "Foto importieren",
+      "adjustTitle": "Tonwerte",
+      "materialsTitle": "Material-Presets",
+      "ditherTitle": "Dither-Modi",
+      "halftoneTitle": "Halbton → Vektor",
+      "bgTitle": "Hintergrund entfernen",
+      "alt": "Das Foto-Panel mit einem importierten Foto, angewendetem Floyd–Steinberg-Dithering, Tonwert-Reglern und Material-Preset."
+    },
+    "vectorize": {
+      "intro": "Der Vektorisierer wandelt Rasterbilder in Vektorpfade um — im Browser, in einem Web Worker, mit imagetracerjs.",
+      "modesTitle": "Modi & Regler",
+      "whenTitle": "Vektorisieren oder dithern?",
+      "alt": "Das Vektorisieren-Panel nach dem Tracing: Quellbild gewählt, Mono-Modus mit Schwellwert, Ergebnis auf der Zeichenfläche."
+    },
+    "export": {
+      "intro": "Exporte sind in echten Millimetern dimensioniert — die Laser-Software importiert sie 1:1, ohne Skalieren und Rätselraten.",
+      "svgTitle": "SVG",
+      "rasterTitle": "Raster-PNG",
+      "projectTitle": "Projekt-Backup",
+      "rotaryTitle": "Rotary-Setup",
+      "altSvg": "Der Export-Dialog auf dem SVG-Tab mit Programm-Presets und Optionen.",
+      "altRotary": "Der Rotary-Setup-Tab: Objektdurchmesser, Umfang, Zeichenflächengröße und Schritt-für-Schritt-Anleitung."
+    },
+    "uploads": {
+      "intro": "Uploads bringen eigene Dateien in die Bibliothek: 3D-Modelle werden Gefäße, Bilder werden Design-Assets. Dateien verlassen dieses Gerät nie.",
+      "modelsTitle": "GLB- & STL-Gefäße",
+      "artTitle": "Bilder & SVG",
+      "limitsTitle": "Grenzen",
+      "alt": "Die Uploads-Seite nach dem Kalibrieren eines STL-Uploads, mit dem gespeicherten Modell in der Liste."
+    },
+    "library": {
+      "intro": "Die Bibliothek ist dein lokales Projektregal: jedes Projekt, Asset und jeder Gravur-Job liegt in IndexedDB auf diesem Gerät.",
+      "projectsTitle": "Projekte",
+      "jobsTitle": "Job-Protokoll",
+      "assetsTitle": "Assets",
+      "transferTitle": "Backup & Übertragung",
+      "alt": "Die Projektbibliothek mit gespeicherten Wraps, Vorschaubildern und Status-Badges."
     }
   },
   "help": {

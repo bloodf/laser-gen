@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * Docs: getting started (M9). Summarizes docs/architecture.md and
- * docs/wrap-math.md, with a pure-SVG diagram of the wrap concept.
+ * Docs: getting started (M9, expanded in M14). The wrap concept plus a full
+ * first-wrap walkthrough — pick a vessel, design, preview, export, burn.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -11,6 +11,8 @@ useSeoMeta({
   description: () => t('docsPages.pages.gettingStarted.description'),
   ogImage: '/og-image.svg',
 })
+
+const steps = [1, 2, 3, 4, 5] as const
 </script>
 
 <template>
@@ -36,6 +38,31 @@ useSeoMeta({
         <li>{{ t('docsPages.gettingStarted.quick3') }}</li>
         <li>{{ t('docsPages.gettingStarted.quick4') }}</li>
       </ol>
+    </div>
+
+    <figure class="mt-6 max-w-2xl">
+      <img
+        :src="'/screenshots/studio.png'"
+        :alt="t('docsPages.gettingStarted.altStudio')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
+    <div class="prose-docs mt-8">
+      <h2>{{ t('docsPages.gettingStarted.walkTitle') }}</h2>
+      <div v-for="step in steps" :key="step">
+        <h3>{{ t(`docsPages.gettingStarted.step${step}Title`) }}</h3>
+        <p>{{ t(`docsPages.gettingStarted.walk.step${step}Body`) }}</p>
+        <figure v-if="step === 4" class="max-w-xl">
+          <img
+            :src="'/screenshots/export-svg.png'"
+            :alt="t('docsPages.gettingStarted.altExport')"
+            loading="lazy"
+            class="w-full rounded-xl border border-ink-800"
+          >
+        </figure>
+      </div>
 
       <h2>{{ t('docsPages.gettingStarted.wrapTitle') }}</h2>
       <p>{{ t('docsPages.gettingStarted.wrapBody1') }}</p>
@@ -77,5 +104,7 @@ useSeoMeta({
       <h2>{{ t('docsPages.gettingStarted.offlineTitle') }}</h2>
       <p>{{ t('docsPages.gettingStarted.offlineBody') }}</p>
     </div>
+
+    <DocsMoreGuides current="getting-started" />
   </article>
 </template>

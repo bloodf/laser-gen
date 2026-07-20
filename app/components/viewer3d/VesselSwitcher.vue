@@ -57,7 +57,7 @@ function remove(vessel: VesselProfile): void {
 </script>
 
 <template>
-  <div>
+  <div data-testid="vessel-switcher">
     <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2">
       <li v-for="preset in VESSEL_PRESETS" :key="preset.id">
         <button

@@ -32,6 +32,17 @@ const IGNORE_PREFIXES = [
   'docsPages.vessels.contributeBody',
   'docsPages.vessels.measureBody',
   'docsPages.vessels.modelCredits',
+  // M14: per-page long-form bodies (incl. the getting-started walkthrough
+  // steps) are English-only by design — same convention as above.
+  'docsPages.gettingStarted.walk',
+  'docsPages.studio.body',
+  'docsPages.photo.body',
+  'docsPages.vectorize.body',
+  'docsPages.export.body',
+  'docsPages.uploads.body',
+  'docsPages.library.body',
+  'docsPages.vessels.body',
+  'docsPages.aiProviders.body',
 ]
 
 const ignored = key => IGNORE_PREFIXES.some(prefix => key.startsWith(prefix))

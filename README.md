@@ -73,7 +73,7 @@ Other scripts:
 | `pnpm test`          | Vitest unit tests                                     |
 | `pnpm test:e2e`      | Playwright e2e (builds + previews automatically)      |
 | `pnpm i18n:check`    | Verify locale key parity against `en.json`            |
-| `pnpm screenshots`   | Recapture the README screenshots below                |
+| `pnpm screenshots`   | Recapture the docs/README screenshots (`docs/screenshots/` + `public/screenshots/`) |
 
 ## Deployment
 
@@ -107,11 +107,21 @@ A ready-made `vercel.json` is included for one-command Vercel deploys; see
 
 ## Documentation
 
-- [Architecture](docs/architecture.md) — how the app is (and will be) structured
+**User guides** — the same content lives in the app's Docs section:
+
+- [User guide](docs/user-guide.md) — the full manual with screenshots: studio tools,
+  vessels, photo prep, vectorizing, exporting & rotary setup, uploads, AI providers,
+  library & jobs
+
+**Contributor docs:**
+
+- [Architecture](docs/architecture.md) — how the app is structured
 - [Wrap math](docs/wrap-math.md) — the cylinder/cone unwrap concept
+- [Exporting](docs/exporting.md) — the SVG/PNG export pipeline internals
 - [Adding a vessel](docs/adding-a-vessel.md)
 - [Adding a language](docs/adding-a-language.md)
 - [AI providers (BYOK)](docs/ai-providers.md)
+- [Deployment](docs/deployment.md) — static hosting (Vercel, Cloudflare, GitHub Pages)
 - [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## Contributing

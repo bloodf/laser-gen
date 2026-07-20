@@ -143,6 +143,28 @@ laser-gen is developed in milestones. Each milestone ships working, verifiable s
   The library's assets tab gained a 3D-models section with thumbnails and
   "Use in studio"; deleting a model asset removes its linked vessel.
 
+- **M14 — Complete user documentation** ✅
+  Full user manual, in-app and in the repo. The in-app docs section
+  (`app/pages/docs/`) grew from three short pages to a nine-guide manual —
+  getting started (full first-wrap walkthrough), the studio (every tool,
+  layers, align/distribute, seam & safe zone, shortcuts, import), vessels
+  (custom builder, finishes/color picker, GLB credits), photo prep (dither
+  modes per material, halftone→vector, bg-removal limits), vectorizing,
+  exporting (program presets + rotary step-by-step), uploads, AI providers
+  (full setup incl. custom endpoints + CORS), and library & jobs — with
+  cross-links (`DocsMoreGuides`), real screenshots on every page, and the
+  existing i18n convention (titles/intros/headings translated into all six
+  locales, long bodies English-only via the `check-i18n` ignore list). The
+  screenshot pipeline (`scripts/capture-screenshots.mjs`) now captures 18
+  guarded shots — including scripted UI states like the export dialog's
+  rotary tab, the custom vessel dialog, and a dithered photo — into
+  `docs/screenshots/` and mirrors them to `public/screenshots/` for the
+  in-app pages (excluded from the Workbox precache, cached on first view).
+  Repo side: new `docs/user-guide.md`, refreshed README docs section, and
+  staleness fixes in `docs/exporting.md` (rotary tab), `docs/architecture.md`
+  (directory layout) and `docs/wrap-math.md` (the reference-radius rotary
+  model the app actually implements).
+
 ## Next (post-0.1.0)
 
 Not shipped yet — contributions welcome:

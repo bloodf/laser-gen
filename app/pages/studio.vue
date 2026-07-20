@@ -105,7 +105,7 @@ function endSplit(): void {
         <Viewer3dVesselViewer />
 
         <!-- viewer control bar -->
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-ink-800 bg-ink-900 px-4 py-3 text-sm">
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-ink-800 bg-ink-900 px-4 py-3 text-sm" data-testid="viewer-controls">
           <label class="flex items-center gap-2">
             <span class="text-ink-400">{{ t('viewer.finish') }}</span>
             <select

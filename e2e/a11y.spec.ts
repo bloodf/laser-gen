@@ -11,6 +11,10 @@ const SURFACES: { path: string, ready: (page: import('@playwright/test').Page) =
   { path: '/studio', ready: async page => await expect(page.getByTestId('artboard')).toBeVisible() },
   { path: '/help', ready: async page => await expect(page.getByTestId('shortcut-table')).toBeVisible() },
   { path: '/uploads', ready: async page => await expect(page.getByTestId('upload-dropzone')).toBeVisible() },
+  { path: '/docs', ready: async page => await expect(page.getByRole('heading', { level: 1 })).toBeVisible() },
+  { path: '/docs/studio', ready: async page => await expect(page.getByRole('heading', { level: 1 })).toBeVisible() },
+  { path: '/docs/export', ready: async page => await expect(page.getByRole('heading', { level: 1 })).toBeVisible() },
+  { path: '/docs/photo', ready: async page => await expect(page.getByRole('heading', { level: 1 })).toBeVisible() },
 ]
 
 for (const { path, ready } of SURFACES) {

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Complete user documentation (M14)** — the in-app Docs section is now a nine-guide
+  manual (getting started, studio, vessels, photo prep, vectorizing, exporting,
+  uploads, AI providers, library & jobs) with cross-links and real screenshots on
+  every page; matching markdown version in `docs/user-guide.md`
+- **Screenshot pipeline** — `pnpm screenshots` now captures 18 guarded shots
+  (studio surfaces, dialogs, panels, settings, help, docs) into `docs/screenshots/`
+  and mirrors them to `public/screenshots/` for the in-app docs (runtime-cached,
+  not precached)
+
 ## [1.0.0] — 2026-07-19
 
 First public release: the full wrap-art studio, 3D preview, photo/vector pipelines,

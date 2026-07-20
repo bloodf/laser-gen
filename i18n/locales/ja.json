@@ -576,6 +576,30 @@
       "vessels": {
         "title": "器",
         "description": "内蔵プリセットとその寸法、貢献方法。"
+      },
+      "studio": {
+        "title": "スタジオ",
+        "description": "すべての描画ツール、レイヤー、整列、シームガイド、ライブ3Dプレビュー。"
+      },
+      "photo": {
+        "title": "写真の準備",
+        "description": "写真を読み込み、彫刻用に調整：階調、ディザリング、素材プリセット。"
+      },
+      "vectorize": {
+        "title": "ベクター化",
+        "description": "ラスター画像をベクターパスに変換 — タイミングと方法。"
+      },
+      "export": {
+        "title": "エクスポート",
+        "description": "実寸ミリメートルのSVG/PNG、プログラム別プリセット、ロータリー設定。"
+      },
+      "uploads": {
+        "title": "アップロード",
+        "description": "GLB/STLの容器やPNG/JPG/SVGのアートを持ち込み — 実寸ミリメートルでキャリブレーション。"
+      },
+      "library": {
+        "title": "ライブラリとジョブ",
+        "description": "プロジェクト、彫刻ジョブの記録、再利用アセット、バックアップ。"
       }
     },
     "gettingStarted": {
@@ -587,7 +611,15 @@
       "diagramUnwrap": "360°展開",
       "diagramArtboard": "アートボード(全周)",
       "diagramSeam": "シーム = シーム",
-      "offlineTitle": "オフラインで動作"
+      "offlineTitle": "オフラインで動作",
+      "walkTitle": "はじめてのラップをステップごとに",
+      "step1Title": "容器を選ぶ",
+      "step2Title": "デザインする",
+      "step3Title": "プレビュー",
+      "step4Title": "エクスポート",
+      "step5Title": "彫刻する",
+      "altStudio": "laser-genスタジオ：左にラップのアートボード、右にタンブラーのライブ3Dプレビュー。",
+      "altExport": "SVGタブのエクスポートダイアログ。LightBurn、xTool Creative Space、LaserGRBLのプリセット付き。"
     },
     "aiProviders": {
       "intro": "AIアシスタントはBYOK(自分のキーを使用)方式:ブラウザが設定したプロバイダーと直接通信します。",
@@ -598,7 +630,11 @@
       "thNotes": "備考",
       "customName": "カスタム(OpenAI互換)",
       "corsTitle": "CORSに関する注意",
-      "securityTitle": "セキュリティ"
+      "securityTitle": "セキュリティ",
+      "setupTitle": "プロバイダーの設定",
+      "featuresTitle": "アシスタントでできること",
+      "altSettings": "AIプロバイダーセクションと追加フォームを表示する設定ページ。",
+      "altPanel": "セットアップへの誘導を表示したスタジオのAIパネル。"
     },
     "vessels": {
       "intro": "プリセットがあればノギス不要:器を選ぶと、そのプロファイルが3Dプレビューとアートボードを駆動します。",
@@ -607,7 +643,66 @@
       "thSize": "寸法",
       "thEngrave": "彫刻ウィンドウ",
       "measureTitle": "自分で採寸",
-      "contributeTitle": "プリセットを貢献"
+      "contributeTitle": "プリセットを貢献",
+      "customTitle": "カスタム容器",
+      "colorTitle": "仕上げとカスタムカラー",
+      "altSwitcher": "プリセットとカスタム容器を表示する容器スイッチャー。",
+      "altCustom": "直径、高さ、彫刻範囲が入力されたカスタム容器ダイアログ。",
+      "altColor": "タンブラープレビューにカスタムパウダーコートカラーを適用したスタジオ。"
+    },
+    "moreGuides": "その他のガイド",
+    "studio": {
+      "intro": "スタジオはラップを作る場所：容器の表面を平らに展開したミリメートル精度のアートボードと、ライブ3Dプレビュー。",
+      "toolsTitle": "ツール",
+      "layersTitle": "レイヤー",
+      "alignTitle": "整列と分布",
+      "seamTitle": "シームとセーフゾーン",
+      "shortcutsTitle": "キーボードショートカット",
+      "importTitle": "SVGと画像のインポート",
+      "previewTitle": "ライブ3Dプレビュー",
+      "altTools": "図形とテキストが描かれたスタジオのアートボード。左端にツールバー。",
+      "altLayers": "3つのレイヤー（うち1つがアクティブ）を表示するレイヤーパネル。",
+      "altViewer": "描いたラップとレーザースイープアニメーションを表示したタンブラーの3Dプレビュー。"
+    },
+    "photo": {
+      "intro": "写真パイプラインはPNG/JPGをレーザーで彫刻できる形に変換します：グレースケール、階調調整、素材に合ったディザリング。",
+      "importTitle": "写真の読み込み",
+      "adjustTitle": "階調調整",
+      "materialsTitle": "素材プリセット",
+      "ditherTitle": "ディザモード",
+      "halftoneTitle": "ハーフトーン → ベクター",
+      "bgTitle": "背景除去",
+      "alt": "読み込んだ写真にFloyd–Steinbergディザを適用した写真パネル。階調スライダーと素材プリセットも表示。"
+    },
+    "vectorize": {
+      "intro": "ベクタライザーはラスター画像をベクターパスに変換します — ブラウザ内のWeb Workerで、imagetracerjsを使用。",
+      "modesTitle": "モードとコントロール",
+      "whenTitle": "ベクター化かディザか？",
+      "alt": "トレース後のベクタライズパネル：ソース画像を選択、しきい値付きモノモード、結果がアートボードに表示。"
+    },
+    "export": {
+      "intro": "エクスポートは実寸ミリメートルなので、レーザーソフトに1:1でインポートされます — リサイズも推測も不要。",
+      "svgTitle": "SVG",
+      "rasterTitle": "ラスターPNG",
+      "projectTitle": "プロジェクトのバックアップ",
+      "rotaryTitle": "ロータリー設定",
+      "altSvg": "プログラムプリセットとオプションを表示したSVGタブのエクスポートダイアログ。",
+      "altRotary": "ロータリー設定タブ：対象物の直径、円周、アートボードサイズ、ステップバイステップの手順。"
+    },
+    "uploads": {
+      "intro": "アップロードで自分のファイルをライブラリに取り込めます：3Dモデルは容器に、画像はアートアセットに。ファイルはこのデバイスから出ません。",
+      "modelsTitle": "GLB/STL容器",
+      "artTitle": "画像とSVG",
+      "limitsTitle": "制限",
+      "alt": "STLアップロードをキャリブレーション後のアップロードページ。保存されたモデルがリストに表示。"
+    },
+    "library": {
+      "intro": "ライブラリはローカルファーストのプロジェクト棚：すべてのプロジェクト、アセット、彫刻ジョブがこのデバイスのIndexedDBに保存されます。",
+      "projectsTitle": "プロジェクト",
+      "jobsTitle": "ジョブトラッカー",
+      "assetsTitle": "アセット",
+      "transferTitle": "バックアップと移行",
+      "alt": "保存されたラッププロジェクト、サムネイル、ステータスバッジを表示するライブラリ。"
     }
   },
   "help": {

@@ -25,33 +25,39 @@ That's the whole story for straight-walled cups: a rectangle, `π·d × h` mm.
 
 ## Cone (tapered tumbler)
 
-Most tumblers taper: diameter `d₁` at the rim and `d₂` at the base, over height `h`.
-A cone frustum unwraps not to a rectangle but to an **annular sector** — a "Pac-Man"
-slice of a ring:
+Most tumblers taper: the diameter at the rim differs from the diameter at the base.
+Geometrically, a cone frustum unwraps to an **annular sector** — a "Pac-Man" slice of a
+ring. laser-gen does **not** present that sector. Instead it uses the
+**reference-radius rotary model**, the same model LightBurn's rotary setup uses
+(`app/core/geometry/unwrap.ts`):
 
-- Slant height: `s = √(h² + ((d₁ − d₂)/2)²)`
-- The frustum extends to a full cone with apex slant distance
-  `L₁ = s · d₁ / (d₁ − d₂)` (rim side) and `L₂ = L₁ − s` (base side).
-- Unwrapped, the rim becomes an arc of radius `L₁` and length `π·d₁`; the base becomes an
-  arc of radius `L₂` and length `π·d₂`.
-- Sector angle: `φ = π·d₁ / L₁` (radians) — equivalently `φ = (d₁ − d₂)/s · π`.
+- The artboard stays a **rectangle**: width = circumference at the widest engraved row
+  (2π·rRef), height = the engrave window.
+- Horizontal position maps to rotation angle through a single **reference radius**:
+  `θ = x / rRef`, where `rRef` defaults to the radius at the middle of the engrave
+  zone (which minimizes the worst-case distortion at both ends of the taper).
+- Vertical position maps 1:1, offset so artboard `y = 0` is the bottom of the engrave
+  zone.
 
-In the editor we present this sector **rectified to a rectangle** (width `π·d₁`, height `s`)
-for usability, but every horizontal line of the design maps to an *arc*, not a straight
-line. Features that care about true geometry (rotary export, 3D preview texture mapping)
-use the sector coordinates; the rectified view is a presentation aid with visible
-distortion guides near the narrow end.
+The consequence is real and physical: a row whose true radius `r(y)` differs from
+`rRef` is engraved **stretched** (`r(y) < rRef`) or **compressed** (`r(y) > rRef`)
+horizontally by the factor `rRef / r(y)` — see `angularDistortion` in the same module.
+That is exactly what the rotary does on the machine, so what you see on the artboard is
+what burns. The editor uses the factor for its taper distortion guides, and the 3D
+preview maps the texture with true per-row radii.
 
 ## Why this matters for engraving
 
-- **Rotary attachments** rotate the vessel under a fixed laser. The machine steps the
-  rotary in degrees/steps-per-rotation; the design must be exactly `π·d` wide (cylinder)
-  or the correct sector (cone) or the wrap will be stretched or compressed.
-- **Seams**: the wrap's left and right edges meet. laser-gen shows seam guides and can
-  duplicate edge content to help designs flow across the seam.
-- **Distortion** on tapered vessels is real: a circle drawn on the rectified canvas prints
-  as an ellipse-ish shape on the physical cup unless corrected. Correcting for this is a
-  core feature of the M3 geometry work.
+- **Rotary attachments** rotate the vessel under a fixed laser. The machine is told an
+  **object diameter**; laser-gen's export dialog computes it (the diameter at the
+  middle of the engrave zone) and embeds it in the SVG metadata and the rotary-setup
+  printout, so the wrap comes out at the right width.
+- **Seams**: the wrap's left and right edges meet. laser-gen shows seam guides, and
+  elements crossing an edge wrap automatically so continuous patterns stay continuous.
+- **Taper distortion** is not a display bug: on a tapered cup the same millimeters of
+  artboard span more degrees of rotation near the narrow end. Designing on the
+  rectified artboard with the reference-radius model matches the machine's behavior
+  exactly.
 
 ## Units
 

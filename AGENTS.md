@@ -13,7 +13,7 @@ pnpm typecheck     # nuxi typecheck (vue-tsc)
 pnpm test          # vitest run
 pnpm test:e2e      # Playwright e2e — builds + previews automatically (chromium only)
 pnpm i18n:check    # locale key parity against i18n/locales/en.json
-pnpm screenshots   # recapture docs/screenshots/*.png via Playwright
+pnpm screenshots   # recapture docs/screenshots/*.png (18 guarded shots) + mirror to public/screenshots/
 pnpm build         # production build
 pnpm generate      # static output in .output/public (deployable PWA)
 ```
@@ -44,6 +44,7 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
   components/library/  Library dashboard pieces (ProjectCard, ProjectDetail
                        with job tracker, AssetGrid)
   components/app/      M13 app-shell pieces (NavIcon section icons)
+  components/docs/     M14 in-app manual pieces (DocsMoreGuides cross-link nav)
   composables/       useVesselGeometry (three.js lathe from core profiles +
                      M12 `parts`: lathe bands / torus rings with coated/steel/
                      plastic material roles), useGlbVessel (M12/M13 model-backed
@@ -86,14 +87,17 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      thumbnails, studio bridge; ai: BYOK provider configs,
                      connection tests, copilot chat — keys via core/ai/keys.ts
                      only, never persistedstate)
-docs/                Architecture and how-to guides (screenshots live in docs/screenshots/)
+docs/                Architecture, how-to and user guides (screenshots live in docs/screenshots/)
 e2e/                 Playwright e2e specs (excluded from vitest), fixtures/ with a
                      generated sample PNG + STL (regenerate:
                      node e2e/fixtures/create-fixture.mjs / create-stl-fixture.mjs)
 scripts/             Repo maintenance scripts (check-i18n.mjs, capture-screenshots.mjs)
 i18n/locales/        Translation JSON, lazy-loaded; en.json is the source of truth
 public/              PWA icons, favicon, models/ (M12 CC-BY-4.0 GLB vessel
-                     models — attribution required: NOTICE.md + in-app credit)
+                     models — attribution required: NOTICE.md + in-app credit),
+                     screenshots/ (M14 in-app docs imagery, mirrored from
+                     docs/screenshots/ by `pnpm screenshots`; excluded from the
+                     Workbox precache, runtime-cached on first view)
 test/                Vitest tests (unit tests also live beside core modules)
 ```
 

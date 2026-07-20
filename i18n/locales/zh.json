@@ -576,6 +576,30 @@
       "vessels": {
         "title": "器皿",
         "description": "内置预设及其尺寸,以及如何贡献新预设。"
+      },
+      "studio": {
+        "title": "工作室",
+        "description": "所有绘图工具、图层、对齐、接缝参考线和实时 3D 预览。"
+      },
+      "photo": {
+        "title": "照片处理",
+        "description": "导入照片并为雕刻调优：色调、抖动、材料预设。"
+      },
+      "vectorize": {
+        "title": "矢量化",
+        "description": "将位图描摹为矢量路径——何时以及如何做。"
+      },
+      "export": {
+        "title": "导出",
+        "description": "以真实毫米尺寸导出 SVG 和 PNG，含程序预设和旋转轴设置。"
+      },
+      "uploads": {
+        "title": "上传",
+        "description": "导入你自己的 GLB/STL 器皿和 PNG/JPG/SVG 图案——按真实毫米校准。"
+      },
+      "library": {
+        "title": "库与任务",
+        "description": "项目、雕刻任务记录、可复用素材和备份。"
       }
     },
     "gettingStarted": {
@@ -587,7 +611,15 @@
       "diagramUnwrap": "展开 360°",
       "diagramArtboard": "画布(完整圆周)",
       "diagramSeam": "接缝 = 接缝",
-      "offlineTitle": "离线可用"
+      "offlineTitle": "离线可用",
+      "walkTitle": "你的第一个环绕图案，分步指南",
+      "step1Title": "选择器皿",
+      "step2Title": "设计",
+      "step3Title": "预览",
+      "step4Title": "导出",
+      "step5Title": "雕刻",
+      "altStudio": "laser-gen 工作室：左侧为环绕画板，右侧为保温杯实时 3D 预览。",
+      "altExport": "导出对话框的 SVG 选项卡，含 LightBurn、xTool Creative Space 和 LaserGRBL 的程序预设。"
     },
     "aiProviders": {
       "intro": "AI 助手采用 BYOK(自带密钥)模式:浏览器直接与你配置的服务商通信。",
@@ -598,7 +630,11 @@
       "thNotes": "备注",
       "customName": "自定义(OpenAI 兼容)",
       "corsTitle": "CORS 说明",
-      "securityTitle": "安全性"
+      "securityTitle": "安全性",
+      "setupTitle": "配置提供商",
+      "featuresTitle": "助手能做什么",
+      "altSettings": "设置页面中的 AI 提供商部分和添加提供商表单。",
+      "altPanel": "工作室中的 AI 面板，显示设置引导。"
     },
     "vessels": {
       "intro": "预设让你省去卡尺:选择器皿后,其轮廓将驱动 3D 预览和画布。",
@@ -607,7 +643,66 @@
       "thSize": "尺寸",
       "thEngrave": "雕刻窗口",
       "measureTitle": "自己测量",
-      "contributeTitle": "贡献预设"
+      "contributeTitle": "贡献预设",
+      "customTitle": "自定义器皿",
+      "colorTitle": "表面效果与自定义颜色",
+      "altSwitcher": "器皿切换器，显示预设和自定义器皿。",
+      "altCustom": "自定义器皿对话框，已填写直径、高度和雕刻范围。",
+      "altColor": "工作室中为保温杯预览应用了自定义喷粉涂层颜色。"
+    },
+    "moreGuides": "更多指南",
+    "studio": {
+      "intro": "工作室是制作环绕图案的地方：一块毫米级精度的画板（即器皿表面展开后的平面），外加实时 3D 预览。",
+      "toolsTitle": "工具",
+      "layersTitle": "图层",
+      "alignTitle": "对齐与分布",
+      "seamTitle": "接缝与安全区",
+      "shortcutsTitle": "键盘快捷键",
+      "importTitle": "导入 SVG 和图像",
+      "previewTitle": "实时 3D 预览",
+      "altTools": "工作室画板上绘制了图形和文字；工具条位于左边缘。",
+      "altLayers": "图层面板显示三个图层，其中一个为活动图层。",
+      "altViewer": "带有绘制环绕图案和激光扫描动画的保温杯 3D 预览。"
+    },
+    "photo": {
+      "intro": "照片处理流程将 PNG 或 JPG 转换为激光可以雕刻的内容：灰度、色调调整以及与材料匹配的抖动。",
+      "importTitle": "导入照片",
+      "adjustTitle": "色调调整",
+      "materialsTitle": "材料预设",
+      "ditherTitle": "抖动模式",
+      "halftoneTitle": "半调 → 矢量",
+      "bgTitle": "背景移除",
+      "alt": "照片面板中导入了照片并应用 Floyd–Steinberg 抖动，可见色调滑块和材料预设。"
+    },
+    "vectorize": {
+      "intro": "矢量化工具将位图描摹为矢量路径——在浏览器中通过 Web Worker 运行 imagetracerjs。",
+      "modesTitle": "模式与控件",
+      "whenTitle": "矢量化还是抖动？",
+      "alt": "描摹后的矢量化面板：已选择源图像、带阈值的单色模式，结果显示在画板上。"
+    },
+    "export": {
+      "intro": "导出文件以真实毫米标注尺寸，激光软件可按 1:1 导入——无需缩放，无需猜测。",
+      "svgTitle": "SVG",
+      "rasterTitle": "位图 PNG",
+      "projectTitle": "项目备份",
+      "rotaryTitle": "旋转轴设置",
+      "altSvg": "导出对话框的 SVG 选项卡，显示程序预设和选项。",
+      "altRotary": "旋转轴设置选项卡：物体直径、周长、画板尺寸和分步说明。"
+    },
+    "uploads": {
+      "intro": "上传功能将你自己的文件导入库：3D 模型成为器皿，图像成为图案素材。文件绝不会离开此设备。",
+      "modelsTitle": "GLB 与 STL 器皿",
+      "artTitle": "图像与 SVG",
+      "limitsTitle": "限制",
+      "alt": "校准 STL 上传后的上传页面，已保存的模型显示在列表中。"
+    },
+    "library": {
+      "intro": "库是你的本地项目架：每个项目、素材和雕刻任务都存储在此设备的 IndexedDB 中。",
+      "projectsTitle": "项目",
+      "jobsTitle": "任务记录",
+      "assetsTitle": "素材",
+      "transferTitle": "备份与迁移",
+      "alt": "项目库中显示已保存的环绕项目、缩略图和状态徽章。"
     }
   },
   "help": {

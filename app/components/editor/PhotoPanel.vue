@@ -285,7 +285,7 @@ onScopeDispose(() => {
 </script>
 
 <template>
-  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4">
+  <div class="rounded-lg border border-ink-800 bg-ink-900 p-4" data-testid="photo-panel">
     <h2 class="text-sm font-semibold tracking-wide text-ink-300 uppercase">
       {{ t('photo.title') }}
     </h2>

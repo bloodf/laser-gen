@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * Docs: vessels (M9). The built-in preset list with real dimensions, straight
- * from the geometry core — summarizes docs/adding-a-vessel.md.
+ * Docs: vessels (M9, expanded in M14). The built-in preset list plus the
+ * custom vessel builder, GLB-backed models, and finish/color options.
  */
 import { VESSEL_PRESETS } from '~/core/geometry'
 
@@ -44,6 +44,15 @@ const rows = VESSEL_PRESETS.map((profile) => {
       {{ t('docsPages.vessels.intro') }}
     </p>
 
+    <figure class="mt-6 max-w-2xl">
+      <img
+        :src="'/screenshots/studio-vessels.png'"
+        :alt="t('docsPages.vessels.altSwitcher')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
     <div class="prose-docs mt-8 overflow-x-auto">
       <table>
         <thead>
@@ -67,6 +76,36 @@ const rows = VESSEL_PRESETS.map((profile) => {
       <h2>{{ t('docsPages.vessels.measureTitle') }}</h2>
       <p>{{ t('docsPages.vessels.measureBody') }}</p>
 
+      <h2>{{ t('docsPages.vessels.customTitle') }}</h2>
+      <p>{{ t('docsPages.vessels.body.custom1') }}</p>
+      <p>{{ t('docsPages.vessels.body.custom2') }}</p>
+      <p>{{ t('docsPages.vessels.body.custom3') }}</p>
+    </div>
+
+    <figure class="mt-6 max-w-xl">
+      <img
+        :src="'/screenshots/studio-custom-vessel.png'"
+        :alt="t('docsPages.vessels.altCustom')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
+    <div class="prose-docs mt-8">
+      <h2>{{ t('docsPages.vessels.colorTitle') }}</h2>
+      <p>{{ t('docsPages.vessels.body.color') }}</p>
+    </div>
+
+    <figure class="mt-6 max-w-2xl">
+      <img
+        :src="'/screenshots/studio-color-picker.png'"
+        :alt="t('docsPages.vessels.altColor')"
+        loading="lazy"
+        class="w-full rounded-xl border border-ink-800"
+      >
+    </figure>
+
+    <div class="prose-docs mt-8">
       <h2>{{ t('docsPages.vessels.modelCreditsTitle') }}</h2>
       <p>{{ t('docsPages.vessels.modelCreditsBody') }}</p>
 
@@ -78,5 +117,7 @@ const rows = VESSEL_PRESETS.map((profile) => {
         </a>
       </p>
     </div>
+
+    <DocsMoreGuides current="vessels" />
   </article>
 </template>
