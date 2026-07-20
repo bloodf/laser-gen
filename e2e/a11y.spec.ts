@@ -2,15 +2,21 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 /**
- * Axe audit gate: zero *critical* violations on the two main surfaces.
+ * Axe audit gate: zero *critical* violations on the main surfaces.
  * Serious/moderate/minor findings are reported in the test output but do not
  * fail the build yet — fix criticals, triage the rest.
  */
-for (const path of ['/', '/studio']) {
+const SURFACES: { path: string, ready: (page: import('@playwright/test').Page) => Promise<void> }[] = [
+  { path: '/', ready: async page => await expect(page.getByTestId('hero-tagline')).toBeVisible() },
+  { path: '/studio', ready: async page => await expect(page.getByTestId('artboard')).toBeVisible() },
+  { path: '/help', ready: async page => await expect(page.getByTestId('shortcut-table')).toBeVisible() },
+  { path: '/uploads', ready: async page => await expect(page.getByTestId('upload-dropzone')).toBeVisible() },
+]
+
+for (const { path, ready } of SURFACES) {
   test(`no critical axe violations on ${path}`, async ({ page }) => {
     await page.goto(path)
-    if (path === '/studio') await expect(page.getByTestId('artboard')).toBeVisible()
-    else await expect(page.getByTestId('hero-tagline')).toBeVisible()
+    await ready(page)
 
     const results = await new AxeBuilder({ page }).analyze()
     const critical = results.violations.filter(v => v.impact === 'critical')

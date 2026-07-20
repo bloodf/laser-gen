@@ -14,11 +14,16 @@ const emit = defineEmits<{ insert: [asset: LibraryAsset] }>()
 const { t } = useI18n()
 const library = useLibraryStore()
 
+/** Art assets only — uploaded 3D models get their own section on the page. */
+const artAssets = computed(() =>
+  library.assets.filter(a => a.kind !== 'model-glb' && a.kind !== 'model-stl'),
+)
+
 /** Lazily rendered previews for fragment assets, keyed by asset id. */
 const previews = ref<Record<string, string>>({})
 
 watchEffect(() => {
-  for (const asset of library.assets) {
+  for (const asset of artAssets.value) {
     if (!asset.svgFragment || previews.value[asset.id]) continue
     try {
       const thumb = library.makeThumbnail(deserializeDocument(asset.svgFragment))
@@ -37,14 +42,14 @@ function previewFor(asset: LibraryAsset): string | undefined {
 
 <template>
   <div class="grid gap-3">
-    <p v-if="library.assets.length === 0" class="rounded-lg border border-dashed border-ink-700 p-8 text-center">
+    <p v-if="artAssets.length === 0" class="rounded-lg border border-dashed border-ink-700 p-8 text-center">
       <span class="block text-sm font-medium text-ink-300">{{ t('assets.emptyTitle') }}</span>
       <span class="mt-1 block text-xs text-ink-500">{{ t('assets.emptyHint') }}</span>
     </p>
 
     <div v-else class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       <article
-        v-for="asset in library.assets"
+        v-for="asset in artAssets"
         :key="asset.id"
         class="flex flex-col gap-2 rounded-lg border border-ink-800 bg-ink-900 p-3"
       >

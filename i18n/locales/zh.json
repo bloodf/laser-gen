@@ -4,7 +4,12 @@
     "studio": "工作室",
     "library": "项目库",
     "settings": "设置",
-    "docs": "文档"
+    "docs": "文档",
+    "help": "帮助",
+    "uploads": "上传",
+    "openStudio": "打开工作室",
+    "backToSite": "返回网站",
+    "appSections": "应用板块"
   },
   "common": {
     "save": "保存",
@@ -90,7 +95,6 @@
     "dimensions": "Ø {min}–{max} mm × {height} mm",
     "modelCredit": "3D 模型:",
     "modelCreditBy": "作者:",
-
     "color": {
       "custom": "自定义颜色"
     }
@@ -366,6 +370,10 @@
       "tags": "标签",
       "tagsPlaceholder": "用逗号, 分隔, 标签",
       "status": "状态"
+    },
+    "models": {
+      "title": "3D 模型",
+      "useInStudio": "在工作室中使用"
     }
   },
   "jobs": {
@@ -601,5 +609,108 @@
       "measureTitle": "自己测量",
       "contributeTitle": "贡献预设"
     }
+  },
+  "help": {
+    "title": "帮助与快捷键",
+    "intro": "设计 360° 环绕图案所需的一切：快速上手、工作室键盘操作以及常见问题解答。",
+    "quick": {
+      "title": "快速上手",
+      "gettingStarted": {
+        "title": "入门指南",
+        "desc": "从空白画板到首次雕刻，只需五步。"
+      },
+      "vessels": {
+        "title": "容器与测量",
+        "desc": "如何测量杯子，以及为什么毫米很重要。"
+      },
+      "studio": {
+        "title": "打开工作室",
+        "desc": "直接进入环绕编辑器和 3D 预览。"
+      },
+      "uploads": {
+        "title": "上传模型和图片",
+        "desc": "把自己的 GLB/STL 容器和图案带入素材库。"
+      }
+    },
+    "shortcuts": {
+      "title": "工作室键盘快捷键",
+      "action": "操作",
+      "keys": "按键",
+      "rows": {
+        "pan": "临时平移（按住）",
+        "undo": "撤销",
+        "redo": "重做",
+        "redoAlt": "重做（备用）",
+        "selectAll": "选择所有元素",
+        "escape": "取消 / 清除选择",
+        "delete": "删除所选",
+        "nudge": "将所选移动 1 毫米",
+        "nudgeBig": "将所选移动 10 毫米"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": {
+        "export": {
+          "q": "我应该为激光机导出哪种文件？",
+          "a": "使用带有您程序预设（LightBurn、xTool Creative Space 或 LaserGRBL）的 SVG 导出——它保留真实的毫米尺寸。只有当设计依赖抖动照片或工作流仅支持位图时才导出 PNG。"
+        },
+        "rotary": {
+          "q": "如何在 LightBurn 中设置旋转轴？",
+          "a": "在工作室中打开导出对话框并切换到“旋转轴”选项卡：它会计算雕刻区中部的物体直径和精确的画板尺寸。将这些数值填入 LightBurn 的旋转轴设置，并下载 .txt 摘要放在机器旁备用。"
+        },
+        "stretched": {
+          "q": "为什么锥形杯顶部附近的图案看起来被拉伸了？",
+          "a": "这种拉伸在物理上是正确的。锥形杯的圆周向较窄的一端收缩，因此画板上相同的毫米宽度在那里覆盖更大的旋转角度。平面画板就是精确的展开图——所见即所刻。"
+        },
+        "data": {
+          "q": "我的数据存储在哪里？",
+          "a": "所有内容——项目、上传、自定义容器、设置——都保存在本设备浏览器的 IndexedDB 中。laser-gen 没有后端，也没有遥测；除非您自己导出，否则任何数据都不会离开您的设备。"
+        },
+        "aiKeys": {
+          "q": "我的 AI 密钥安全吗？",
+          "a": "是的。密钥在存储时加密（基于不可导出的设备密钥的 AES-GCM），从不会同步，调用直接从浏览器发往服务商，中间没有任何代理。"
+        },
+        "offline": {
+          "q": "laser-gen 可以离线使用吗？",
+          "a": "可以。首次加载后，Service Worker 会缓存应用，工作室、素材库和您的容器都能离线使用。只有 AI 功能需要访问服务商的 API。"
+        }
+      }
+    },
+    "more": {
+      "title": "还有问题？",
+      "docs": "阅读应用内完整文档",
+      "issues": "在 GitHub 上报告问题或请求功能"
+    }
+  },
+  "uploads": {
+    "intro": "把您自己的 3D 模型（GLB/STL）和图案（PNG/JPG/SVG）带入素材库。文件仅保存在本设备上。",
+    "dropzone": "将文件拖到此处，或点击浏览",
+    "acceptHint": "GLB、STL、PNG、JPG、SVG——最大 50 MB",
+    "sizeWarning": "此文件超过 {max} MB——在 3D 预览中加载可能较慢。",
+    "errors": {
+      "unsupported": "不支持的文件类型。请使用 GLB、STL、PNG、JPG 或 SVG。",
+      "tooBig": "文件过大——上限为 {max} MB。",
+      "invalidModel": "此文件似乎不是有效的 3D 模型。",
+      "importFailed": "无法导入此文件。"
+    },
+    "calibration": {
+      "title": "校准“{name}”",
+      "hint": "请输入真实尺寸——模型将按此缩放，使环绕预览和导出保持毫米级精度。",
+      "maxDiameter": "最大直径",
+      "category": "类别",
+      "save": "创建容器"
+    },
+    "saved": {
+      "model": "“{name}”已就绪——它现在是工作室中的当前容器。",
+      "photo": "照片“{name}”已保存到素材库。",
+      "svg": "SVG“{name}”已保存到素材库。"
+    },
+    "listTitle": "您的 3D 模型",
+    "emptyTitle": "还没有 3D 模型",
+    "emptyHint": "在上方上传 GLB 或 STL，即可创建自定义容器。",
+    "linkedVessel": "已关联容器",
+    "rename": "重命名",
+    "deleteConfirm": "删除“{name}”？其关联的自定义容器也会被移除。"
   }
 }

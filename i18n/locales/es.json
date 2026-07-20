@@ -4,7 +4,12 @@
     "studio": "Estudio",
     "library": "Biblioteca",
     "settings": "Ajustes",
-    "docs": "Docs"
+    "docs": "Docs",
+    "help": "Ayuda",
+    "uploads": "Subidas",
+    "openStudio": "Abrir Studio",
+    "backToSite": "Volver al sitio",
+    "appSections": "Secciones de la app"
   },
   "common": {
     "save": "Guardar",
@@ -90,7 +95,6 @@
     "dimensions": "Ø {min}–{max} mm × {height} mm",
     "modelCredit": "Modelo 3D:",
     "modelCreditBy": "por",
-
     "color": {
       "custom": "Color personalizado"
     }
@@ -366,6 +370,10 @@
       "tags": "Etiquetas",
       "tagsPlaceholder": "etiquetas, separadas, por comas",
       "status": "Estado"
+    },
+    "models": {
+      "title": "Modelos 3D",
+      "useInStudio": "Usar en el estudio"
     }
   },
   "jobs": {
@@ -601,5 +609,108 @@
       "measureTitle": "Mide el tuyo",
       "contributeTitle": "Contribuye un preset"
     }
+  },
+  "help": {
+    "title": "Ayuda y atajos",
+    "intro": "Todo lo que necesitas para diseñar arte envolvente de 360°: inicios rápidos, el mapa de teclado del estudio y respuestas a preguntas frecuentes.",
+    "quick": {
+      "title": "Primeros pasos",
+      "gettingStarted": {
+        "title": "Guía de inicio",
+        "desc": "Del lienzo en blanco al primer grabado en cinco pasos."
+      },
+      "vessels": {
+        "title": "Recipientes y medición",
+        "desc": "Cómo medir tu vaso y por qué importan los milímetros."
+      },
+      "studio": {
+        "title": "Abrir el estudio",
+        "desc": "Ir directo al editor envolvente y a la vista 3D."
+      },
+      "uploads": {
+        "title": "Subir modelos e imágenes",
+        "desc": "Trae tus propios recipientes GLB/STL y gráficos a tu biblioteca."
+      }
+    },
+    "shortcuts": {
+      "title": "Atajos de teclado del estudio",
+      "action": "Acción",
+      "keys": "Teclas",
+      "rows": {
+        "pan": "Desplazamiento temporal (mantener)",
+        "undo": "Deshacer",
+        "redo": "Rehacer",
+        "redoAlt": "Rehacer (alternativo)",
+        "selectAll": "Seleccionar todos los elementos",
+        "escape": "Cancelar / borrar selección",
+        "delete": "Eliminar selección",
+        "nudge": "Mover la selección 1 mm",
+        "nudgeBig": "Mover la selección 10 mm"
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": {
+        "export": {
+          "q": "¿Qué archivo debo exportar para mi láser?",
+          "a": "Usa la exportación SVG con el ajuste para tu programa (LightBurn, xTool Creative Space o LaserGRBL): conserva las dimensiones reales en milímetros. Exporta PNG solo si tu diseño depende de fotos tramadas o tu flujo es puramente de trama."
+        },
+        "rotary": {
+          "q": "¿Cómo configuro un rotativo en LightBurn?",
+          "a": "Abre el diálogo de exportación del estudio y ve a la pestaña Rotativo: calcula el diámetro del objeto en el centro de la zona de grabado y el tamaño exacto del lienzo. Introduce esos valores en la configuración rotativa de LightBurn y descarga el resumen .txt para tenerlo junto a la máquina."
+        },
+        "stretched": {
+          "q": "¿Por qué mi diseño se ve estirado cerca del borde superior de vasos cónicos?",
+          "a": "Ese estiramiento es físicamente correcto. La circunferencia de un vaso cónico se reduce hacia el extremo estrecho, así que los mismos milímetros de ancho del lienzo abarcan más grados de giro allí. El lienzo plano es el desarrollo exacto: lo que ves es lo que se graba."
+        },
+        "data": {
+          "q": "¿Dónde se guardan mis datos?",
+          "a": "Todo — proyectos, subidas, recipientes personalizados, ajustes — vive en la IndexedDB de tu navegador, en este dispositivo. laser-gen no tiene backend ni telemetría; nada sale de tu equipo salvo que lo exportes tú."
+        },
+        "aiKeys": {
+          "q": "¿Mis claves de IA son privadas?",
+          "a": "Sí. Las claves se cifran en reposo (AES-GCM con una clave de dispositivo no exportable), nunca se sincronizan, y las llamadas van directamente del navegador al proveedor. No hay ningún proxy intermedio."
+        },
+        "offline": {
+          "q": "¿laser-gen funciona sin conexión?",
+          "a": "Sí. Tras la primera carga, un service worker guarda la app en caché: el estudio, la biblioteca y tus recipientes funcionan sin conexión. Solo las funciones de IA necesitan la API del proveedor."
+        }
+      }
+    },
+    "more": {
+      "title": "¿Aún con dudas?",
+      "docs": "Leer la documentación completa en la app",
+      "issues": "Informar de un error o pedir una función en GitHub"
+    }
+  },
+  "uploads": {
+    "intro": "Trae tus propios modelos 3D (GLB/STL) y gráficos (PNG/JPG/SVG) a tu biblioteca. Los archivos se quedan en este dispositivo.",
+    "dropzone": "Suelta un archivo aquí o haz clic para explorar",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG — hasta 50 MB",
+    "sizeWarning": "Este archivo supera los {max} MB — cargarlo en la vista 3D puede ser lento.",
+    "errors": {
+      "unsupported": "Tipo de archivo no admitido. Usa GLB, STL, PNG, JPG o SVG.",
+      "tooBig": "Archivo demasiado grande: el límite es {max} MB.",
+      "invalidModel": "Este archivo no parece un modelo 3D válido.",
+      "importFailed": "No se pudo importar este archivo."
+    },
+    "calibration": {
+      "title": "Calibrar «{name}»",
+      "hint": "Introduce las dimensiones reales: el modelo se escala para coincidir, así la vista envolvente y la exportación siguen siendo exactas al milímetro.",
+      "maxDiameter": "Diámetro máximo",
+      "category": "Categoría",
+      "save": "Crear recipiente"
+    },
+    "saved": {
+      "model": "«{name}» está listo: ahora es tu recipiente activo en el estudio.",
+      "photo": "Foto «{name}» guardada en los recursos de tu biblioteca.",
+      "svg": "SVG «{name}» guardado en los recursos de tu biblioteca."
+    },
+    "listTitle": "Tus modelos 3D",
+    "emptyTitle": "Aún no hay modelos 3D",
+    "emptyHint": "Sube un GLB o STL arriba para crear un recipiente personalizado.",
+    "linkedVessel": "Recipiente vinculado",
+    "rename": "Renombrar",
+    "deleteConfirm": "¿Eliminar «{name}»? Su recipiente personalizado vinculado también se eliminará."
   }
 }

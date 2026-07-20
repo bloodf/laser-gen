@@ -8,7 +8,7 @@ import { FINISH_COLORS, useVesselStore } from '~/stores/vessel'
 import type { VesselFinish } from '~/stores/vessel'
 import { useEditorStore } from '~/stores/editor'
 
-definePageMeta({ wide: true })
+definePageMeta({ layout: 'app', wide: true })
 
 const { t } = useI18n()
 const store = useVesselStore()
@@ -39,7 +39,7 @@ function endSplit(): void {
 </script>
 
 <template>
-  <section class="flex h-[calc(100dvh-9.5rem)] flex-col">
+  <section class="flex h-[calc(100dvh-7.5rem)] flex-col lg:h-[calc(100dvh-4rem)]">
     <h1 class="sr-only">
       {{ t('nav.studio') }}
     </h1>

@@ -4,7 +4,12 @@
     "studio": "Studio",
     "library": "Bibliothek",
     "settings": "Einstellungen",
-    "docs": "Doku"
+    "docs": "Doku",
+    "help": "Hilfe",
+    "uploads": "Uploads",
+    "openStudio": "Studio öffnen",
+    "backToSite": "Zurück zur Website",
+    "appSections": "App-Bereiche"
   },
   "common": {
     "save": "Speichern",
@@ -90,7 +95,6 @@
     "dimensions": "Ø {min}–{max} mm × {height} mm",
     "modelCredit": "3D-Modell:",
     "modelCreditBy": "von",
-
     "color": {
       "custom": "Eigene Farbe"
     }
@@ -366,6 +370,10 @@
       "tags": "Schlagworte",
       "tagsPlaceholder": "Schlagworte, durch, Kommas",
       "status": "Status"
+    },
+    "models": {
+      "title": "3D-Modelle",
+      "useInStudio": "Im Studio nutzen"
     }
   },
   "jobs": {
@@ -601,5 +609,108 @@
       "measureTitle": "Selbst messen",
       "contributeTitle": "Preset beisteuern"
     }
+  },
+  "help": {
+    "title": "Hilfe & Tastenkürzel",
+    "intro": "Alles, was du für 360°-Wrap-Designs brauchst: Schnelleinstiege, die Tastaturbelegung des Studios und Antworten auf häufige Fragen.",
+    "quick": {
+      "title": "Erste Schritte",
+      "gettingStarted": {
+        "title": "Einstiegsanleitung",
+        "desc": "Von der leeren Arbeitsfläche zur ersten Gravur in fünf Schritten."
+      },
+      "vessels": {
+        "title": "Gefäße & Ausmessen",
+        "desc": "Wie du deinen Becher ausmisst und warum Millimeter zählen."
+      },
+      "studio": {
+        "title": "Studio öffnen",
+        "desc": "Direkt in den Wrap-Editor und die 3D-Vorschau springen."
+      },
+      "uploads": {
+        "title": "Modelle & Bilder hochladen",
+        "desc": "Eigene GLB/STL-Gefäße und Grafiken in deine Bibliothek holen."
+      }
+    },
+    "shortcuts": {
+      "title": "Tastenkürzel im Studio",
+      "action": "Aktion",
+      "keys": "Tasten",
+      "rows": {
+        "pan": "Temporär verschieben (gedrückt halten)",
+        "undo": "Rückgängig",
+        "redo": "Wiederholen",
+        "redoAlt": "Wiederholen (alternativ)",
+        "selectAll": "Alle Elemente auswählen",
+        "escape": "Abbrechen / Auswahl aufheben",
+        "delete": "Auswahl löschen",
+        "nudge": "Auswahl um 1 mm verschieben",
+        "nudgeBig": "Auswahl um 10 mm verschieben"
+      }
+    },
+    "faq": {
+      "title": "Häufige Fragen",
+      "items": {
+        "export": {
+          "q": "Welche Datei soll ich für meinen Laser exportieren?",
+          "a": "Nutze den SVG-Export mit der Vorgabe für dein Programm (LightBurn, xTool Creative Space oder LaserGRBL) — er enthält echte Millimeter-Maße. Exportiere PNG nur, wenn dein Design auf geditherten Fotos basiert oder dein Workflow rein rasterbasiert ist."
+        },
+        "rotary": {
+          "q": "Wie richte ich eine Drehachse in LightBurn ein?",
+          "a": "Öffne den Export-Dialog im Studio und wechsle zum Reiter „Drehachse“: Dort findest du den Objektdurchmesser in der Mitte der Gravurzone und die exakte Arbeitsflächengröße. Trage diese Werte im Rotary-Setup von LightBurn ein und lade die .txt-Zusammenfassung als Merkzettel herunter."
+        },
+        "stretched": {
+          "q": "Warum wirkt meine Grafik nahe dem oberen Rand konischer Becher verzerrt?",
+          "a": "Diese Verzerrung ist physikalisch korrekt. Der Umfang eines konischen Bechers nimmt zum schmaleren Ende hin ab, daher decken dieselben Millimeter Arbeitsflächenbreite dort mehr Grad der Drehung ab. Die ebene Arbeitsfläche ist die exakte Abwicklung — was du siehst, wird graviert."
+        },
+        "data": {
+          "q": "Wo werden meine Daten gespeichert?",
+          "a": "Alles — Projekte, Uploads, eigene Gefäße, Einstellungen — liegt in der IndexedDB deines Browsers auf diesem Gerät. laser-gen hat kein Backend und kein Tracking; nichts verlässt deinen Rechner, es sei denn, du exportierst es selbst."
+        },
+        "aiKeys": {
+          "q": "Sind meine KI-API-Schlüssel sicher?",
+          "a": "Ja. Schlüssel werden verschlüsselt gespeichert (AES-GCM mit einem nicht exportierbaren Geräteschlüssel), niemals synchronisiert, und Aufrufe gehen direkt vom Browser zum Anbieter. Es gibt keinen Proxy dazwischen."
+        },
+        "offline": {
+          "q": "Funktioniert laser-gen offline?",
+          "a": "Ja. Nach dem ersten Laden wird die App von einem Service Worker zwischengespeichert — Studio, Bibliothek und deine Gefäße funktionieren ohne Verbindung. Nur die KI-Funktionen brauchen die API des Anbieters."
+        }
+      }
+    },
+    "more": {
+      "title": "Noch Fragen?",
+      "docs": "Die vollständige Dokumentation in der App lesen",
+      "issues": "Fehler melden oder Funktion auf GitHub anfragen"
+    }
+  },
+  "uploads": {
+    "intro": "Eigene 3D-Modelle (GLB/STL) und Grafiken (PNG/JPG/SVG) in deine Bibliothek bringen. Dateien bleiben auf diesem Gerät.",
+    "dropzone": "Datei hier ablegen oder zum Durchsuchen klicken",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG — bis zu 50 MB",
+    "sizeWarning": "Diese Datei ist größer als {max} MB — das Laden in der 3D-Vorschau kann langsam sein.",
+    "errors": {
+      "unsupported": "Dateityp nicht unterstützt. Nutze GLB, STL, PNG, JPG oder SVG.",
+      "tooBig": "Datei zu groß — das Limit liegt bei {max} MB.",
+      "invalidModel": "Diese Datei scheint kein gültiges 3D-Modell zu sein.",
+      "importFailed": "Diese Datei konnte nicht importiert werden."
+    },
+    "calibration": {
+      "title": "„{name}“ kalibrieren",
+      "hint": "Gib die realen Maße ein — das Modell wird passend skaliert, damit Vorschau und Export millimetergenau bleiben.",
+      "maxDiameter": "Maximaler Durchmesser",
+      "category": "Kategorie",
+      "save": "Gefäß erstellen"
+    },
+    "saved": {
+      "model": "„{name}“ ist bereit — es ist jetzt dein aktives Gefäß im Studio.",
+      "photo": "Foto „{name}“ in deinen Bibliotheks-Assets gespeichert.",
+      "svg": "SVG „{name}“ in deinen Bibliotheks-Assets gespeichert."
+    },
+    "listTitle": "Deine 3D-Modelle",
+    "emptyTitle": "Noch keine 3D-Modelle",
+    "emptyHint": "Lade oben eine GLB- oder STL-Datei hoch, um ein eigenes Gefäß daraus zu bauen.",
+    "linkedVessel": "Gefäß verknüpft",
+    "rename": "Umbenennen",
+    "deleteConfirm": "„{name}“ löschen? Das verknüpfte eigene Gefäß wird ebenfalls entfernt."
   }
 }

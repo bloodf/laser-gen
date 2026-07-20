@@ -43,26 +43,32 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      CustomVesselDialog — M11 user-defined vessel builder)
   components/library/  Library dashboard pieces (ProjectCard, ProjectDetail
                        with job tracker, AssetGrid)
+  components/app/      M13 app-shell pieces (NavIcon section icons)
   composables/       useVesselGeometry (three.js lathe from core profiles +
                      M12 `parts`: lathe bands / torus rings with coated/steel/
-                     plastic material roles), useGlbVessel (M12 GLB-backed
-                     vessels: GLTFLoader, body-mesh detection, mm
-                     normalization, cylindrical-UV artboard mapping),
+                     plastic material roles), useGlbVessel (M12/M13 model-backed
+                     vessels: GLB from /models URL *or* library Blob, STL via
+                     STLLoader — body-mesh detection, mm normalization,
+                     cylindrical-UV artboard mapping, object-URL lifetime),
                      useArtboardTexture (CanvasTexture artboard + demo pattern),
                      useDocumentTexture (project doc → texture live sync),
-                     useRasterImport (shared PNG/JPG → image element import)
+                     useRasterImport (shared PNG/JPG → image element import),
+                     useModelThumbnail (M13 offscreen WebGL model thumbnails)
   core/              pure-TS domain logic — no Vue/DOM/Nuxt imports here:
                      geometry/ (profiles, unwrap math, lathe, presets — incl.
-                     M12 optional `model` (GLB ref + CC-BY credit) and `parts`
+                     M12/M13 optional `model` (GLB ref + CC-BY credit, or
+                     library `assetId` + `format` for uploads) and `parts`
                      on VesselProfile — custom user-measured vessels +
                      resolveVessel, rotary incl. rotarySetupText, UV remap +
-                     cylindricalUVs for GLB bodies), svg/ (document model, path math,
+                     cylindricalUVs for GLB bodies, stl.ts binary+ascii STL
+                     parser), svg/ (document model, path math,
                      mm serializer,
                      SVG import/sanitize, RDP simplify, seam wrap, Canvas2D
                      renderer), vectorize/ (imagetracerjs Web Worker trace),
                      photo/ (adjust/dither/halftone/stipple pipeline, material
                      presets, corner flood-fill bg removal, Web Worker bridge),
-                     library/ (project/asset types, LibraryRepo abstraction —
+                     library/ (project/asset types — incl. M13 model-glb/
+                     model-stl Blob assets, LibraryRepo abstraction —
                      IndexedDB impl + in-memory test impl — query/CRUD logic,
                      job notes, versioned whole-library import/export);
                      ai/ (BYOK provider abstraction — Anthropic/OpenAI via
@@ -82,7 +88,8 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      only, never persistedstate)
 docs/                Architecture and how-to guides (screenshots live in docs/screenshots/)
 e2e/                 Playwright e2e specs (excluded from vitest), fixtures/ with a
-                     generated sample PNG (regenerate: node e2e/fixtures/create-fixture.mjs)
+                     generated sample PNG + STL (regenerate:
+                     node e2e/fixtures/create-fixture.mjs / create-stl-fixture.mjs)
 scripts/             Repo maintenance scripts (check-i18n.mjs, capture-screenshots.mjs)
 i18n/locales/        Translation JSON, lazy-loaded; en.json is the source of truth
 public/              PWA icons, favicon, models/ (M12 CC-BY-4.0 GLB vessel
@@ -119,6 +126,11 @@ test/                Vitest tests (unit tests also live beside core modules)
 - The landing page (`app/pages/index.vue`) uses `definePageMeta({ bare: true })` for a
   full-bleed shell; the studio uses `wide: true`. three.js must stay out of the
   landing entry chunk — `HeroShader.vue` imports it via `await import('three')`.
+- Two shells (M13): `app/layouts/default.vue` is the marketing/docs **site** shell
+  (nav, "Open Studio" CTA, footer); `app/layouts/app.vue` is the **app** shell
+  (icon sidebar / bottom tab bar: Studio, Library, Uploads, Settings) applied
+  via `definePageMeta({ layout: 'app' })` on those four pages. The studio adds
+  `wide: true` for its viewport-fitted split view.
 - Modern-CSS progressive enhancement lives in `app/assets/css/main.css`:
   scroll-driven reveal animations only apply inside `@supports (animation-timeline:
   view())` + `prefers-reduced-motion: no-preference`, so content is always visible

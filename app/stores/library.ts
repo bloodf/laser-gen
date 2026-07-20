@@ -179,10 +179,15 @@ export const useLibraryStore = defineStore('library', () => {
   }
 
   /** Save an arbitrary asset (e.g. an AI generation from the studio AI panel). */
-  async function saveAsset(input: { name: string, kind: LibraryAsset['kind'], dataUrl?: string, svgFragment?: string }): Promise<LibraryAsset> {
+  async function saveAsset(input: { name: string, kind: LibraryAsset['kind'], dataUrl?: string, svgFragment?: string, blob?: Blob, blobName?: string }): Promise<LibraryAsset> {
     const asset = await core.saveAsset(input)
     await refresh()
     return asset
+  }
+
+  async function renameAsset(id: string, name: string): Promise<void> {
+    await core.renameAsset(id, name)
+    await refresh()
   }
 
   async function deleteAsset(id: string): Promise<void> {
@@ -289,6 +294,7 @@ export const useLibraryStore = defineStore('library', () => {
     removeJobNote,
     saveCurrentDocAsAsset,
     saveAsset,
+    renameAsset,
     deleteAsset,
     insertAssetIntoCurrent,
     exportToFile,

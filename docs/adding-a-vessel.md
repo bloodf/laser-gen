@@ -56,6 +56,14 @@ Presets may also carry optional preview-only fields (M12, both in
   "GLB-backed vessels" in [architecture.md](architecture.md)). Third-party GLBs need a
   `credit` block and a NOTICE.md entry (CC-BY attribution is a license requirement).
 
+> **User uploads (M13):** users can also upload their own GLB/STL models on the
+> `/uploads` page. Those live as Blobs in the personal library (`model-glb` /
+> `model-stl` asset kinds) and link to a custom vessel via `model.assetId` — no
+> `credit`, no PR. STL models wrap as a **single piece**: the whole mesh is the body
+> and carries the artboard texture (there are no separate handle/lid materials), and
+> STL's Z-up convention is converted on load. Upload scale comes from the calibration
+> form (real-world diameter + height), not bounding-box guessing.
+
 ## Measuring a vessel
 
 1. **Height**: ruler or calipers, base to rim.

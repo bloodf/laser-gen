@@ -123,6 +123,26 @@ laser-gen is developed in milestones. Each milestone ships working, verifiable s
   bottle 500ml, cola-shape insulated bottle 750ml; the camp mug preview moved
   to the Stanley GLB and the pint 16oz gained stainless rim + base bands.
 
+- **M13 — Site/app shell split, help hub & personal uploads** ✅
+  Two layouts: the site shell (`app/layouts/default.vue` — marketing nav with
+  Home/Docs/Help, an "Open Studio" CTA, sticky backdrop-blur header, footer)
+  and the app shell (`app/layouts/app.vue` — slim icon sidebar on desktop /
+  bottom tab bar on mobile for Studio/Library/Uploads/Settings, top bar with
+  section title, "Back to site", language switcher; laser-accent active-route
+  indicator). New `/help` page (quick links, the studio's real keyboard
+  shortcuts, a 6-entry FAQ, docs/GitHub-issues links). Personal uploads
+  (`/uploads`): GLB/STL 3D models and PNG/JPG/SVG art land in the library —
+  model uploads open a calibration form (real-world max Ø/C, height, engrave
+  zone, category) that creates both a Blob-backed library asset (new
+  `model-glb`/`model-stl` kinds, `blob` field on `LibraryAsset`, 20 MB warn /
+  50 MB reject, WebGL-rendered thumbnails) and a linked custom vessel
+  (`model.assetId`) that appears in the vessel switcher. STL support is a
+  pure parser (`app/core/geometry/stl.ts`, binary + ascii) feeding the same
+  cylindrical-UV/artboard pipeline as GLB in `useGlbVessel` (single-piece
+  STLs wrap the whole surface — there are no separate handle/lid materials).
+  The library's assets tab gained a 3D-models section with thumbnails and
+  "Use in studio"; deleting a model asset removes its linked vessel.
+
 ## Next (post-0.1.0)
 
 Not shipped yet — contributions welcome:

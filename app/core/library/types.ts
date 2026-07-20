@@ -62,23 +62,33 @@ export interface LibraryProject {
   docJson: string
 }
 
-/** Where a reusable asset came from. */
-export type AssetKind = 'svg-layer' | 'photo' | 'ai-generation'
+/** Where a reusable asset came from / what it carries. */
+export type AssetKind = 'svg-layer' | 'photo' | 'ai-generation' | 'model-glb' | 'model-stl'
 
 /**
  * Reusable art kept independently of any project. Vector art is stored as a
  * serialized `SvgDocument` fragment in `svgFragment`; raster art as a data
- * URL in `dataUrl`. At least one of the two must be present.
+ * URL in `dataUrl`; uploaded 3D models as a raw file `blob` (IndexedDB stores
+ * Blobs natively — no migration needed, older assets simply lack the field).
+ * At least one of the three must be present.
+ *
+ * Note: `blob` payloads cannot survive the JSON whole-library export — model
+ * assets export with their thumbnail only and must be re-uploaded after an
+ * import on another device.
  */
 export interface LibraryAsset {
   /** Stable unique id. */
   id: string
   name: string
   kind: AssetKind
-  /** Raster payload (data URL) for photo/AI assets. */
+  /** Raster payload (data URL) for photo/AI assets; thumbnail for model assets. */
   dataUrl?: string
   /** Serialized `SvgDocument` fragment for vector assets. */
   svgFragment?: string
+  /** Raw uploaded file for `model-glb` / `model-stl` assets. */
+  blob?: Blob
+  /** Original file name of an uploaded blob (e.g. `'mug.stl'`). */
+  blobName?: string
   /** Normalized tags (lowercase, trimmed, deduped). */
   tags: string[]
   /** Unix timestamp (ms) of creation. */

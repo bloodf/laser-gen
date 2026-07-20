@@ -202,6 +202,51 @@ describe('assets', () => {
     await store.deleteAsset(asset.id)
     expect(await store.listAssets()).toEqual([])
   })
+
+  it('stores model assets with a blob payload (M13)', async () => {
+    const store = createLibraryStore(createMemoryRepo(), clock())
+    const blob = new Blob([new Uint8Array([1, 2, 3])], { type: 'model/stl' })
+    const asset = await store.saveAsset({
+      name: 'My cup',
+      kind: 'model-stl',
+      blob,
+      blobName: 'cup.stl',
+      dataUrl: 'data:image/png;base64,thumb',
+    })
+    expect(asset.blob).toBeDefined()
+    expect(asset.blobName).toBe('cup.stl')
+    const fetched = (await store.listAssets()).find(a => a.id === asset.id)
+    expect(fetched?.kind).toBe('model-stl')
+    expect(fetched?.dataUrl).toBe('data:image/png;base64,thumb')
+  })
+
+  it('renames assets', async () => {
+    const store = createLibraryStore(createMemoryRepo(), clock())
+    const asset = await store.saveAsset({ name: 'Old name', kind: 'photo', dataUrl: 'data:x' })
+    const renamed = await store.renameAsset(asset.id, 'New name')
+    expect(renamed?.name).toBe('New name')
+    expect((await store.listAssets())[0]!.name).toBe('New name')
+    expect(await store.renameAsset('missing', 'nope')).toBeUndefined()
+  })
+
+  it('import keeps model assets (blob dropped, thumbnail kept)', () => {
+    const json = JSON.stringify({
+      format: LIBRARY_FORMAT,
+      version: 1,
+      projects: [],
+      assets: [
+        { id: 'm1', name: 'Cup model', kind: 'model-glb', blobName: 'cup.glb', dataUrl: 'data:thumb' },
+        { id: 'm2', name: 'No-payload model', kind: 'model-stl' },
+        { id: 'x1', name: 'Unknown kind', kind: 'hologram' },
+      ],
+    })
+    const { assets } = parseLibraryExport(json)
+    // Unknown kinds fall back to svg-layer and are dropped without a payload.
+    expect(assets.map(a => a.id)).toEqual(['m1', 'm2'])
+    expect(assets[0]!.kind).toBe('model-glb')
+    expect(assets[0]!.blobName).toBe('cup.glb')
+    expect(assets[0]!.blob).toBeUndefined()
+  })
 })
 
 describe('export/import', () => {

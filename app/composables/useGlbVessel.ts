@@ -1,29 +1,37 @@
 /**
- * GLB-backed vessel models for the 3D preview.
+ * Model-backed vessel previews (GLB and STL) for the 3D viewer.
  *
- * Loads a GLB (CC-BY Sketchfab models in `public/models/`), finds the
- * engravable **body mesh** (`model.bodyMeshName`, else a heuristic: the
- * largest roughly-cylindrical mesh by vertex count), normalizes the model so
- * the body matches the vessel's `VesselProfile` in mm — per-axis scale maps
- * body height → profile height and body radius → profile max radius, and the
- * body axis is centered on x/z with the base at the profile's first y — then
- * bakes `cylindricalUVs` onto the body mesh so the shared artboard
- * CanvasTexture maps exactly like it does on the lathe geometry.
+ * Sources: built-in CC-BY GLBs from `public/models/` (`model.url`), or user
+ * uploads held as a Blob in the personal library (`model.assetId`, resolved
+ * to a temporary object URL). GLB loading finds the engravable **body mesh**
+ * (`model.bodyMeshName`, else a heuristic: the largest roughly-cylindrical
+ * mesh by vertex count); STL is a single-mesh format, so the whole mesh is
+ * the body — single-piece STLs wrap the whole surface, handles included.
+ * STL's Z-up convention is converted to Y-up on load.
  *
- * Only the body mesh gets a new material (artboard texture); handle/lid
- * meshes keep their original GLB materials and textures. The parametric
- * lathe profile stays the source of truth for unwrap, artboard, and export —
- * the GLB is a preview-only skin, and the viewer falls back to the lathe
- * while the model loads or when loading fails.
+ * The model is normalized so the body matches the vessel's `VesselProfile`
+ * in mm — per-axis scale maps body height → profile height and body radius →
+ * profile max radius (for user uploads those come from the calibration form,
+ * not bounding-box guessing), the body axis is centered on x/z with the base
+ * at the profile's first y — then `cylindricalUVs` are baked onto the body
+ * mesh so the shared artboard CanvasTexture maps exactly like it does on the
+ * lathe geometry.
  *
- * Lifetime: the previous model (geometries, materials, textures) is disposed
- * on profile change and on scope dispose.
+ * Only the body mesh gets a new material (artboard texture); GLB handle/lid
+ * meshes keep their original materials. The parametric lathe profile stays
+ * the source of truth for unwrap, artboard, and export — the model is a
+ * preview-only skin, and the viewer falls back to the lathe while the model
+ * loads or when loading fails.
+ *
+ * Lifetime: the previous model (geometries, materials, textures) and any
+ * object URL are disposed/revoked on profile change and on scope dispose.
  */
 
 import { Box3, BufferAttribute, Group, Mesh, MeshStandardMaterial, Vector3 } from 'three'
 import type { BufferGeometry, Material, Object3D, Texture } from 'three'
 import { cylindricalUVs } from '~/core/geometry'
 import type { VesselProfile } from '~/core/geometry'
+import { useLibraryStore } from '~/stores/library'
 
 export interface GlbVesselModel {
   /** Normalized model, in the same recentered frame as the lathe (y = 0 at mid-height). */
@@ -108,7 +116,7 @@ function disposeObject(root: Object3D, extraMaterials: Material[] = []): void {
 }
 
 /**
- * Reactive GLB model for a vessel profile: (re)loads when `profile.model.url`
+ * Reactive 3D model for a vessel profile: (re)loads when `profile.model`
  * changes, `null` for purely parametric vessels or while loading.
  *
  * @param profile - Reactive vessel profile (e.g. from the vessel store).
@@ -116,12 +124,70 @@ function disposeObject(root: Object3D, extraMaterials: Material[] = []): void {
  */
 export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Texture) {
   const model = shallowRef<GlbVesselModel | null>(null)
+  const library = useLibraryStore()
   let loadToken = 0
+  /** Object URL created for a library blob, revoked on unload. */
+  let objectUrl: string | null = null
 
   function unload(next: GlbVesselModel | null): void {
     const previous = model.value
     model.value = next
     if (previous) disposeObject(previous.group, [previous.bodyMaterial])
+    if (objectUrl) {
+      URL.revokeObjectURL(objectUrl)
+      objectUrl = null
+    }
+  }
+
+  /**
+   * Resolve the model source to a loadable URL. Library blobs become a
+   * temporary object URL (revoked on the next unload).
+   */
+  async function resolveSource(vessel: VesselProfile): Promise<string | null> {
+    const ref = vessel.model
+    if (!ref) return null
+    if (ref.url) return ref.url
+    if (ref.assetId) {
+      await library.ensureLoaded()
+      const asset = library.assets.find(a => a.id === ref.assetId)
+      if (!asset?.blob) return null
+      objectUrl = URL.createObjectURL(asset.blob)
+      return objectUrl
+    }
+    return null
+  }
+
+  /** Load a GLB scene and pick its body mesh. */
+  async function loadGlb(url: string, bodyMeshName?: string): Promise<{ scene: Group, body: Mesh }> {
+    const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js')
+    const gltf = await new GLTFLoader().loadAsync(url)
+    const scene = new Group()
+    scene.add(gltf.scene)
+    scene.updateWorldMatrix(true, true)
+    const body = pickBodyMesh(collectMeshes(gltf.scene), bodyMeshName)
+    if (!body) {
+      disposeObject(scene)
+      throw new Error(`no body mesh found in ${url}`)
+    }
+    return { scene, body }
+  }
+
+  /**
+   * Load an STL as a single body mesh. STL is Z-up by convention, so the
+   * geometry is rotated into the Y-up vessel frame; single-piece STLs wrap
+   * the whole surface (documented limitation — there are no separate
+   * handle/lid materials).
+   */
+  async function loadStl(url: string): Promise<{ scene: Group, body: Mesh }> {
+    const { STLLoader } = await import('three/examples/jsm/loaders/STLLoader.js')
+    const geometry = await new STLLoader().loadAsync(url)
+    if (!geometry.attributes.normal) geometry.computeVertexNormals()
+    geometry.rotateX(-Math.PI / 2)
+    const body = new Mesh(geometry)
+    const scene = new Group()
+    scene.add(body)
+    scene.updateWorldMatrix(true, true)
+    return { scene, body }
   }
 
   async function load(vessel: VesselProfile): Promise<void> {
@@ -131,34 +197,29 @@ export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Tex
       unload(null)
       return
     }
+    const label = ref.url ?? ref.assetId ?? 'model'
     try {
-      const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js')
-      const gltf = await new GLTFLoader().loadAsync(ref.url)
+      const source = await resolveSource(vessel)
+      if (!source) throw new Error(`no loadable source for ${label}`)
+      if (token !== loadToken) return
+
+      const format = ref.format ?? 'glb'
+      const { scene: wrapper, body: bodyMesh } = format === 'stl'
+        ? await loadStl(source)
+        : await loadGlb(source, ref.bodyMeshName)
       if (token !== loadToken) {
         // A newer load superseded this one — drop the stale scene.
-        disposeObject(gltf.scene)
+        disposeObject(wrapper)
         return
       }
 
-      const wrapper = new Group()
-      wrapper.add(gltf.scene)
-      wrapper.updateWorldMatrix(true, true)
-
-      const meshes = collectMeshes(gltf.scene)
-      const bodyMesh = pickBodyMesh(meshes, ref.bodyMeshName)
-      if (!bodyMesh) throw new Error(`no body mesh found in ${ref.url}`)
-
-      // glTF is Y-up per spec (the loader already converts Z-up source data),
-      // so no axis guessing here — just measure the body in world space.
-      //
       // Normalize per axis so the body matches the profile's mm dimensions:
       // y scales body height → profile height; x/z scale the *smaller*
       // horizontal extent (the body radius without handle/lid protrusions) →
-      // the profile's max radius. The non-uniform scale keeps the body
-      // circular while making the engrave surface line up with the
-      // lathe-driven overlays (seam bar, safe zone, laser sweep). Raw model
-      // units are arbitrary (plain-mug: 0.150 tall; stanley: 3.52 tall as
-      // loaded) — see the `model` comments in presets.ts.
+      // the profile's max radius. For user uploads the profile comes from the
+      // calibration form, so this maps the model onto the measured real-world
+      // dimensions. Raw model units are arbitrary (plain-mug: 0.150 tall;
+      // stanley: 3.52 tall as loaded) — see the `model` comments in presets.ts.
       const bodyBox = meshBox(bodyMesh)
       const firstY = vessel.points[0]?.y ?? 0
       const lastY = vessel.points[vessel.points.length - 1]?.y ?? 0
@@ -187,7 +248,7 @@ export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Tex
       // matching the lathe convention so the artboard texture aligns.
       const geometry = bodyMesh.geometry
       const positions = geometry.attributes.position
-      if (!positions) throw new Error(`body mesh in ${ref.url} has no position attribute`)
+      if (!positions) throw new Error(`body mesh in ${label} has no position attribute`)
       const world = new Float32Array(positions.count * 3)
       const v = new Vector3()
       for (let i = 0; i < positions.count; i++) {
@@ -213,7 +274,7 @@ export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Tex
     }
     catch (error) {
       if (token === loadToken) unload(null)
-      console.warn(`[useGlbVessel] failed to load ${ref.url} — falling back to the lathe preview`, error)
+      console.warn(`[useGlbVessel] failed to load ${label} — falling back to the lathe preview`, error)
     }
   }
 

@@ -4,7 +4,12 @@
     "studio": "Estúdio",
     "library": "Biblioteca",
     "settings": "Configurações",
-    "docs": "Docs"
+    "docs": "Docs",
+    "help": "Ajuda",
+    "uploads": "Uploads",
+    "openStudio": "Abrir Studio",
+    "backToSite": "Voltar ao site",
+    "appSections": "Seções do app"
   },
   "common": {
     "save": "Salvar",
@@ -90,7 +95,6 @@
     "dimensions": "Ø {min}–{max} mm × {height} mm",
     "modelCredit": "Modelo 3D:",
     "modelCreditBy": "por",
-
     "color": {
       "custom": "Cor personalizada"
     }
@@ -366,6 +370,10 @@
       "tags": "Etiquetas",
       "tagsPlaceholder": "etiquetas, separadas, por vírgula",
       "status": "Status"
+    },
+    "models": {
+      "title": "Modelos 3D",
+      "useInStudio": "Usar no estúdio"
     }
   },
   "jobs": {
@@ -601,5 +609,108 @@
       "measureTitle": "Meça o seu",
       "contributeTitle": "Contribua com um preset"
     }
+  },
+  "help": {
+    "title": "Ajuda e atalhos",
+    "intro": "Tudo o que você precisa para criar arte envolvente de 360°: inícios rápidos, o mapa de teclado do estúdio e respostas às perguntas frequentes.",
+    "quick": {
+      "title": "Primeiros passos",
+      "gettingStarted": {
+        "title": "Guia de início",
+        "desc": "Da prancheta em branco à primeira gravação em cinco passos."
+      },
+      "vessels": {
+        "title": "Recipientes e medição",
+        "desc": "Como medir seu copo e por que os milímetros importam."
+      },
+      "studio": {
+        "title": "Abrir o estúdio",
+        "desc": "Ir direto para o editor envolvente e a prévia 3D."
+      },
+      "uploads": {
+        "title": "Enviar modelos e imagens",
+        "desc": "Traga seus próprios recipientes GLB/STL e artes para a sua biblioteca."
+      }
+    },
+    "shortcuts": {
+      "title": "Atalhos de teclado do estúdio",
+      "action": "Ação",
+      "keys": "Teclas",
+      "rows": {
+        "pan": "Movimento temporário (segurar)",
+        "undo": "Desfazer",
+        "redo": "Refazer",
+        "redoAlt": "Refazer (alternativo)",
+        "selectAll": "Selecionar todos os elementos",
+        "escape": "Cancelar / limpar seleção",
+        "delete": "Excluir seleção",
+        "nudge": "Mover a seleção em 1 mm",
+        "nudgeBig": "Mover a seleção em 10 mm"
+      }
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "items": {
+        "export": {
+          "q": "Qual arquivo devo exportar para o meu laser?",
+          "a": "Use a exportação SVG com a predefinição do seu programa (LightBurn, xTool Creative Space ou LaserGRBL) — ela mantém as dimensões reais em milímetros. Exporte PNG apenas quando o design depende de fotos pontilhadas ou o fluxo é puramente raster."
+        },
+        "rotary": {
+          "q": "Como configuro um rotativo no LightBurn?",
+          "a": "Abra a caixa de exportação no estúdio e vá até a aba Rotativo: ela calcula o diâmetro do objeto no meio da zona de gravação e o tamanho exato da prancheta. Informe esses valores na configuração rotativa do LightBurn e baixe o resumo .txt para deixar ao lado da máquina."
+        },
+        "stretched": {
+          "q": "Por que minha arte parece esticada perto do topo de copos cônicos?",
+          "a": "Esse estiramento é fisicamente correto. A circunferência de um copo cônico diminui em direção à extremidade estreita, então os mesmos milímetros de largura da prancheta cobrem mais graus de rotação ali. A prancheta plana é a planificação exata — o que você vê é o que será gravado."
+        },
+        "data": {
+          "q": "Onde meus dados ficam armazenados?",
+          "a": "Tudo — projetos, uploads, recipientes personalizados, configurações — fica na IndexedDB do seu navegador, neste dispositivo. O laser-gen não tem backend nem telemetria; nada sai da sua máquina a menos que você mesmo exporte."
+        },
+        "aiKeys": {
+          "q": "Minhas chaves de IA são privadas?",
+          "a": "Sim. As chaves são criptografadas em repouso (AES-GCM com uma chave de dispositivo não exportável), nunca sincronizadas, e as chamadas vão direto do navegador ao provedor. Não há nenhum proxy no meio."
+        },
+        "offline": {
+          "q": "O laser-gen funciona offline?",
+          "a": "Sim. Após o primeiro carregamento, um service worker mantém o app em cache — o estúdio, a biblioteca e seus recipientes funcionam sem conexão. Apenas os recursos de IA precisam da API do provedor."
+        }
+      }
+    },
+    "more": {
+      "title": "Ainda com dúvidas?",
+      "docs": "Ler a documentação completa no app",
+      "issues": "Reportar um bug ou pedir um recurso no GitHub"
+    }
+  },
+  "uploads": {
+    "intro": "Traga seus próprios modelos 3D (GLB/STL) e artes (PNG/JPG/SVG) para a sua biblioteca. Os arquivos ficam neste dispositivo.",
+    "dropzone": "Solte um arquivo aqui ou clique para procurar",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG — até 50 MB",
+    "sizeWarning": "Este arquivo tem mais de {max} MB — o carregamento na prévia 3D pode ficar lento.",
+    "errors": {
+      "unsupported": "Tipo de arquivo não suportado. Use GLB, STL, PNG, JPG ou SVG.",
+      "tooBig": "Arquivo muito grande — o limite é {max} MB.",
+      "invalidModel": "Este arquivo não parece um modelo 3D válido.",
+      "importFailed": "Não foi possível importar este arquivo."
+    },
+    "calibration": {
+      "title": "Calibrar “{name}”",
+      "hint": "Informe as dimensões reais — o modelo é redimensionado para corresponder, mantendo a prévia envolvente e a exportação exatas ao milímetro.",
+      "maxDiameter": "Diâmetro máximo",
+      "category": "Categoria",
+      "save": "Criar recipiente"
+    },
+    "saved": {
+      "model": "“{name}” está pronto — agora é o seu recipiente ativo no estúdio.",
+      "photo": "Foto “{name}” salva nos recursos da sua biblioteca.",
+      "svg": "SVG “{name}” salvo nos recursos da sua biblioteca."
+    },
+    "listTitle": "Seus modelos 3D",
+    "emptyTitle": "Nenhum modelo 3D ainda",
+    "emptyHint": "Envie um GLB ou STL acima para criar um recipiente personalizado.",
+    "linkedVessel": "Recipiente vinculado",
+    "rename": "Renomear",
+    "deleteConfirm": "Excluir “{name}”? O recipiente personalizado vinculado também será removido."
   }
 }

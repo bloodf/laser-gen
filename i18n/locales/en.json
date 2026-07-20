@@ -4,7 +4,12 @@
     "studio": "Studio",
     "library": "Library",
     "settings": "Settings",
-    "docs": "Docs"
+    "docs": "Docs",
+    "help": "Help",
+    "uploads": "Uploads",
+    "openStudio": "Open Studio",
+    "backToSite": "Back to site",
+    "appSections": "App sections"
   },
   "common": {
     "save": "Save",
@@ -90,7 +95,6 @@
     "dimensions": "Ø {min}–{max} mm × {height} mm",
     "modelCredit": "3D model:",
     "modelCreditBy": "by",
-
     "color": {
       "custom": "Custom color"
     }
@@ -366,6 +370,10 @@
       "tags": "Tags",
       "tagsPlaceholder": "comma, separated, tags",
       "status": "Status"
+    },
+    "models": {
+      "title": "3D models",
+      "useInStudio": "Use in studio"
     }
   },
   "jobs": {
@@ -622,7 +630,110 @@
       "contributeTitle": "Contribute a preset",
       "contributeBody": "Measured a vessel we're missing? Presets are small profile definitions — see",
       "modelCreditsTitle": "3D model credits",
-      "modelCreditsBody": "The camp mug and classic ceramic mug presets render community 3D models from Sketchfab, licensed CC-BY-4.0: \u201cStanley Mug\u201d by Lime Zigubre and \u201cPlain Mug\u201d by LightSwitch. The same attribution appears next to the 3D preview when one of these vessels is active, and in the repository's NOTICE.md. All other vessels are parametric lathe profiles rendered by laser-gen itself."
+      "modelCreditsBody": "The camp mug and classic ceramic mug presets render community 3D models from Sketchfab, licensed CC-BY-4.0: “Stanley Mug” by Lime Zigubre and “Plain Mug” by LightSwitch. The same attribution appears next to the 3D preview when one of these vessels is active, and in the repository's NOTICE.md. All other vessels are parametric lathe profiles rendered by laser-gen itself."
     }
+  },
+  "help": {
+    "title": "Help & shortcuts",
+    "intro": "Everything you need to design 360° wrap art: quick starts, the studio keyboard map, and answers to common questions.",
+    "quick": {
+      "title": "Get started",
+      "gettingStarted": {
+        "title": "Getting started guide",
+        "desc": "From blank artboard to first engraving in five steps."
+      },
+      "vessels": {
+        "title": "Vessels & measuring",
+        "desc": "How to measure your cup and why millimeters matter."
+      },
+      "studio": {
+        "title": "Open the studio",
+        "desc": "Jump straight into the wrap editor and 3D preview."
+      },
+      "uploads": {
+        "title": "Upload models & images",
+        "desc": "Bring your own GLB/STL vessels and art into your library."
+      }
+    },
+    "shortcuts": {
+      "title": "Studio keyboard shortcuts",
+      "action": "Action",
+      "keys": "Keys",
+      "rows": {
+        "pan": "Temporary pan (hold)",
+        "undo": "Undo",
+        "redo": "Redo",
+        "redoAlt": "Redo (alternative)",
+        "selectAll": "Select all elements",
+        "escape": "Cancel / clear selection",
+        "delete": "Delete selection",
+        "nudge": "Nudge selection by 1 mm",
+        "nudgeBig": "Nudge selection by 10 mm"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "export": {
+          "q": "Which file should I export for my laser?",
+          "a": "Use the SVG export with the preset for your program (LightBurn, xTool Creative Space, or LaserGRBL) — it carries real millimeter dimensions. Export PNG only when your design relies on dithered photos or your workflow is raster-only."
+        },
+        "rotary": {
+          "q": "How do I set up a rotary in LightBurn?",
+          "a": "Open the export dialog in the studio and switch to the Rotary tab: it computes the object diameter at mid-engrave-zone and the exact artboard size. Enter those numbers in LightBurn’s rotary setup, then download the .txt summary to keep next to the machine."
+        },
+        "stretched": {
+          "q": "Why does my art look stretched near the top of tapered cups?",
+          "a": "That stretch is physically correct. A tapered cup’s circumference shrinks toward the narrow end, so the same millimeters of artboard width span more degrees of rotation there. The flat artboard is the exact unwrap — what you see is what burns."
+        },
+        "data": {
+          "q": "Where is my data stored?",
+          "a": "Everything — projects, uploads, custom vessels, settings — lives in your browser’s IndexedDB on this device. laser-gen has no backend and no telemetry; nothing leaves your machine unless you export it yourself."
+        },
+        "aiKeys": {
+          "q": "Are my AI provider keys private?",
+          "a": "Yes. Keys are encrypted at rest (AES-GCM under a non-extractable device key), never synced, and calls go straight from your browser to the provider. There is no proxy in between."
+        },
+        "offline": {
+          "q": "Does laser-gen work offline?",
+          "a": "Yes. After the first load the app is cached by a service worker, so the studio, library, and your vessels all work without a connection. AI features are the only exception — they need the provider’s API."
+        }
+      }
+    },
+    "more": {
+      "title": "Still stuck?",
+      "docs": "Read the full in-app documentation",
+      "issues": "Report a bug or request a feature on GitHub"
+    }
+  },
+  "uploads": {
+    "intro": "Bring your own 3D models (GLB/STL) and art (PNG/JPG/SVG) into your library. Files stay on this device.",
+    "dropzone": "Drop a file here or click to browse",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG — up to 50 MB",
+    "sizeWarning": "This file is larger than {max} MB — loading it in the 3D preview may be slow.",
+    "errors": {
+      "unsupported": "Unsupported file type. Use GLB, STL, PNG, JPG, or SVG.",
+      "tooBig": "File is too large — the limit is {max} MB.",
+      "invalidModel": "This file doesn’t look like a valid 3D model.",
+      "importFailed": "Couldn’t import this file."
+    },
+    "calibration": {
+      "title": "Calibrate “{name}”",
+      "hint": "Enter the real-world dimensions — the model is scaled to match, so the wrap preview and export stay millimeter-accurate.",
+      "maxDiameter": "Max diameter",
+      "category": "Category",
+      "save": "Create vessel"
+    },
+    "saved": {
+      "model": "“{name}” is ready — it’s now your active vessel in the studio.",
+      "photo": "Photo “{name}” saved to your library assets.",
+      "svg": "SVG “{name}” saved to your library assets."
+    },
+    "listTitle": "Your 3D models",
+    "emptyTitle": "No 3D models yet",
+    "emptyHint": "Upload a GLB or STL above to build a custom vessel from it.",
+    "linkedVessel": "Vessel linked",
+    "rename": "Rename",
+    "deleteConfirm": "Delete “{name}”? Its linked custom vessel is removed too."
   }
 }

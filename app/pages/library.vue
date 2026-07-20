@@ -7,10 +7,14 @@
 import { applyProjectQuery } from '~/core/library'
 import type { LibraryAsset, LibraryProject, LibrarySort, ProjectStatus } from '~/core/library'
 import { useLibraryStore } from '~/stores/library'
+import { useVesselStore } from '~/stores/vessel'
+
+definePageMeta({ layout: 'app' })
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const library = useLibraryStore()
+const vesselStore = useVesselStore()
 
 // --- Filters -------------------------------------------------------------------
 
@@ -86,6 +90,34 @@ function insertAsset(asset: LibraryAsset): void {
   if (library.insertAssetIntoCurrent(asset.id)) {
     void navigateTo(localePath('/studio'))
   }
+}
+
+// --- 3D model assets --------------------------------------------------------------
+
+/** Uploaded 3D models (M13) with their linked custom vessels. */
+const modelAssets = computed(() =>
+  library.assets.filter(a => a.kind === 'model-glb' || a.kind === 'model-stl'),
+)
+
+/** Custom vessel linked to a model asset, if it still exists. */
+function linkedVesselId(asset: LibraryAsset): string | undefined {
+  return vesselStore.customVessels.find(v => v.model?.assetId === asset.id)?.id
+}
+
+/** Activate the model's custom vessel and open the studio. */
+function useModelInStudio(asset: LibraryAsset): void {
+  const vesselId = linkedVesselId(asset)
+  if (!vesselId) return
+  vesselStore.setActiveVessel(vesselId)
+  void navigateTo(localePath('/studio'))
+}
+
+function confirmDeleteModel(asset: LibraryAsset): void {
+  if (!window.confirm(t('uploads.deleteConfirm', { name: asset.name }))) return
+  for (const vessel of vesselStore.customVessels.filter(v => v.model?.assetId === asset.id)) {
+    vesselStore.removeCustomVessel(vessel.id)
+  }
+  void library.deleteAsset(asset.id)
 }
 </script>
 
@@ -250,6 +282,52 @@ function insertAsset(asset: LibraryAsset): void {
           {{ t('assets.addFromCurrent') }}
         </button>
       </div>
+
+      <!-- uploaded 3D models (M13) -->
+      <section v-if="modelAssets.length" aria-labelledby="library-models-heading" class="space-y-3">
+        <h2 id="library-models-heading" class="text-xs font-semibold uppercase tracking-widest text-ink-500">
+          {{ t('library.models.title') }}
+        </h2>
+        <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" data-testid="library-models">
+          <li
+            v-for="asset in modelAssets"
+            :key="asset.id"
+            class="flex flex-col gap-2 rounded-lg border border-ink-800 bg-ink-900 p-3"
+          >
+            <div class="grid aspect-[4/3] place-items-center overflow-hidden rounded-md bg-ink-950">
+              <img
+                v-if="asset.dataUrl"
+                :src="asset.dataUrl"
+                :alt="asset.name"
+                class="size-full object-cover"
+              >
+              <span v-else class="text-xs uppercase text-ink-600">{{ asset.kind === 'model-glb' ? 'GLB' : 'STL' }}</span>
+            </div>
+            <p class="truncate text-sm font-medium text-ink-100" :title="asset.name">
+              {{ asset.name }}
+            </p>
+            <div class="mt-auto flex gap-1">
+              <button
+                v-if="linkedVesselId(asset)"
+                type="button"
+                class="flex-1 rounded-md bg-laser px-2 py-1 text-xs font-semibold text-ink-950 transition-opacity hover:opacity-90"
+                data-testid="model-use-in-studio"
+                @click="useModelInStudio(asset)"
+              >
+                {{ t('library.models.useInStudio') }}
+              </button>
+              <button
+                type="button"
+                class="rounded-md border border-ink-700 px-2 py-1 text-xs text-red-300 transition-colors hover:bg-ink-800"
+                @click="confirmDeleteModel(asset)"
+              >
+                {{ t('common.delete') }}
+              </button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
       <LibraryAssetGrid @insert="insertAsset" />
     </template>
 

@@ -103,21 +103,32 @@ export interface VesselModelCredit {
 }
 
 /**
- * Reference to a GLB model used for the 3D preview of this vessel. The
+ * Reference to a 3D model used for the 3D preview of this vessel. The
  * parametric profile stays the source of truth for unwrap/artboard/export —
- * the GLB is a richer visual skin whose body mesh gets cylindrical UVs that
- * match the lathe UV convention (see `cylindricalUVs`).
+ * the model is a richer visual skin whose body mesh gets cylindrical UVs
+ * that match the lathe UV convention (see `cylindricalUVs`).
+ *
+ * Two sources: built-in CC-BY GLBs fetched from `url` (`/models/*.glb`), or
+ * user uploads held as a Blob in the personal library (`assetId` — resolved
+ * to an object URL by the loader). User uploads may be STL; those wrap as a
+ * single piece — the whole mesh is the body and carries the artboard
+ * texture (single-piece STLs wrap the whole surface, including any handle).
  */
 export interface VesselModelRef {
-  /** Public URL of the GLB, e.g. `'/models/plain-mug.glb'`. */
-  url: string
+  /** Public URL of a built-in GLB, e.g. `'/models/plain-mug.glb'`. */
+  url?: string
+  /** Library asset id of a user-uploaded model (GLB or STL Blob). */
+  assetId?: string
+  /** Model file format; default `'glb'`. */
+  format?: 'glb' | 'stl'
   /**
    * Name of the engravable body mesh inside the GLB scene. When omitted, the
    * loader falls back to a heuristic (largest roughly-cylindrical mesh).
+   * Ignored for STL (single-mesh by construction).
    */
   bodyMeshName?: string
-  /** CC-BY attribution shown in-app and in NOTICE.md. */
-  credit: VesselModelCredit
+  /** CC-BY attribution shown in-app and in NOTICE.md (built-ins only). */
+  credit?: VesselModelCredit
 }
 
 /**

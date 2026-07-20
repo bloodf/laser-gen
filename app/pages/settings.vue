@@ -11,6 +11,8 @@ import { ANTHROPIC_DEFAULT_MODEL, OPENAI_DEFAULT_CHAT_MODEL } from '~/core/ai'
 import type { AiProviderKind } from '~/core/ai'
 import { useAiStore } from '~/stores/ai'
 
+definePageMeta({ layout: 'app' })
+
 const { t } = useI18n()
 const ai = useAiStore()
 

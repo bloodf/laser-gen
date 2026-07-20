@@ -79,5 +79,5 @@ export function useRasterImport() {
     return el
   }
 
-  return { importRasterFile }
+  return { importRasterFile, downscaleImage }
 }

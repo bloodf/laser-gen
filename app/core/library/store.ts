@@ -58,6 +58,10 @@ export interface SaveAssetInput {
   kind: AssetKind
   dataUrl?: string
   svgFragment?: string
+  /** Raw uploaded file for model assets (IndexedDB stores Blobs natively). */
+  blob?: Blob
+  /** Original file name of an uploaded blob. */
+  blobName?: string
   tags?: string[]
 }
 
@@ -188,21 +192,34 @@ function sanitizeProject(raw: unknown): LibraryProject | undefined {
   return project
 }
 
+/** Asset kinds accepted on import (unknown kinds fall back to `svg-layer`). */
+const ASSET_KINDS: AssetKind[] = ['svg-layer', 'photo', 'ai-generation', 'model-glb', 'model-stl']
+
+/** True for 3D model kinds whose payload is a `blob` (not exported to JSON). */
+export function isModelAssetKind(kind: AssetKind): boolean {
+  return kind === 'model-glb' || kind === 'model-stl'
+}
+
 function sanitizeAsset(raw: unknown): LibraryAsset | undefined {
   if (!isRecord(raw) || typeof raw.id !== 'string' || typeof raw.name !== 'string') return undefined
   const dataUrl = typeof raw.dataUrl === 'string' ? raw.dataUrl : undefined
   const svgFragment = typeof raw.svgFragment === 'string' ? raw.svgFragment : undefined
-  if (!dataUrl && !svgFragment) return undefined
-  const kind: AssetKind = raw.kind === 'photo' || raw.kind === 'ai-generation' ? raw.kind : 'svg-layer'
-  return {
+  const kind: AssetKind = ASSET_KINDS.includes(raw.kind as AssetKind) ? raw.kind as AssetKind : 'svg-layer'
+  // Model blobs can't survive the JSON export — the thumbnail (dataUrl) is
+  // all that crosses devices, so model assets keep their slot but lose the
+  // geometry until re-uploaded.
+  if (!dataUrl && !svgFragment && !isModelAssetKind(kind)) return undefined
+  const asset: LibraryAsset = {
     id: raw.id,
     name: raw.name,
     kind,
-    dataUrl,
-    svgFragment,
     tags: normalizeTags(Array.isArray(raw.tags) ? raw.tags.filter((t): t is string => typeof t === 'string') : []),
     createdAt: typeof raw.createdAt === 'number' ? raw.createdAt : Date.now(),
   }
+  if (dataUrl) asset.dataUrl = dataUrl
+  if (svgFragment) asset.svgFragment = svgFragment
+  if (typeof raw.blobName === 'string') asset.blobName = raw.blobName
+  return asset
 }
 
 /**
@@ -249,6 +266,7 @@ export interface LibraryStore {
   removeJobNote(projectId: string, noteId: string): Promise<void>
   listAssets(query?: AssetQuery): Promise<LibraryAsset[]>
   saveAsset(input: SaveAssetInput): Promise<LibraryAsset>
+  renameAsset(id: string, name: string): Promise<LibraryAsset | undefined>
   deleteAsset(id: string): Promise<void>
   exportLibrary(): Promise<Blob>
   importLibrary(json: string, opts: { mode: 'merge' | 'replace' }): Promise<{ projects: number, assets: number }>
@@ -369,11 +387,23 @@ export function createLibraryStore(repo: LibraryRepo, now: () => number = () => 
       }
       const dataUrl = input.dataUrl ?? existing?.dataUrl
       const svgFragment = input.svgFragment ?? existing?.svgFragment
+      const blob = input.blob ?? existing?.blob
+      const blobName = input.blobName ?? existing?.blobName
       if (dataUrl) asset.dataUrl = dataUrl
       if (svgFragment) asset.svgFragment = svgFragment
-      if (!asset.dataUrl && !asset.svgFragment) {
-        throw new Error('Asset needs a dataUrl or an svgFragment')
+      if (blob) asset.blob = blob
+      if (blobName) asset.blobName = blobName
+      if (!asset.dataUrl && !asset.svgFragment && !asset.blob) {
+        throw new Error('Asset needs a dataUrl, an svgFragment, or a blob')
       }
+      await repo.putAsset(asset)
+      return asset
+    },
+
+    async renameAsset(id, name) {
+      const asset = await repo.getAsset(id)
+      if (!asset) return undefined
+      asset.name = name
       await repo.putAsset(asset)
       return asset
     },
