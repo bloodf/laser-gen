@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /**
- * Docs: uploads (M14). Bringing your own GLB/STL vessels and PNG/JPG/SVG
- * art into the library, the calibration form, and the honest limits.
+ * Docs: uploads (M14). Bringing your own GLB/STL vessels, PNG/JPG/SVG
+ * art, and TTF/OTF/WOFF/WOFF2 fonts (M17) into the library, the
+ * calibration form, and the honest limits.
  */
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -44,6 +45,9 @@ useSeoMeta({
 
       <h2>{{ t('docsPages.uploads.artTitle') }}</h2>
       <p>{{ t('docsPages.uploads.body.art') }}</p>
+
+      <h2>{{ t('docsPages.uploads.fontsTitle') }}</h2>
+      <p>{{ t('docsPages.uploads.body.fonts') }}</p>
 
       <h2>{{ t('docsPages.uploads.limitsTitle') }}</h2>
       <ul>

@@ -255,6 +255,7 @@ manifest.json          format marker + table of contents
 project.json           your document, with images referenced as pack://assets/…
 assets/images/…        every embedded photo/dither as a binary file
 assets/models/…        your uploaded 3D model (GLB/STL), when the vessel uses one
+assets/fonts/…         uploaded fonts referenced by the document's text elements
 project-vessel.json    the custom vessel's calibration for that model
 thumbnail.png          a rendered preview
 ```
@@ -297,9 +298,16 @@ art assets. Files never leave this device.
   whole mesh takes the texture) and is assumed Z-up.
 - **Images & SVG.** PNG/JPG uploads become photo assets and SVG uploads become sanitized
   svg-layer assets — insert them onto the artboard from the Library's assets tab.
-- **Limits.** Files above 20 MB warn, above 50 MB are rejected. Model blobs don't travel
-  with the library JSON export — re-upload them after restoring a backup on another
-  device.
+- **Fonts (TTF, OTF, WOFF, WOFF2).** Drop a font file and it becomes a font asset: the
+  magic bytes are validated, the display name is derived from the file name, and the
+  font is registered locally via the FontFace API. The text tool's font picker lists
+  uploaded fonts in their own group (previewed in their own glyphs) — use them for new
+  text or re-font selected text elements. Uploaded fonts travel inside `.laserpack`
+  files and library backups; for live-text SVG exports the engraving machine's computer
+  still needs the font installed by name.
+- **Limits.** Files above 20 MB warn, above 50 MB are rejected. Model and font blobs
+  don't travel with the legacy library JSON export — use **Backup everything** (or
+  re-upload) to move them between devices.
 
 ## AI providers (BYOK)
 
@@ -356,8 +364,12 @@ IndexedDB on this device.
 - **Assets.** Reusable art: imported SVGs, photos, AI generations and your uploaded 3D
   models. Insert them into any project, or send a model to the studio as your active
   vessel.
-- **Backup & transfer.** For single projects, **Import project** takes a `.laserpack`
-  file and restores everything inside it — document, images, uploaded 3D model and
-  vessel calibration. For whole shelves, export the library as one versioned JSON
-  file and import it on another device. Photos and SVGs travel inside the JSON;
-  3D model blobs do not — use `.laserpack` (or re-upload) for those.
+- **Backup & transfer.** **Backup everything** downloads one `lasergen_backup_<date>.laserpack`
+  with the whole shelf: every project (document, metadata, thumbnail), every asset —
+  including 3D model and font blobs — your custom vessels, and your viewer/editor
+  preferences. The **Import** button detects the file's real format (library backup,
+  single-project pack, or legacy JSON) and routes it accordingly; backups restore in
+  merge mode (colliding ids are remapped) or replace mode. **AI API keys are never
+  included in any backup or export** — re-enter them on the new machine. For single
+  projects, **Import project** takes a `.laserpack` and restores everything inside it.
+  The legacy JSON export remains for compatibility but still drops blob payloads.

@@ -169,8 +169,8 @@
     "layerMerge": "Merge into one group",
     "warningsTitle": "Heads up",
     "warnings": {
-      "textFontsLightburn": "Text stays as live text — LightBurn needs the same font installed, or convert text to paths first.",
-      "textFonts": "Text stays as live text — the receiving program needs the same font installed.",
+      "textFontsLightburn": "Text stays as live text — LightBurn needs the same font installed, or convert text to paths first. Uploaded fonts travel inside .laserpack files and library backups, but must also be installed on the engraving machine’s computer.",
+      "textFonts": "Text stays as live text — the receiving program needs the same font installed. Uploaded fonts travel inside .laserpack files and library backups, but must also be installed on the engraving machine’s computer.",
       "imagesEmbedded": "Raster images are embedded as data URIs, which can make the SVG large.",
       "rasterFonts": "Text is rendered with this device's fonts into the PNG.",
       "transparentBg": "Transparent background: some laser programs render transparency as black."
@@ -228,6 +228,10 @@
       "serif": "Serif",
       "mono": "Mono",
       "cursive": "Handwritten"
+    },
+    "fontGroups": {
+      "builtIn": "Built-in",
+      "custom": "Uploaded fonts"
     }
   },
   "layers": {
@@ -385,7 +389,11 @@
     "models": {
       "title": "3D models",
       "useInStudio": "Use in studio"
-    }
+    },
+    "backup": "Backup everything",
+    "backupDone": "Backup downloaded — keep it safe to move this library to another computer.",
+    "backupError": "Couldn’t build the backup.",
+    "backupMergePrompt": "Merge the backup with your existing library? Press OK to merge, Cancel to replace everything."
   },
   "jobs": {
     "title": "Job tracker",
@@ -856,8 +864,10 @@
         "models2": "Saving creates a library asset and a linked custom vessel, which appears in the studio’s vessel switcher under Custom. GLB models may carry multi-part materials; STL wraps as a single piece (the whole mesh takes the texture) and is assumed Z-up.",
         "art": "PNG/JPG uploads become photo assets and SVG uploads become sanitized svg-layer assets — insert them onto the artboard from the Library’s assets tab.",
         "limits1": "Files above 20 MB warn, above 50 MB are rejected — large meshes make the 3D preview sluggish.",
-        "limits2": "Model blobs don’t travel with the library JSON export: re-upload them after restoring a backup on another device."
-      }
+        "limits2": "Model blobs don’t travel with the library JSON export: re-upload them after restoring a backup on another device.",
+        "fonts": "Drop a TTF, OTF, WOFF or WOFF2 and it becomes a font asset: the magic bytes are validated, the display name is derived from the file name, and the font is registered with the FontFace API — the text tool, the canvas renderer and the 3D preview all use it right away, and the picker previews each font in its own glyphs. Uploaded fonts travel inside .laserpack files and library backups; for live-text SVG exports the engraving machine’s computer still needs the font installed by name."
+      },
+      "fontsTitle": "Fonts (TTF, OTF, WOFF, WOFF2)"
     },
     "library": {
       "intro": "The library is your local-first project shelf: every project, asset and burn job lives in IndexedDB on this device.",
@@ -870,7 +880,7 @@
         "projects": "Save from the studio toolbar, then search, tag, duplicate, rename and set a status. Each card shows a live-rendered thumbnail of the wrap.",
         "jobs": "Open a project to log burn attempts: material, power, speed, passes, notes and result photos. The tracker is where “which settings worked on the black Stanley?” gets answered once, permanently.",
         "assets": "Reusable art: imported SVGs, photos, AI generations and your uploaded 3D models. Insert them into any project, or send a model to the studio as your active vessel.",
-        "transfer": "For single projects use Import project with a .laserpack file — it is fully self-contained: images, an uploaded 3D model and its vessel calibration are restored along with the document. For whole shelves, export the library as one versioned JSON file and import it on another device. Photos and SVGs travel inside the JSON; 3D model blobs do not — use .laserpack (or re-upload) for those."
+        "transfer": "For single projects use Import project with a .laserpack file — it is fully self-contained: images, an uploaded 3D model and its vessel calibration are restored along with the document. To move the whole shelf to another computer, use Backup everything: one .laserpack with every project (documents, metadata, thumbnails), every asset including 3D model and font blobs, your custom vessels, and your viewer/editor preferences. The Import button detects backups, project packs and legacy JSON automatically and restores a backup in merge or replace mode. AI API keys are never included in any backup or export — re-enter them on the new machine. The legacy JSON export remains for compatibility, but still drops blob payloads."
       }
     }
   },
@@ -948,15 +958,16 @@
     }
   },
   "uploads": {
-    "intro": "Bring your own 3D models (GLB/STL) and art (PNG/JPG/SVG) into your library. Files stay on this device.",
+    "intro": "Bring your own 3D models (GLB/STL), art (PNG/JPG/SVG) and fonts (TTF/OTF/WOFF/WOFF2) into your library. Files stay on this device.",
     "dropzone": "Drop a file here or click to browse",
-    "acceptHint": "GLB, STL, PNG, JPG, SVG — up to 50 MB",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG, TTF, OTF, WOFF, WOFF2 — up to 50 MB",
     "sizeWarning": "This file is larger than {max} MB — loading it in the 3D preview may be slow.",
     "errors": {
-      "unsupported": "Unsupported file type. Use GLB, STL, PNG, JPG, or SVG.",
+      "unsupported": "Unsupported file type. Use GLB, STL, PNG, JPG, SVG, or a font file.",
       "tooBig": "File is too large — the limit is {max} MB.",
       "invalidModel": "This file doesn’t look like a valid 3D model.",
-      "importFailed": "Couldn’t import this file."
+      "importFailed": "Couldn’t import this file.",
+      "invalidFont": "This file doesn’t look like a valid font (TTF, OTF, WOFF, or WOFF2)."
     },
     "calibration": {
       "title": "Calibrate “{name}”",
@@ -968,14 +979,17 @@
     "saved": {
       "model": "“{name}” is ready — it’s now your active vessel in the studio.",
       "photo": "Photo “{name}” saved to your library assets.",
-      "svg": "SVG “{name}” saved to your library assets."
+      "svg": "SVG “{name}” saved to your library assets.",
+      "font": "Font “{name}” saved — it’s now available in the text tool."
     },
     "listTitle": "Your 3D models",
     "emptyTitle": "No 3D models yet",
     "emptyHint": "Upload a GLB or STL above to build a custom vessel from it.",
     "linkedVessel": "Vessel linked",
     "rename": "Rename",
-    "deleteConfirm": "Delete “{name}”? Its linked custom vessel is removed too."
+    "deleteConfirm": "Delete “{name}”? Its linked custom vessel is removed too.",
+    "fontsTitle": "Your fonts",
+    "fontDeleteConfirm": "Delete font “{name}”? Text elements using it fall back to a default font."
   },
   "languageSwitcher": {
     "label": "Choose language"

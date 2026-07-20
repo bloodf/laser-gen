@@ -308,6 +308,9 @@ function onPointerDown(e: PointerEvent): void {
       capturePointer(e)
       break
     case 'text':
+      // Stop the compat-mousedown default focus change: it would blur the
+      // freshly opened text input, and its blur handler commits/closes it.
+      e.preventDefault()
       openTextInput(mm)
       break
   }
@@ -1024,6 +1027,7 @@ const cursorClass = computed(() => {
       class="absolute z-10 rounded border border-laser bg-ink-900 px-2 py-1 text-sm text-ink-100 focus:outline-none"
       :style="textInputStyle"
       :placeholder="t('editor.textPlaceholder')"
+      data-testid="text-input"
       @keydown.enter.prevent="commitTextInput"
       @keydown.esc.prevent="textInput = null"
       @blur="commitTextInput"

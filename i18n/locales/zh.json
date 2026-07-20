@@ -169,8 +169,8 @@
     "layerMerge": "合并为单个分组",
     "warningsTitle": "注意事项",
     "warnings": {
-      "textFontsLightburn": "文本保持可编辑 — LightBurn 需要安装相同字体，否则请先转换为路径。",
-      "textFonts": "文本保持可编辑 — 目标程序需要安装相同字体。",
+      "textFontsLightburn": "文字保持为可编辑文本 — LightBurn 需要安装相同的字体，或先将文字转换为路径。上传的字体会包含在 .laserpack 文件和素材库备份中，但也必须安装在雕刻机所用的电脑上。",
+      "textFonts": "文字保持为可编辑文本 — 接收程序需要安装相同的字体。上传的字体会包含在 .laserpack 文件和素材库备份中，但也必须安装在雕刻机所用的电脑上。",
       "imagesEmbedded": "位图图像以 data URI 嵌入，可能使 SVG 文件变大。",
       "rasterFonts": "文本将使用本设备的字体渲染进 PNG。",
       "transparentBg": "透明背景：某些激光软件会将透明渲染为黑色。"
@@ -228,6 +228,10 @@
       "serif": "衬线",
       "mono": "等宽",
       "cursive": "手写"
+    },
+    "fontGroups": {
+      "builtIn": "内置",
+      "custom": "已上传字体"
     }
   },
   "layers": {
@@ -385,7 +389,11 @@
     "models": {
       "title": "3D 模型",
       "useInStudio": "在工作室中使用"
-    }
+    },
+    "backup": "备份全部",
+    "backupDone": "备份已下载 — 请妥善保存，以便将素材库迁移到另一台电脑。",
+    "backupError": "无法创建备份。",
+    "backupMergePrompt": "将备份与现有素材库合并？确定合并，取消则全部替换。"
   },
   "jobs": {
     "title": "加工记录",
@@ -747,7 +755,8 @@
       "modelsTitle": "GLB 与 STL 器皿",
       "artTitle": "图像与 SVG",
       "limitsTitle": "限制",
-      "alt": "校准 STL 上传后的上传页面，已保存的模型显示在列表中。"
+      "alt": "校准 STL 上传后的上传页面，已保存的模型显示在列表中。",
+      "fontsTitle": "字体（TTF、OTF、WOFF、WOFF2）"
     },
     "library": {
       "intro": "库是你的本地项目架：每个项目、素材和雕刻任务都存储在此设备的 IndexedDB 中。",
@@ -832,15 +841,16 @@
     }
   },
   "uploads": {
-    "intro": "把您自己的 3D 模型（GLB/STL）和图案（PNG/JPG/SVG）带入素材库。文件仅保存在本设备上。",
+    "intro": "将您自己的 3D 模型（GLB/STL）、图案（PNG/JPG/SVG）和字体（TTF/OTF/WOFF/WOFF2）导入素材库。文件仅保存在本设备上。",
     "dropzone": "将文件拖到此处，或点击浏览",
-    "acceptHint": "GLB、STL、PNG、JPG、SVG——最大 50 MB",
+    "acceptHint": "GLB、STL、PNG、JPG、SVG、TTF、OTF、WOFF、WOFF2 — 最大 50 MB",
     "sizeWarning": "此文件超过 {max} MB——在 3D 预览中加载可能较慢。",
     "errors": {
-      "unsupported": "不支持的文件类型。请使用 GLB、STL、PNG、JPG 或 SVG。",
+      "unsupported": "不支持的文件类型。请使用 GLB、STL、PNG、JPG、SVG 或字体文件。",
       "tooBig": "文件过大——上限为 {max} MB。",
       "invalidModel": "此文件似乎不是有效的 3D 模型。",
-      "importFailed": "无法导入此文件。"
+      "importFailed": "无法导入此文件。",
+      "invalidFont": "该文件似乎不是有效的字体（TTF、OTF、WOFF 或 WOFF2）。"
     },
     "calibration": {
       "title": "校准“{name}”",
@@ -852,14 +862,17 @@
     "saved": {
       "model": "“{name}”已就绪——它现在是工作室中的当前容器。",
       "photo": "照片“{name}”已保存到素材库。",
-      "svg": "SVG“{name}”已保存到素材库。"
+      "svg": "SVG“{name}”已保存到素材库。",
+      "font": "字体“{name}”已保存 — 现在可在文字工具中使用。"
     },
     "listTitle": "您的 3D 模型",
     "emptyTitle": "还没有 3D 模型",
     "emptyHint": "在上方上传 GLB 或 STL，即可创建自定义容器。",
     "linkedVessel": "已关联容器",
     "rename": "重命名",
-    "deleteConfirm": "删除“{name}”？其关联的自定义容器也会被移除。"
+    "deleteConfirm": "删除“{name}”？其关联的自定义容器也会被移除。",
+    "fontsTitle": "我的字体",
+    "fontDeleteConfirm": "删除字体“{name}”？使用它的文字元素将回退到默认字体。"
   },
   "languageSwitcher": {
     "label": "选择语言"

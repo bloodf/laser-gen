@@ -63,18 +63,19 @@ export interface LibraryProject {
 }
 
 /** Where a reusable asset came from / what it carries. */
-export type AssetKind = 'svg-layer' | 'photo' | 'ai-generation' | 'model-glb' | 'model-stl'
+export type AssetKind = 'svg-layer' | 'photo' | 'ai-generation' | 'model-glb' | 'model-stl' | 'font'
 
 /**
  * Reusable art kept independently of any project. Vector art is stored as a
  * serialized `SvgDocument` fragment in `svgFragment`; raster art as a data
- * URL in `dataUrl`; uploaded 3D models as a raw file `blob` (IndexedDB stores
- * Blobs natively — no migration needed, older assets simply lack the field).
- * At least one of the three must be present.
+ * URL in `dataUrl`; uploaded 3D models and fonts (M17) as a raw file `blob`
+ * (IndexedDB stores Blobs natively — no migration needed, older assets simply
+ * lack the field). At least one of the three must be present.
  *
  * Note: `blob` payloads cannot survive the JSON whole-library export — model
  * assets export with their thumbnail only and must be re-uploaded after an
- * import on another device.
+ * import on another device. The M17 `.laserpack` library backup
+ * (`app/core/pack/backup.ts`) does carry blobs.
  */
 export interface LibraryAsset {
   /** Stable unique id. */
@@ -85,7 +86,7 @@ export interface LibraryAsset {
   dataUrl?: string
   /** Serialized `SvgDocument` fragment for vector assets. */
   svgFragment?: string
-  /** Raw uploaded file for `model-glb` / `model-stl` assets. */
+  /** Raw uploaded file for `model-glb` / `model-stl` / `font` assets. */
   blob?: Blob
   /** Original file name of an uploaded blob (e.g. `'mug.stl'`). */
   blobName?: string

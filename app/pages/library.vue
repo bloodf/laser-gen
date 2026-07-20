@@ -7,6 +7,7 @@
 import { applyProjectQuery } from '~/core/library'
 import type { LibraryAsset, LibraryProject, LibrarySort, ProjectStatus } from '~/core/library'
 import { LASERPACK_ACCEPT, useLaserpack } from '~/composables/useLaserpack'
+import { detectLibraryImport, useLibraryBackup } from '~/composables/useLibraryBackup'
 import { useLibraryStore } from '~/stores/library'
 import { useVesselStore } from '~/stores/vessel'
 
@@ -17,6 +18,7 @@ const localePath = useLocalePath()
 const library = useLibraryStore()
 const vesselStore = useVesselStore()
 const { importPackToLibrary } = useLaserpack()
+const { downloadBackup, restoreBackup } = useLibraryBackup()
 
 // --- Filters -------------------------------------------------------------------
 
@@ -71,14 +73,40 @@ const importInput = ref<HTMLInputElement | null>(null)
 const importProjectInput = ref<HTMLInputElement | null>(null)
 const importMessage = ref('')
 
+/** File-picker accept for the unified import: backup packs, project packs, legacy JSON. */
+const IMPORT_ACCEPT = `${LASERPACK_ACCEPT},application/json,.json`
+
+/**
+ * Unified import (M17): detect the file's real format — a whole-library
+ * backup pack, a single-project pack, or the legacy library JSON — and
+ * route it to the matching restore path.
+ */
 function onImportFile(e: Event): void {
   const file = (e.target as HTMLInputElement).files?.[0]
   ;(e.target as HTMLInputElement).value = ''
   if (!file) return
-  const mode = window.confirm(t('library.importMergePrompt')) ? 'merge' : 'replace'
-  library.importFromFile(file, mode)
-    .then(counts => importMessage.value = t('library.importDone', counts))
-    .catch(() => importMessage.value = t('library.importError'))
+  void (async () => {
+    try {
+      const detected = await detectLibraryImport(file)
+      if (detected.kind === 'backup') {
+        const mode = window.confirm(t('library.backupMergePrompt')) ? 'merge' : 'replace'
+        const counts = await restoreBackup(detected.data!, mode)
+        importMessage.value = t('library.importDone', { projects: counts.projects, assets: counts.assets })
+      }
+      else if (detected.kind === 'projectPack') {
+        const name = await importPackToLibrary(detected.data!)
+        importMessage.value = t('pack.importProjectDone', { name })
+      }
+      else {
+        const mode = window.confirm(t('library.importMergePrompt')) ? 'merge' : 'replace'
+        const counts = await library.importFromFile(new File([detected.json!], file.name, { type: 'application/json' }), mode)
+        importMessage.value = t('library.importDone', counts)
+      }
+    }
+    catch {
+      importMessage.value = t('library.importError')
+    }
+  })()
 }
 
 /** Import a `.laserpack` as a new library project (model blob included). */
@@ -90,6 +118,13 @@ function onImportProjectFile(e: Event): void {
     .then(buffer => importPackToLibrary(new Uint8Array(buffer)))
     .then(name => importMessage.value = t('pack.importProjectDone', { name }))
     .catch(() => importMessage.value = t('pack.importProjectError'))
+}
+
+/** Download the whole library (blobs included) as one `.laserpack` backup. */
+function onBackup(): void {
+  downloadBackup()
+    .then(() => importMessage.value = t('library.backupDone'))
+    .catch(() => importMessage.value = t('library.backupError'))
 }
 
 // --- Assets -----------------------------------------------------------------------
@@ -160,6 +195,14 @@ function confirmDeleteModel(asset: LibraryAsset): void {
       <button
         type="button"
         class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
+        data-testid="backup-button"
+        @click="onBackup"
+      >
+        {{ t('library.backup') }}
+      </button>
+      <button
+        type="button"
+        class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
         @click="importInput?.click()"
       >
         {{ t('library.import') }}
@@ -171,7 +214,7 @@ function confirmDeleteModel(asset: LibraryAsset): void {
       >
         {{ t('library.export') }}
       </button>
-      <input ref="importInput" type="file" accept="application/json,.json" class="hidden" @change="onImportFile">
+      <input ref="importInput" type="file" :accept="IMPORT_ACCEPT" class="hidden" data-testid="import-library-input" @change="onImportFile">
       <input ref="importProjectInput" type="file" :accept="LASERPACK_ACCEPT" class="hidden" data-testid="import-project-input" @change="onImportProjectFile">
     </header>
 

@@ -10,6 +10,7 @@
  */
 
 import type { VesselProfile } from '../geometry'
+import { detectFontFormat, fontFormatFromExt } from '../fonts'
 import { deserializeDocument } from '../svg'
 import type { SvgDocument } from '../svg'
 import { bytesToDataUrl, extToMime } from './dataUrl'
@@ -29,6 +30,20 @@ export interface OpenedModelBlob {
   fileName: string
 }
 
+/** An uploaded font blob recovered from a pack (M17). */
+export interface OpenedFontBlob {
+  /** Raw font file bytes. */
+  bytes: Uint8Array
+  /** Font file extension (from the zip path extension). */
+  ext: string
+  /** Display/family name recorded in the manifest. */
+  name: string
+  /** Library asset id recorded in the manifest, when present. */
+  assetId?: string
+  /** File name inside the zip, e.g. `<assetId>.ttf`. */
+  fileName: string
+}
+
 /** Result of {@link openProjectPack}. */
 export interface OpenedProjectPack {
   /** Rehydrated, validated document (image data URLs restored). */
@@ -36,6 +51,8 @@ export interface OpenedProjectPack {
   manifest: PackManifest
   /** Embedded model blobs (usually 0 or 1), for the caller to re-store. */
   modelBlobs: OpenedModelBlob[]
+  /** Embedded font blobs (M17), for the caller to re-store and register. */
+  fontBlobs: OpenedFontBlob[]
   /** Embedded custom vessel profile, when the pack carried one. */
   vesselProfile?: VesselProfile
   /** Embedded thumbnail as a data URL, when the pack carried one. */
@@ -84,8 +101,9 @@ function parseManifest(files: Record<string, Uint8Array>): PackManifest {
       .filter((entry): entry is Record<string, unknown> => isRecord(entry) && typeof entry.path === 'string')
       .map(entry => ({
         path: entry.path as string,
-        kind: entry.kind === 'model' || entry.kind === 'thumbnail' ? entry.kind : 'image',
+        kind: entry.kind === 'model' || entry.kind === 'thumbnail' || entry.kind === 'font' ? entry.kind : 'image',
         ...(typeof entry.assetId === 'string' ? { assetId: entry.assetId } : {}),
+        ...(typeof entry.name === 'string' ? { name: entry.name } : {}),
       })),
   }
 }
@@ -162,6 +180,7 @@ export function openProjectPack(data: Uint8Array): OpenedProjectPack {
   }
 
   const modelBlobs: OpenedModelBlob[] = []
+  const fontBlobs: OpenedFontBlob[] = []
   let thumbnailDataUrl: string | undefined
   for (const asset of manifest.assets) {
     const bytes = files[asset.path]
@@ -177,13 +196,25 @@ export function openProjectPack(data: Uint8Array): OpenedProjectPack {
       if (asset.assetId) blob.assetId = asset.assetId
       modelBlobs.push(blob)
     }
+    else if (asset.kind === 'font') {
+      const ext = asset.path.split('.').pop() ?? ''
+      if (!fontFormatFromExt(ext) || detectFontFormat(bytes) === null) continue
+      const blob: OpenedFontBlob = {
+        bytes,
+        ext,
+        name: asset.name ?? asset.path.split('/').pop() ?? asset.path,
+        fileName: asset.path.split('/').pop() ?? asset.path,
+      }
+      if (asset.assetId) blob.assetId = asset.assetId
+      fontBlobs.push(blob)
+    }
     else if (asset.kind === 'thumbnail') {
       const ext = asset.path.split('.').pop() ?? 'png'
       thumbnailDataUrl = bytesToDataUrl(extToMime(ext), bytes)
     }
   }
 
-  const result: OpenedProjectPack = { doc, manifest, modelBlobs }
+  const result: OpenedProjectPack = { doc, manifest, modelBlobs, fontBlobs }
   const vesselProfile = parseVesselProfile(files)
   if (vesselProfile) result.vesselProfile = vesselProfile
   if (thumbnailDataUrl) result.thumbnailDataUrl = thumbnailDataUrl

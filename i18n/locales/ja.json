@@ -169,8 +169,8 @@
     "layerMerge": "1 つのグループに統合",
     "warningsTitle": "注意点",
     "warnings": {
-      "textFontsLightburn": "テキストは編集可能なままです — LightBurn に同じフォントがインストールされている必要があります。先にパスへ変換してください。",
-      "textFonts": "テキストは編集可能なままです — 出力先プログラムに同じフォントが必要です。",
+      "textFontsLightburn": "テキストは編集可能なテキストのまま出力されます — LightBurn に同じフォントがインストールされている必要があります。または先にテキストをパスに変換してください。アップロードしたフォントは .laserpack ファイルやライブラリバックアップに同梱されますが、彫刻機のコンピューターにもインストールする必要があります。",
+      "textFonts": "テキストは編集可能なテキストのまま出力されます — 受け取る側のプログラムに同じフォントがインストールされている必要があります。アップロードしたフォントは .laserpack ファイルやライブラリバックアップに同梱されますが、彫刻機のコンピューターにもインストールする必要があります。",
       "imagesEmbedded": "ラスター画像は data URI として埋め込まれるため、SVG が大きくなる場合があります。",
       "rasterFonts": "テキストはこのデバイスのフォントで PNG にレンダリングされます。",
       "transparentBg": "透明背景：一部のレーザーソフトは透明部分を黒として描画します。"
@@ -228,6 +228,10 @@
       "serif": "セリフ",
       "mono": "等幅",
       "cursive": "手書き"
+    },
+    "fontGroups": {
+      "builtIn": "内蔵",
+      "custom": "アップロードしたフォント"
     }
   },
   "layers": {
@@ -385,7 +389,11 @@
     "models": {
       "title": "3D モデル",
       "useInStudio": "スタジオで使う"
-    }
+    },
+    "backup": "すべてをバックアップ",
+    "backupDone": "バックアップをダウンロードしました — 別のコンピューターへ移行するために保管してください。",
+    "backupError": "バックアップを作成できませんでした。",
+    "backupMergePrompt": "バックアップを既存のライブラリに統合しますか？OKで統合、キャンセルですべて置き換えます。"
   },
   "jobs": {
     "title": "ジョブトラッカー",
@@ -747,7 +755,8 @@
       "modelsTitle": "GLB/STL容器",
       "artTitle": "画像とSVG",
       "limitsTitle": "制限",
-      "alt": "STLアップロードをキャリブレーション後のアップロードページ。保存されたモデルがリストに表示。"
+      "alt": "STLアップロードをキャリブレーション後のアップロードページ。保存されたモデルがリストに表示。",
+      "fontsTitle": "フォント（TTF、OTF、WOFF、WOFF2）"
     },
     "library": {
       "intro": "ライブラリはローカルファーストのプロジェクト棚：すべてのプロジェクト、アセット、彫刻ジョブがこのデバイスのIndexedDBに保存されます。",
@@ -832,15 +841,16 @@
     }
   },
   "uploads": {
-    "intro": "自分の 3D モデル（GLB/STL）やアート（PNG/JPG/SVG）をライブラリに取り込みます。ファイルはこのデバイス内に保持されます。",
+    "intro": "自分の 3D モデル（GLB/STL）、画像（PNG/JPG/SVG）、フォント（TTF/OTF/WOFF/WOFF2）をライブラリに取り込めます。ファイルはこのデバイスに保存されます。",
     "dropzone": "ここにファイルをドロップ、またはクリックして選択",
-    "acceptHint": "GLB、STL、PNG、JPG、SVG — 最大 50 MB",
+    "acceptHint": "GLB、STL、PNG、JPG、SVG、TTF、OTF、WOFF、WOFF2 — 最大 50 MB",
     "sizeWarning": "このファイルは {max} MB を超えています — 3D プレビューの読み込みが遅くなる場合があります。",
     "errors": {
-      "unsupported": "未対応のファイル形式です。GLB、STL、PNG、JPG、SVG を使用してください。",
+      "unsupported": "対応していないファイル形式です。GLB、STL、PNG、JPG、SVG、またはフォントファイルを使用してください。",
       "tooBig": "ファイルが大きすぎます — 上限は {max} MB です。",
       "invalidModel": "有効な 3D モデルではないようです。",
-      "importFailed": "このファイルを読み込めませんでした。"
+      "importFailed": "このファイルを読み込めませんでした。",
+      "invalidFont": "有効なフォント（TTF、OTF、WOFF、WOFF2）ではないようです。"
     },
     "calibration": {
       "title": "「{name}」のキャリブレーション",
@@ -852,14 +862,17 @@
     "saved": {
       "model": "「{name}」の準備ができました — スタジオでアクティブな容器になりました。",
       "photo": "写真「{name}」をライブラリのアセットに保存しました。",
-      "svg": "SVG「{name}」をライブラリのアセットに保存しました。"
+      "svg": "SVG「{name}」をライブラリのアセットに保存しました。",
+      "font": "フォント「{name}」を保存しました — テキストツールで使用できます。"
     },
     "listTitle": "あなたの 3D モデル",
     "emptyTitle": "3D モデルはまだありません",
     "emptyHint": "上から GLB または STL をアップロードして、カスタム容器を作成しましょう。",
     "linkedVessel": "容器とリンク済み",
     "rename": "名前を変更",
-    "deleteConfirm": "「{name}」を削除しますか？リンクされたカスタム容器も削除されます。"
+    "deleteConfirm": "「{name}」を削除しますか？リンクされたカスタム容器も削除されます。",
+    "fontsTitle": "アップロードしたフォント",
+    "fontDeleteConfirm": "フォント「{name}」を削除しますか？使用しているテキスト要素はデフォルトフォントに戻ります。"
   },
   "languageSwitcher": {
     "label": "言語を選択"

@@ -169,8 +169,8 @@
     "layerMerge": "Zu einer Gruppe zusammenführen",
     "warningsTitle": "Hinweise",
     "warnings": {
-      "textFontsLightburn": "Text bleibt editierbar — LightBurn benötigt dieselbe installierte Schrift, sonst Text vorher in Pfade umwandeln.",
-      "textFonts": "Text bleibt editierbar — das Zielprogramm benötigt dieselbe installierte Schrift.",
+      "textFontsLightburn": "Text bleibt als bearbeitbarer Text erhalten — LightBurn benötigt dieselbe installierte Schrift, sonst wandle den Text zuerst in Pfade um. Hochgeladene Schriften reisen in .laserpack-Dateien und Bibliotheks-Backups mit, müssen aber auch auf dem Computer der Graviermaschine installiert sein.",
+      "textFonts": "Text bleibt als bearbeitbarer Text erhalten — das Zielprogramm benötigt dieselbe installierte Schrift. Hochgeladene Schriften reisen in .laserpack-Dateien und Bibliotheks-Backups mit, müssen aber auch auf dem Computer der Graviermaschine installiert sein.",
       "imagesEmbedded": "Rasterbilder werden als Daten-URIs eingebettet, was die SVG stark vergrößern kann.",
       "rasterFonts": "Text wird mit den Schriften dieses Geräts in das PNG gerendert.",
       "transparentBg": "Transparenter Hintergrund: Manche Laserprogramme rendern Transparenz als Schwarz."
@@ -228,6 +228,10 @@
       "serif": "Mit Serifen",
       "mono": "Festbreite",
       "cursive": "Handschrift"
+    },
+    "fontGroups": {
+      "builtIn": "Eingebaute",
+      "custom": "Hochgeladene Schriften"
     }
   },
   "layers": {
@@ -385,7 +389,11 @@
     "models": {
       "title": "3D-Modelle",
       "useInStudio": "Im Studio nutzen"
-    }
+    },
+    "backup": "Alles sichern",
+    "backupDone": "Backup heruntergeladen — gut aufbewahren, um diese Bibliothek auf einen anderen Computer zu übertragen.",
+    "backupError": "Das Backup konnte nicht erstellt werden.",
+    "backupMergePrompt": "Backup mit der vorhandenen Bibliothek zusammenführen? OK zum Zusammenführen, Abbrechen zum vollständigen Ersetzen."
   },
   "jobs": {
     "title": "Gravurprotokoll",
@@ -747,7 +755,8 @@
       "modelsTitle": "GLB- & STL-Gefäße",
       "artTitle": "Bilder & SVG",
       "limitsTitle": "Grenzen",
-      "alt": "Die Uploads-Seite nach dem Kalibrieren eines STL-Uploads, mit dem gespeicherten Modell in der Liste."
+      "alt": "Die Uploads-Seite nach dem Kalibrieren eines STL-Uploads, mit dem gespeicherten Modell in der Liste.",
+      "fontsTitle": "Schriften (TTF, OTF, WOFF, WOFF2)"
     },
     "library": {
       "intro": "Die Bibliothek ist dein lokales Projektregal: jedes Projekt, Asset und jeder Gravur-Job liegt in IndexedDB auf diesem Gerät.",
@@ -832,15 +841,16 @@
     }
   },
   "uploads": {
-    "intro": "Eigene 3D-Modelle (GLB/STL) und Grafiken (PNG/JPG/SVG) in deine Bibliothek bringen. Dateien bleiben auf diesem Gerät.",
+    "intro": "Bringe deine eigenen 3D-Modelle (GLB/STL), Grafiken (PNG/JPG/SVG) und Schriften (TTF/OTF/WOFF/WOFF2) in deine Bibliothek. Dateien bleiben auf diesem Gerät.",
     "dropzone": "Datei hier ablegen oder zum Durchsuchen klicken",
-    "acceptHint": "GLB, STL, PNG, JPG, SVG — bis zu 50 MB",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG, TTF, OTF, WOFF, WOFF2 — bis zu 50 MB",
     "sizeWarning": "Diese Datei ist größer als {max} MB — das Laden in der 3D-Vorschau kann langsam sein.",
     "errors": {
-      "unsupported": "Dateityp nicht unterstützt. Nutze GLB, STL, PNG, JPG oder SVG.",
+      "unsupported": "Nicht unterstützter Dateityp. Verwende GLB, STL, PNG, JPG, SVG oder eine Schriftdatei.",
       "tooBig": "Datei zu groß — das Limit liegt bei {max} MB.",
       "invalidModel": "Diese Datei scheint kein gültiges 3D-Modell zu sein.",
-      "importFailed": "Diese Datei konnte nicht importiert werden."
+      "importFailed": "Diese Datei konnte nicht importiert werden.",
+      "invalidFont": "Diese Datei sieht nicht wie eine gültige Schrift aus (TTF, OTF, WOFF oder WOFF2)."
     },
     "calibration": {
       "title": "„{name}“ kalibrieren",
@@ -852,14 +862,17 @@
     "saved": {
       "model": "„{name}“ ist bereit — es ist jetzt dein aktives Gefäß im Studio.",
       "photo": "Foto „{name}“ in deinen Bibliotheks-Assets gespeichert.",
-      "svg": "SVG „{name}“ in deinen Bibliotheks-Assets gespeichert."
+      "svg": "SVG „{name}“ in deinen Bibliotheks-Assets gespeichert.",
+      "font": "Schrift „{name}“ gespeichert — sie ist jetzt im Textwerkzeug verfügbar."
     },
     "listTitle": "Deine 3D-Modelle",
     "emptyTitle": "Noch keine 3D-Modelle",
     "emptyHint": "Lade oben eine GLB- oder STL-Datei hoch, um ein eigenes Gefäß daraus zu bauen.",
     "linkedVessel": "Gefäß verknüpft",
     "rename": "Umbenennen",
-    "deleteConfirm": "„{name}“ löschen? Das verknüpfte eigene Gefäß wird ebenfalls entfernt."
+    "deleteConfirm": "„{name}“ löschen? Das verknüpfte eigene Gefäß wird ebenfalls entfernt.",
+    "fontsTitle": "Deine Schriften",
+    "fontDeleteConfirm": "Schrift „{name}“ löschen? Textelemente, die sie verwenden, fallen auf eine Standardschrift zurück."
   },
   "languageSwitcher": {
     "label": "Sprache wählen"

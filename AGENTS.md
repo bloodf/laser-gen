@@ -56,7 +56,11 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      useRasterImport (shared PNG/JPG → image element import),
                      useModelThumbnail (M13 offscreen WebGL model thumbnails),
                      useLaserpack (M16 .laserpack build/open/import bridge —
-                     embedded vessel restore with id-collision remap)
+                     embedded vessel restore with id-collision remap, embedded
+                     font restore), useCustomFonts (M17 FontFace registration
+                     of library font assets — singleton watcher, idempotent),
+                     useLibraryBackup (M17 whole-library backup build/restore +
+                     import-format sniffing)
   core/              pure-TS domain logic — no Vue/DOM/Nuxt imports here:
                      geometry/ (profiles, unwrap math, lathe, presets — incl.
                      M12/M13 optional `model` (GLB ref + CC-BY credit, or
@@ -70,8 +74,10 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      renderer), vectorize/ (imagetracerjs Web Worker trace),
                      photo/ (adjust/dither/halftone/stipple pipeline, material
                      presets, corner flood-fill bg removal, Web Worker bridge),
+                     fonts.ts (M17 font magic-byte validation + name
+                     humanization),
                      library/ (project/asset types — incl. M13 model-glb/
-                     model-stl Blob assets, LibraryRepo abstraction —
+                     model-stl and M17 font Blob assets, LibraryRepo abstraction —
                      IndexedDB impl + in-memory test impl — query/CRUD logic,
                      job notes, versioned whole-library import/export);
                      ai/ (BYOK provider abstraction — Anthropic/OpenAI via
@@ -82,9 +88,12 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      for LightBurn/xTool/LaserGRBL, DPI-correct raster PNG
                      with pHYs injection, dated slugified filenames);
                      pack/ (M16 .laserpack: fflate zip engine with zip-bomb
-                     guard, manifest, image/model/thumbnail embedding with
+                     guard, manifest, image/model/font/thumbnail embedding with
                      pack:// refs, PackError codes — notZip/badManifest/
-                     unsupportedVersion/missingProject/tooLarge)
+                     unsupportedVersion/missingProject/tooLarge; M17 backup.ts:
+                     whole-library backup — format 'laserpack-library',
+                     projects + assets incl. blobs + vessels + prefs, merge/
+                     replace restore with id remap, never AI keys)
   stores/            Pinia stores (vessel: active preset + persisted custom
                      vessels/colors + viewer prefs; project: SvgDocument +
                      undo/redo + IndexedDB
@@ -97,6 +106,8 @@ docs/                Architecture, how-to and user guides (screenshots live in d
 e2e/                 Playwright e2e specs (excluded from vitest), fixtures/ with a
                      generated sample PNG + STL (regenerate:
                      node e2e/fixtures/create-fixture.mjs / create-stl-fixture.mjs)
+                     and a committed Roboto TTF for the font specs (Apache-2.0,
+                     see fixtures/roboto-NOTICE.md)
 scripts/             Repo maintenance scripts (check-i18n.mjs, capture-screenshots.mjs)
 i18n/locales/        Translation JSON, lazy-loaded; en.json is the source of truth
 public/              PWA icons, favicon, models/ (M12 CC-BY-4.0 GLB vessel

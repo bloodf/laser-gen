@@ -9,6 +9,8 @@
  *                            by `pack://assets/images/<n>.<ext>` references
  * assets/images/<n>.<ext>    Extracted image binaries (deduplicated)
  * assets/models/<id>.glb|stl Uploaded 3D model blob (model-backed vessels)
+ * assets/fonts/<id>.<ext>    Uploaded font blobs (M17) referenced by text
+ *                            elements in the document
  * project-vessel.json        Custom VesselProfile JSON (user-defined vessels)
  * thumbnail.<ext>            Rendered preview, when available
  * ```
@@ -36,6 +38,18 @@ export interface PackModelInput {
   blobName?: string
 }
 
+/** An uploaded font to embed in the pack (from a library font asset, M17). */
+export interface PackFontInput {
+  /** Library asset id (used for the zip path and manifest entry). */
+  assetId: string
+  /** Display name == CSS font-family the document's text elements reference. */
+  name: string
+  /** Font file extension: `ttf` / `otf` / `woff` / `woff2`. */
+  ext: string
+  /** Raw font file bytes. */
+  bytes: Uint8Array
+}
+
 /** Input for {@link createProjectPack}. */
 export interface CreateProjectPackInput {
   /** Human project name (manifest + filename come from the caller). */
@@ -50,6 +64,8 @@ export interface CreateProjectPackInput {
   vesselProfile?: VesselProfile
   /** Uploaded model blob, when the vessel is model-backed. */
   model?: PackModelInput
+  /** Uploaded fonts referenced by the document's text elements (M17). */
+  fonts?: PackFontInput[]
   /** Clock override for deterministic tests. */
   now?: number
 }
@@ -118,6 +134,13 @@ export async function createProjectPack(input: CreateProjectPackInput): Promise<
   }
   if (input.vesselProfile) {
     entries['project-vessel.json'] = encoder.encode(JSON.stringify(input.vesselProfile))
+  }
+
+  // --- uploaded fonts referenced by the document's text elements ------------
+  for (const font of input.fonts ?? []) {
+    const path = `assets/fonts/${font.assetId}.${font.ext}`
+    entries[path] = font.bytes
+    manifestAssets.push({ path, kind: 'font', assetId: font.assetId, name: font.name })
   }
 
   // --- thumbnail --------------------------------------------------------------

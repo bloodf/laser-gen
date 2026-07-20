@@ -14,6 +14,9 @@ const { t } = useI18n()
 const store = useVesselStore()
 const editor = useEditorStore()
 
+// Register uploaded fonts (FontFace API) so the editor/canvas can use them.
+useCustomFonts()
+
 const finishes = Object.keys(FINISH_COLORS) as VesselFinish[]
 
 // --- Draggable splitter -----------------------------------------------------

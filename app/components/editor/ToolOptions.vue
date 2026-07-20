@@ -4,8 +4,8 @@
  * paint controls (stroke width/color, fill), align/distribute/flip for the
  * current selection, view toggles (grid, rulers, snap), zoom, and import.
  */
-import { alignElements, distributeElements, flipElements, FONT_STACKS, selectionBounds } from '~/core/svg'
-import type { AlignMode } from '~/core/svg'
+import { alignElements, distributeElements, flipElements, selectionBounds } from '~/core/svg'
+import type { AlignMode, TextElement } from '~/core/svg'
 import { useEditorStore } from '~/stores/editor'
 import { useProjectStore } from '~/stores/project'
 
@@ -14,6 +14,32 @@ const editor = useEditorStore()
 const project = useProjectStore()
 
 const hasSelection = computed(() => editor.selection.length > 0)
+
+/** Selected text elements (for the font editor, M17). */
+const selectedTexts = computed(() => {
+  const out: TextElement[] = []
+  for (const layer of project.doc.layers) {
+    for (const el of layer.elements) {
+      if (el.type === 'text' && editor.selection.includes(el.id)) out.push(el)
+    }
+  }
+  return out
+})
+
+/** Font of the selected text element(s); setting it applies to all of them. */
+const selectionFont = computed<string>({
+  get: () => selectedTexts.value[0]?.fontFamily ?? '',
+  set: (family) => {
+    if (!family) return
+    project.mutate((doc) => {
+      for (const layer of doc.layers) {
+        for (const el of layer.elements) {
+          if (el.type === 'text' && editor.selection.includes(el.id)) el.fontFamily = family
+        }
+      }
+    })
+  },
+})
 
 /** Align relative to the artboard or to the selection's own bounds. */
 const alignFrame = ref<'artboard' | 'selection'>('artboard')
@@ -114,17 +140,18 @@ const zoomPercent = computed(() => `${Math.round(editor.zoom * 100)}%`)
     <template v-if="editor.tool === 'text'">
       <label class="flex items-center gap-1.5 text-ink-400">
         {{ t('tools.options.font') }}
-        <select v-model="editor.options.fontFamily" class="rounded border border-ink-700 bg-ink-950 px-1.5 py-0.5 text-ink-100">
-          <option v-for="(stack, key) in FONT_STACKS" :key="key" :value="stack">
-            {{ t(`tools.fonts.${key}`) }}
-          </option>
-        </select>
+        <EditorFontSelect v-model="editor.options.fontFamily" />
       </label>
       <label class="flex items-center gap-1.5 text-ink-400">
         {{ t('tools.options.fontSize') }}
         <input v-model.number="editor.options.fontSizeMm" type="number" min="2" max="100" step="0.5" class="w-16 rounded border border-ink-700 bg-ink-950 px-1.5 py-0.5 text-ink-100">
       </label>
     </template>
+    <!-- font of the selected text element(s) -->
+    <label v-if="editor.tool === 'select' && selectedTexts.length" class="flex items-center gap-1.5 text-ink-400" data-testid="selection-font">
+      {{ t('tools.options.font') }}
+      <EditorFontSelect v-model="selectionFont" />
+    </label>
     <label v-if="editor.tool === 'freehand'" class="flex items-center gap-1.5 text-ink-400">
       {{ t('tools.options.tolerance') }}
       <input v-model.number="editor.options.freehandToleranceMm" type="number" min="0.05" max="2" step="0.05" class="w-16 rounded border border-ink-700 bg-ink-950 px-1.5 py-0.5 text-ink-100">

@@ -169,7 +169,12 @@ function sanitizeNotes(value: unknown): JobNote[] {
   return notes
 }
 
-function sanitizeProject(raw: unknown): LibraryProject | undefined {
+/**
+ * Validate one project record from an untrusted source (JSON import or
+ * `.laserpack` library backup). Returns `undefined` when the record is
+ * structurally unusable.
+ */
+export function sanitizeLibraryProject(raw: unknown): LibraryProject | undefined {
   if (!isRecord(raw) || !isRecord(raw.meta) || typeof raw.docJson !== 'string') return undefined
   const meta = raw.meta
   if (typeof meta.id !== 'string' || typeof meta.name !== 'string') return undefined
@@ -193,22 +198,32 @@ function sanitizeProject(raw: unknown): LibraryProject | undefined {
 }
 
 /** Asset kinds accepted on import (unknown kinds fall back to `svg-layer`). */
-const ASSET_KINDS: AssetKind[] = ['svg-layer', 'photo', 'ai-generation', 'model-glb', 'model-stl']
+const ASSET_KINDS: AssetKind[] = ['svg-layer', 'photo', 'ai-generation', 'model-glb', 'model-stl', 'font']
 
 /** True for 3D model kinds whose payload is a `blob` (not exported to JSON). */
 export function isModelAssetKind(kind: AssetKind): boolean {
   return kind === 'model-glb' || kind === 'model-stl'
 }
 
-function sanitizeAsset(raw: unknown): LibraryAsset | undefined {
+/** True for kinds whose payload is a raw file `blob` (not exported to JSON). */
+export function isBlobAssetKind(kind: AssetKind): boolean {
+  return isModelAssetKind(kind) || kind === 'font'
+}
+
+/**
+ * Validate one asset record from an untrusted source (JSON import or
+ * `.laserpack` library backup). Returns `undefined` when the record carries
+ * no usable payload.
+ */
+export function sanitizeLibraryAsset(raw: unknown): LibraryAsset | undefined {
   if (!isRecord(raw) || typeof raw.id !== 'string' || typeof raw.name !== 'string') return undefined
   const dataUrl = typeof raw.dataUrl === 'string' ? raw.dataUrl : undefined
   const svgFragment = typeof raw.svgFragment === 'string' ? raw.svgFragment : undefined
   const kind: AssetKind = ASSET_KINDS.includes(raw.kind as AssetKind) ? raw.kind as AssetKind : 'svg-layer'
-  // Model blobs can't survive the JSON export — the thumbnail (dataUrl) is
-  // all that crosses devices, so model assets keep their slot but lose the
-  // geometry until re-uploaded.
-  if (!dataUrl && !svgFragment && !isModelAssetKind(kind)) return undefined
+  // Blobs can't survive the JSON export — model assets keep their thumbnail
+  // (dataUrl) and font assets their slot, but the geometry/glyphs must be
+  // re-uploaded or restored from a `.laserpack` library backup.
+  if (!dataUrl && !svgFragment && !isBlobAssetKind(kind)) return undefined
   const asset: LibraryAsset = {
     id: raw.id,
     name: raw.name,
@@ -243,10 +258,10 @@ export function parseLibraryExport(json: string): { projects: LibraryProject[], 
     throw new Error(`Unsupported library version: ${String(parsed.version)}`)
   }
   const projects = (Array.isArray(parsed.projects) ? parsed.projects : [])
-    .map(sanitizeProject)
+    .map(sanitizeLibraryProject)
     .filter((p): p is LibraryProject => p !== undefined)
   const assets = (Array.isArray(parsed.assets) ? parsed.assets : [])
-    .map(sanitizeAsset)
+    .map(sanitizeLibraryAsset)
     .filter((a): a is LibraryAsset => a !== undefined)
   return { projects, assets }
 }
@@ -270,6 +285,12 @@ export interface LibraryStore {
   deleteAsset(id: string): Promise<void>
   exportLibrary(): Promise<Blob>
   importLibrary(json: string, opts: { mode: 'merge' | 'replace' }): Promise<{ projects: number, assets: number }>
+  /** Store a complete project record as-is (backup restore). */
+  putProjectRecord(project: LibraryProject): Promise<void>
+  /** Store a complete asset record as-is, blob included (backup restore). */
+  putAssetRecord(asset: LibraryAsset): Promise<void>
+  /** Delete every project and asset (backup restore in replace mode). */
+  clearLibrary(): Promise<void>
 }
 
 /**
@@ -446,6 +467,18 @@ export function createLibraryStore(repo: LibraryRepo, now: () => number = () => 
         }
       }
       return { projects: incoming.projects.length, assets: incoming.assets.length }
+    },
+
+    putProjectRecord: project => repo.putProject(project),
+
+    putAssetRecord: asset => repo.putAsset(asset),
+
+    async clearLibrary() {
+      const [projects, assets] = await Promise.all([repo.listProjects(), repo.listAssets()])
+      await Promise.all([
+        ...projects.map(p => repo.deleteProject(p.meta.id)),
+        ...assets.map(a => repo.deleteAsset(a.id)),
+      ])
     },
   }
 }

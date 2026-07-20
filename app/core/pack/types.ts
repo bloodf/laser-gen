@@ -23,15 +23,17 @@ export const PACK_APP = 'laser-gen'
 export const PACK_REF_PREFIX = 'pack://'
 
 /** What a bundled asset file carries. */
-export type PackAssetKind = 'image' | 'model' | 'thumbnail'
+export type PackAssetKind = 'image' | 'model' | 'thumbnail' | 'font'
 
 /** One bundled asset entry in the manifest. */
 export interface PackAssetEntry {
   /** Path inside the zip, e.g. `assets/images/0.png`. */
   path: string
   kind: PackAssetKind
-  /** Library asset id (model entries only). */
+  /** Library asset id (model/font entries only). */
   assetId?: string
+  /** Display/family name (font entries only). */
+  name?: string
 }
 
 /** `manifest.json` — the pack's table of contents. */

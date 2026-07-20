@@ -21,13 +21,13 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Wrap studio** | mm-accurate 2D canvas that maps exactly onto your vessel's surface: pen, rect, ellipse, polygon, star, freehand, live text, layers, snapping, seam & handle-safe-zone guides, undo/redo with IndexedDB autosave |
 | **Vessels** | Parametric lathe profiles from real millimeter dimensions, with community presets (Stanley Quencher 30/40 oz, camp mug, classic ceramic mug, beer stein 24 oz, stacking beer pint 16 oz with steel rim, wine tumbler, sports bottle, carabiner sport bottle 750 ml, screw-cap and cola-shape insulated bottles, 750 ml water bottle, straight cylinder) — plus a custom vessel builder: measure diameter *or* circumference at the bottom and (for tapered vessels) the top |
-| **Uploads** | Bring your own GLB/STL 3D models and PNG/JPG/SVG art: model uploads are calibrated with real-world dimensions and become custom vessels in the switcher; everything stays on-device in IndexedDB (20 MB warn / 50 MB cap) |
+| **Uploads** | Bring your own GLB/STL 3D models, PNG/JPG/SVG art, and TTF/OTF/WOFF/WOFF2 fonts: model uploads are calibrated with real-world dimensions and become custom vessels in the switcher; fonts are magic-byte validated and usable in the text tool; everything stays on-device in IndexedDB (20 MB warn / 50 MB cap) |
 | **3D preview** | Live TresJS/three.js vessel with your wrap applied as a texture — parametric lathes with multi-part extras (rim bands, caps, carabiners), GLB-backed models for the two mugs, or your uploaded GLB/STL vessels — turntable, laser-sweep animation, finish materials with a custom powder-coat color picker, seam & safe-zone overlays |
 | **Vectorize** | In-browser raster→vector tracing (imagetracerjs in a Web Worker) with threshold, smoothing, and simplify controls |
 | **Photo prep** | Grayscale, levels/contrast, sharpening, dithering (Floyd–Steinberg, ordered, halftone, stipple), material presets, corner flood-fill background removal, halftone→vector dots |
 | **Export** | Physical-size SVG with per-program presets for LightBurn, xTool Creative Space, and LaserGRBL; DPI-correct raster PNG (pHYs chunk); rotary setup metadata embedded in the file plus a copy/download rotary-setup panel |
-| **Project packs** | `.laserpack` — a zip-based, fully self-contained project file (document, images, uploaded 3D model, vessel calibration, thumbnail) that unzips in the browser on open/import; share or back up a whole project as one file |
-| **Library** | Local-first project library (IndexedDB): thumbnails, tags, status, job tracker with burn attempts, reusable assets, versioned JSON import/export |
+| **Project packs** | `.laserpack` — a zip-based, fully self-contained project file (document, images, uploaded 3D model, uploaded fonts, vessel calibration, thumbnail) that unzips in the browser on open/import; share or back up a whole project as one file |
+| **Library** | Local-first project library (IndexedDB): thumbnails, tags, status, job tracker with burn attempts, reusable assets, one-file whole-library backup/restore (`.laserpack` — projects, assets incl. blobs, custom vessels, preferences; AI keys excluded by design), plus legacy versioned JSON import/export |
 | **AI (BYOK)** | Optional assistant — Anthropic, OpenAI, or any OpenAI-compatible endpoint: prompt→SVG, prompt→image, design copilot. Keys are encrypted at rest and never leave your device |
 | **PWA** | Offline-first installable app (Workbox, auto-update) |
 | **i18n** | English, Português, Español, Deutsch, 日本語, 中文 |
@@ -36,6 +36,8 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 
 - **Text stays live `<text>`** — exports reference font-family stacks; text is not
   converted to outlines, so exact rendering depends on the fonts on the laser PC.
+  Uploaded fonts travel inside `.laserpack` files and library backups, but must still
+  be installed by name on the engraving machine's computer.
 - **No boolean path operations** (union/subtract/intersect) yet.
 - **Background removal is a local corner flood fill** — great for solid backgrounds,
   not for complex scenes. (AI-provider background removal is on the roadmap.)
@@ -44,10 +46,10 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 - **Uploaded STL vessels wrap as a single piece** — the whole mesh carries the
   artboard texture (no separate handle/lid materials), and the model is assumed Z-up
   (converted on load); GLB uploads may use multi-part materials like the built-ins.
-- **Model Blobs don't travel with the library JSON export** — model assets keep their
-  thumbnail but must be re-uploaded after an import on another device. (Single-project
-  `.laserpack` files *do* embed the model blob — use those to move model-backed
-  projects between devices.)
+- **Model & font blobs don't travel with the legacy library JSON export** — model assets
+  keep their thumbnail but must be re-uploaded after a JSON import on another device.
+  (Single-project `.laserpack` files and the whole-library **Backup everything**
+  `.laserpack` *do* embed the blobs — use those to move between devices.)
 - **Vectorizer is imagetracerjs (JS)** — a WASM potrace/vtracer-class upgrade is planned.
 
 ## Quickstart

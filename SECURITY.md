@@ -45,6 +45,10 @@ model:
   background removal) runs in your browser's Web Workers; no image ever leaves your
   device. AI-based background removal — if added later — would phone a provider only
   after explicit opt-in, like every other AI feature.
+- **Backups and project packs never contain AI keys.** `.laserpack` project files and
+  whole-library backups carry projects, art assets, fonts, 3D models, vessels, and
+  non-secret preferences — by design there is no code path that serializes provider
+  credentials into them. When you move to a new computer, re-enter your AI keys there.
 
 If you find any code path that violates these commitments — for example, a key or project
 file being sent somewhere unexpected — please treat it as a security issue and report it

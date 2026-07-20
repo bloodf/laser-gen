@@ -5,7 +5,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { customVesselProfile } from '../../geometry'
-import { createDocument, createImageElement, serializeDocument } from '../../svg'
+import { createDocument, createImageElement, createTextElement, serializeDocument } from '../../svg'
 import { createProjectPack } from '../create'
 import { encodeBase64 } from '../dataUrl'
 import { openProjectPack } from '../open'
@@ -16,6 +16,8 @@ import { zipEntries } from '../zip'
 const PNG_BYTES = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4])
 const JPG_BYTES = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 9, 8, 7, 6])
 const MODEL_BYTES = new Uint8Array([0x67, 0x6c, 0x54, 0x46, 2, 0, 0, 0, 42])
+/** Synthetic "TTF" payload (magic-valid; not a real font). */
+const FONT_BYTES = new Uint8Array([0x00, 0x01, 0x00, 0x00, 7, 7, 7, 7])
 
 const PNG_DATA_URL = `data:image/png;base64,${encodeBase64(PNG_BYTES)}`
 const JPG_DATA_URL = `data:image/jpeg;base64,${encodeBase64(JPG_BYTES)}`
@@ -112,6 +114,38 @@ describe('createProjectPack + openProjectPack', () => {
     })
     const opened = openProjectPack(pack)
     expect(opened.thumbnailDataUrl).toBe(PNG_DATA_URL)
+  })
+
+  it('round-trips embedded font blobs referenced by text elements', async () => {
+    const doc = createDocument(200, 100)
+    doc.layers[0]!.elements.push(createTextElement({ x: 10, y: 10 }, 'Hi', 10, 'Roboto'))
+    const pack = await createProjectPack({
+      name: 'Font Project',
+      vesselId: 'stanley-quencher-40oz',
+      docJson: serializeDocument(doc),
+      fonts: [{ assetId: 'font-1', name: 'Roboto', ext: 'ttf', bytes: FONT_BYTES }],
+    })
+
+    const opened = openProjectPack(pack)
+    expect(opened.fontBlobs).toHaveLength(1)
+    const blob = opened.fontBlobs[0]!
+    expect(blob.name).toBe('Roboto')
+    expect(blob.ext).toBe('ttf')
+    expect(blob.assetId).toBe('font-1')
+    expect([...blob.bytes]).toEqual([...FONT_BYTES])
+    const fontEntry = opened.manifest.assets.find(asset => asset.kind === 'font')
+    expect(fontEntry?.path).toBe('assets/fonts/font-1.ttf')
+    expect(fontEntry?.name).toBe('Roboto')
+  })
+
+  it('skips font entries whose bytes fail the magic-byte check', async () => {
+    const pack = await createProjectPack({
+      name: 'Bad Font',
+      vesselId: 'stanley-quencher-40oz',
+      docJson: serializeDocument(createDocument(100, 50)),
+      fonts: [{ assetId: 'font-1', name: 'Not A Font', ext: 'ttf', bytes: new Uint8Array([1, 2, 3, 4]) }],
+    })
+    expect(openProjectPack(pack).fontBlobs).toHaveLength(0)
   })
 
   it('rejects non-zip data with notZip', () => {

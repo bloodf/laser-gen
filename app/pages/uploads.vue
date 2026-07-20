@@ -8,11 +8,14 @@
  *   up in the studio's vessel switcher under "Custom".
  * - PNG/JPG → photo asset (downscaled data URL, insertable in the studio).
  * - SVG → svg-layer asset (sanitized + parsed through the M4 import path).
+ * - TTF/OTF/WOFF/WOFF2 → font asset (M17): magic-byte validated, registered
+ *   with the FontFace API, pickable in the studio's text tool.
  *
  * Size guard: warn above 20 MB, hard-reject above 50 MB. Model uploads get a
  * WebGL-rendered thumbnail (best-effort). Deleting a model asset also removes
  * its linked custom vessel.
  */
+import { detectFontFormat, fontFormatFromExt, humanizeFontName } from '~/core/fonts'
 import { customVesselProfile, CustomVesselError, parseStl, StlParseError } from '~/core/geometry'
 import type { CustomVesselErrorCode, VesselProfile } from '~/core/geometry'
 import type { AssetKind, LibraryAsset } from '~/core/library'
@@ -26,9 +29,11 @@ const { t } = useI18n()
 const library = useLibraryStore()
 const vesselStore = useVesselStore()
 const { downscaleImage } = useRasterImport()
+// Register uploaded fonts so the list below previews each in its own glyphs.
+const { syncFonts } = useCustomFonts()
 
 /** Accepted file extensions for the picker/drop zone. */
-const ACCEPT = '.glb,.stl,.png,.jpg,.jpeg,.svg'
+const ACCEPT = '.glb,.stl,.png,.jpg,.jpeg,.svg,.ttf,.otf,.woff,.woff2'
 
 /** Warn above 20 MB, reject above 50 MB. */
 const WARN_BYTES = 20 * 1024 * 1024
@@ -53,12 +58,13 @@ const pending = ref<{ file: File, format: ModelFormat, buffer: ArrayBuffer } | n
 /** Non-blocking size warning for the pending model (>20 MB). */
 const sizeWarning = ref(false)
 
-function detectKind(file: File): 'glb' | 'stl' | 'image' | 'svg' | null {
+function detectKind(file: File): 'glb' | 'stl' | 'image' | 'svg' | 'font' | null {
   const ext = file.name.toLowerCase().split('.').pop() ?? ''
   if (ext === 'glb') return 'glb'
   if (ext === 'stl') return 'stl'
   if (ext === 'png' || ext === 'jpg' || ext === 'jpeg') return 'image'
   if (ext === 'svg') return 'svg'
+  if (fontFormatFromExt(ext)) return 'font'
   return null
 }
 
@@ -89,6 +95,10 @@ async function handleFile(file: File): Promise<void> {
       await library.saveAsset({ name: file.name, kind: 'photo', dataUrl })
       statusMessage.value = t('uploads.saved.photo', { name: file.name })
     }
+    else if (kind === 'font') {
+      const name = await saveFont(file)
+      statusMessage.value = t('uploads.saved.font', { name })
+    }
     else {
       const text = sanitizeSvg(await file.text())
       const doc = parseSvgToDocument(text)
@@ -97,13 +107,33 @@ async function handleFile(file: File): Promise<void> {
     }
   }
   catch (error) {
-    errorMessage.value = error instanceof StlParseError || (error instanceof Error && error.message === 'invalid-glb')
-      ? t('uploads.errors.invalidModel')
-      : t('uploads.errors.importFailed')
+    if (error instanceof Error && error.message === 'invalid-font') {
+      errorMessage.value = t('uploads.errors.invalidFont')
+    }
+    else if (error instanceof StlParseError || (error instanceof Error && error.message === 'invalid-glb')) {
+      errorMessage.value = t('uploads.errors.invalidModel')
+    }
+    else {
+      errorMessage.value = t('uploads.errors.importFailed')
+    }
   }
   finally {
     busy.value = false
   }
+}
+
+/**
+ * Validate a font upload (magic bytes must match a real font) and store it
+ * as a `font` asset; the display/CSS family name is derived from the file
+ * name. Returns the family name.
+ */
+async function saveFont(file: File): Promise<string> {
+  const bytes = new Uint8Array(await file.arrayBuffer())
+  if (!detectFontFormat(bytes)) throw new Error('invalid-font')
+  const name = humanizeFontName(file.name)
+  await library.saveAsset({ name, kind: 'font', blob: file, blobName: file.name })
+  await syncFonts()
+  return name
 }
 
 /** Validate model bytes before the calibration step (GLB magic / STL parse). */
@@ -210,6 +240,9 @@ const modelAssets = computed(() =>
   library.assets.filter(a => a.kind === 'model-glb' || a.kind === 'model-stl'),
 )
 
+/** Uploaded fonts (M17) — previewed in their own glyphs. */
+const fontAssets = computed(() => library.assets.filter(a => a.kind === 'font'))
+
 /** Custom vessel linked to a model asset, if any. */
 function linkedVessel(asset: LibraryAsset): VesselProfile | undefined {
   return vesselStore.customVessels.find(v => v.model?.assetId === asset.id)
@@ -228,6 +261,12 @@ async function removeAsset(asset: LibraryAsset): Promise<void> {
     vesselStore.removeCustomVessel(vessel.id)
   }
   await library.deleteAsset(asset.id)
+}
+
+async function removeFont(asset: LibraryAsset): Promise<void> {
+  if (!window.confirm(t('uploads.fontDeleteConfirm', { name: asset.name }))) return
+  await library.deleteAsset(asset.id)
+  await syncFonts()
 }
 </script>
 
@@ -464,6 +503,40 @@ async function removeAsset(asset: LibraryAsset): Promise<void> {
               {{ t('common.delete') }}
             </button>
           </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- uploaded fonts (M17) -->
+    <section v-if="fontAssets.length" aria-labelledby="uploads-fonts-heading">
+      <h2 id="uploads-fonts-heading" class="text-xs font-semibold uppercase tracking-widest text-ink-500">
+        {{ t('uploads.fontsTitle') }}
+      </h2>
+      <ul class="mt-3 grid gap-2" data-testid="font-list">
+        <li
+          v-for="asset in fontAssets"
+          :key="asset.id"
+          class="flex items-center gap-3 rounded-lg border border-ink-800 bg-ink-900 p-3"
+        >
+          <span class="min-w-0 flex-1 truncate text-lg text-ink-100" :style="{ fontFamily: asset.name }" :title="asset.name">
+            {{ asset.name }}
+          </span>
+          <span class="shrink-0 rounded border border-ink-700 px-1.5 py-0.5 text-xs uppercase text-ink-500">{{ asset.blobName?.split('.').pop() }}</span>
+          <button
+            type="button"
+            class="shrink-0 rounded-md border border-ink-700 px-2 py-1 text-xs text-ink-300 transition-colors hover:bg-ink-800"
+            @click="renameAsset(asset)"
+          >
+            {{ t('uploads.rename') }}
+          </button>
+          <button
+            type="button"
+            class="shrink-0 rounded-md border border-ink-700 px-2 py-1 text-xs text-red-300 transition-colors hover:bg-ink-800"
+            data-testid="font-delete"
+            @click="removeFont(asset)"
+          >
+            {{ t('common.delete') }}
+          </button>
         </li>
       </ul>
     </section>

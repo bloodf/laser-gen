@@ -9,7 +9,8 @@
  * pack twice never clobbers existing records.
  */
 import { createProjectPack, openProjectPack } from '~/core/pack'
-import type { OpenedProjectPack, PackModelInput } from '~/core/pack'
+import type { OpenedProjectPack, PackFontInput, PackModelInput } from '~/core/pack'
+import { FONT_MIME, fontFormatFromExt } from '~/core/fonts'
 import type { VesselProfile } from '~/core/geometry'
 import { newId, serializeDocument } from '~/core/svg'
 import { useLibraryStore } from '~/stores/library'
@@ -46,6 +47,27 @@ export function useLaserpack() {
   }
 
   /**
+   * Uploaded fonts referenced by the document's text elements: a text
+   * element's `fontFamily` equals the font asset's name, so any font asset
+   * whose name is used in the document travels inside the pack.
+   */
+  async function collectFonts(): Promise<PackFontInput[]> {
+    const used = new Set<string>()
+    for (const layer of project.doc.layers) {
+      for (const el of layer.elements) {
+        if (el.type === 'text') used.add(el.fontFamily)
+      }
+    }
+    const fonts: PackFontInput[] = []
+    for (const asset of library.assets) {
+      if (asset.kind !== 'font' || !asset.blob || !used.has(asset.name)) continue
+      const ext = fontFormatFromExt(asset.blobName?.split('.').pop() ?? '') ?? 'ttf'
+      fonts.push({ assetId: asset.id, name: asset.name, ext, bytes: new Uint8Array(await asset.blob.arrayBuffer()) })
+    }
+    return fonts
+  }
+
+  /**
    * Build the `.laserpack` bytes for the current studio state: document with
    * extracted images, thumbnail, and — for custom vessels — the vessel
    * profile plus its uploaded model blob.
@@ -55,6 +77,7 @@ export function useLaserpack() {
   async function buildPack(name: string): Promise<Uint8Array> {
     const custom = vessel.customVessels.find(v => v.id === vessel.activeVesselId)
     const model = await collectModel(custom)
+    const fonts = await collectFonts()
     return createProjectPack({
       name,
       vesselId: vessel.activeVesselId,
@@ -62,6 +85,7 @@ export function useLaserpack() {
       thumbnailDataUrl: library.makeThumbnail(project.doc),
       ...(custom ? { vesselProfile: custom } : {}),
       ...(model ? { model } : {}),
+      ...(fonts.length ? { fonts } : {}),
     })
   }
 
@@ -100,6 +124,24 @@ export function useLaserpack() {
   }
 
   /**
+   * Restore embedded fonts: re-store each font blob as a library font asset
+   * (deduplicated by family name — text elements reference fonts by name, so
+   * no document remapping is needed). Registration with `document.fonts`
+   * happens automatically via `useCustomFonts` once the asset list updates.
+   */
+  async function restorePackFonts(opened: OpenedProjectPack): Promise<void> {
+    for (const font of opened.fontBlobs) {
+      if (library.assets.some(a => a.kind === 'font' && a.name === font.name)) continue
+      await library.saveAsset({
+        name: font.name,
+        kind: 'font',
+        blob: bytesToBlob(font.bytes, FONT_MIME[fontFormatFromExt(font.ext) ?? 'ttf']),
+        blobName: font.fileName,
+      })
+    }
+  }
+
+  /**
    * Open a `.laserpack` into the studio: restore the embedded vessel, load
    * the document, and detach from any library project. The caller handles
    * the dirty-project confirmation and `PackError` reporting.
@@ -109,6 +151,7 @@ export function useLaserpack() {
   async function openPackIntoStudio(data: Uint8Array): Promise<void> {
     const opened = openProjectPack(data)
     const vesselId = await restorePackVessel(opened)
+    await restorePackFonts(opened)
     vessel.setActiveVessel(vesselId)
     project.fromJSON(serializeDocument(opened.doc))
     library.currentProjectId = null
@@ -124,6 +167,7 @@ export function useLaserpack() {
   async function importPackToLibrary(data: Uint8Array): Promise<string> {
     const opened = openProjectPack(data)
     const vesselId = await restorePackVessel(opened)
+    await restorePackFonts(opened)
     await library.importProjectRecord({
       name: opened.manifest.project.name,
       vesselId,

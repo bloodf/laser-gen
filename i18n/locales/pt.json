@@ -169,8 +169,8 @@
     "layerMerge": "Mesclar em um único grupo",
     "warningsTitle": "Atenção",
     "warnings": {
-      "textFontsLightburn": "O texto permanece editável — o LightBurn precisa da mesma fonte instalada, ou converta o texto em paths antes.",
-      "textFonts": "O texto permanece editável — o programa de destino precisa da mesma fonte instalada.",
+      "textFontsLightburn": "O texto permanece como texto editável — o LightBurn precisa da mesma fonte instalada, ou converta o texto em contornos primeiro. Fontes enviadas viajam dentro de arquivos .laserpack e backups da biblioteca, mas também precisam estar instaladas no computador da máquina de gravação.",
+      "textFonts": "O texto permanece como texto editável — o programa de destino precisa da mesma fonte instalada. Fontes enviadas viajam dentro de arquivos .laserpack e backups da biblioteca, mas também precisam estar instaladas no computador da máquina de gravação.",
       "imagesEmbedded": "Imagens raster são incorporadas como data URI, o que pode deixar o SVG grande.",
       "rasterFonts": "O texto é renderizado no PNG com as fontes deste dispositivo.",
       "transparentBg": "Fundo transparente: alguns programas de laser renderizam transparência como preto."
@@ -228,6 +228,10 @@
       "serif": "Com serifa",
       "mono": "Monoespaçada",
       "cursive": "Manuscrita"
+    },
+    "fontGroups": {
+      "builtIn": "Integradas",
+      "custom": "Fontes enviadas"
     }
   },
   "layers": {
@@ -385,7 +389,11 @@
     "models": {
       "title": "Modelos 3D",
       "useInStudio": "Usar no estúdio"
-    }
+    },
+    "backup": "Backup de tudo",
+    "backupDone": "Backup baixado — guarde-o para mover esta biblioteca para outro computador.",
+    "backupError": "Não foi possível criar o backup.",
+    "backupMergePrompt": "Mesclar o backup com a sua biblioteca atual? OK para mesclar, Cancelar para substituir tudo."
   },
   "jobs": {
     "title": "Registro de gravações",
@@ -747,7 +755,8 @@
       "modelsTitle": "Recipientes GLB e STL",
       "artTitle": "Imagens e SVG",
       "limitsTitle": "Limites",
-      "alt": "A página de uploads após calibrar um STL, com o modelo salvo na lista."
+      "alt": "A página de uploads após calibrar um STL, com o modelo salvo na lista.",
+      "fontsTitle": "Fontes (TTF, OTF, WOFF, WOFF2)"
     },
     "library": {
       "intro": "A biblioteca é a sua estante local de projetos: cada projeto, recurso e gravação fica no IndexedDB deste dispositivo.",
@@ -832,15 +841,16 @@
     }
   },
   "uploads": {
-    "intro": "Traga seus próprios modelos 3D (GLB/STL) e artes (PNG/JPG/SVG) para a sua biblioteca. Os arquivos ficam neste dispositivo.",
+    "intro": "Traga seus próprios modelos 3D (GLB/STL), artes (PNG/JPG/SVG) e fontes (TTF/OTF/WOFF/WOFF2) para a sua biblioteca. Os arquivos ficam neste dispositivo.",
     "dropzone": "Solte um arquivo aqui ou clique para procurar",
-    "acceptHint": "GLB, STL, PNG, JPG, SVG — até 50 MB",
+    "acceptHint": "GLB, STL, PNG, JPG, SVG, TTF, OTF, WOFF, WOFF2 — até 50 MB",
     "sizeWarning": "Este arquivo tem mais de {max} MB — o carregamento na prévia 3D pode ficar lento.",
     "errors": {
-      "unsupported": "Tipo de arquivo não suportado. Use GLB, STL, PNG, JPG ou SVG.",
+      "unsupported": "Tipo de arquivo não suportado. Use GLB, STL, PNG, JPG, SVG ou um arquivo de fonte.",
       "tooBig": "Arquivo muito grande — o limite é {max} MB.",
       "invalidModel": "Este arquivo não parece um modelo 3D válido.",
-      "importFailed": "Não foi possível importar este arquivo."
+      "importFailed": "Não foi possível importar este arquivo.",
+      "invalidFont": "Este arquivo não parece ser uma fonte válida (TTF, OTF, WOFF ou WOFF2)."
     },
     "calibration": {
       "title": "Calibrar “{name}”",
@@ -852,14 +862,17 @@
     "saved": {
       "model": "“{name}” está pronto — agora é o seu recipiente ativo no estúdio.",
       "photo": "Foto “{name}” salva nos recursos da sua biblioteca.",
-      "svg": "SVG “{name}” salvo nos recursos da sua biblioteca."
+      "svg": "SVG “{name}” salvo nos recursos da sua biblioteca.",
+      "font": "Fonte “{name}” salva — já está disponível na ferramenta de texto."
     },
     "listTitle": "Seus modelos 3D",
     "emptyTitle": "Nenhum modelo 3D ainda",
     "emptyHint": "Envie um GLB ou STL acima para criar um recipiente personalizado.",
     "linkedVessel": "Recipiente vinculado",
     "rename": "Renomear",
-    "deleteConfirm": "Excluir “{name}”? O recipiente personalizado vinculado também será removido."
+    "deleteConfirm": "Excluir “{name}”? O recipiente personalizado vinculado também será removido.",
+    "fontsTitle": "Suas fontes",
+    "fontDeleteConfirm": "Excluir a fonte “{name}”? Elementos de texto que a usam voltam para uma fonte padrão."
   },
   "languageSwitcher": {
     "label": "Escolher idioma"

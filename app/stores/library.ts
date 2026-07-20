@@ -255,6 +255,24 @@ export const useLibraryStore = defineStore('library', () => {
     return counts
   }
 
+  // --- Backup restore primitives (M17, used by `useLibraryBackup`) ------------
+
+  /** Store a complete project record as-is (backup restore). */
+  async function putProjectRecord(project: LibraryProject): Promise<void> {
+    await core.putProjectRecord(project)
+  }
+
+  /** Store a complete asset record as-is, blob included (backup restore). */
+  async function putAssetRecord(asset: LibraryAsset): Promise<void> {
+    await core.putAssetRecord(asset)
+  }
+
+  /** Delete every project and asset (backup restore in replace mode). */
+  async function clearAllRecords(): Promise<void> {
+    await core.clearLibrary()
+    if (currentProjectId.value) currentProjectId.value = null
+  }
+
   /** Read a raster file as a data URL downscaled to `NOTE_PHOTO_MAX_PX`. */
   async function fileToNotePhoto(file: File): Promise<string> {
     const raw = await new Promise<string>((resolve, reject) => {
@@ -310,6 +328,9 @@ export const useLibraryStore = defineStore('library', () => {
     insertAssetIntoCurrent,
     exportToFile,
     importFromFile,
+    putProjectRecord,
+    putAssetRecord,
+    clearAllRecords,
     fileToNotePhoto,
   }
 })
