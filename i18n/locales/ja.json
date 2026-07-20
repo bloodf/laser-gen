@@ -21,9 +21,43 @@
     "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
     "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
     "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "stanleyPint16oz": "Stanley Stacking Beer Pint 16oz",
     "wineTumbler12oz": "ワインタンブラー 12oz",
     "sportsBottle32oz": "スポーツボトル 32oz",
+    "waterBottle750ml": "ウォーターボトル 750ml",
     "genericCylinder80mm": "直円筒 80mm"
+  },
+  "vessels": {
+    "custom": {
+      "button": "カスタム容器",
+      "createTitle": "カスタム容器",
+      "editTitle": "カスタム容器を編集",
+      "groupTitle": "カスタム容器",
+      "name": "名前",
+      "namePlaceholder": "お気に入りのマグ",
+      "height": "高さ（mm）",
+      "tapered": "テーパーあり（上部の直径が異なる）",
+      "bottom": "底部",
+      "top": "上部",
+      "unitDiameter": "Ø mm",
+      "unitCircumference": "円周 mm",
+      "engraveBottom": "刻印範囲の下端（mm）",
+      "engraveTop": "刻印範囲の上端（mm）",
+      "summary": "底部 Ø {bottomD} mm · 上部 Ø {topD} mm · 円周 {cMin}–{cMax} mm · アートボード {w} × {h} mm",
+      "save": "容器を保存",
+      "edit": "編集",
+      "delete": "削除",
+      "deleteConfirm": "カスタム容器「{name}」を削除しますか？",
+      "errors": {
+        "name": "名前を入力してください。",
+        "height": "高さは正の数（ミリメートル）で入力してください。",
+        "dimensionMissing": "直径または円周を入力してください。",
+        "dimensionBoth": "直径と円周のどちらか一方だけを入力してください。",
+        "dimensionPositive": "直径と円周は正の数で入力してください。",
+        "engraveOrder": "刻印範囲の上端は下端より上にしてください。",
+        "engraveRange": "刻印範囲は容器の高さ内に収めてください。"
+      }
+    }
   },
   "viewer": {
     "finish": "仕上げ",
@@ -32,7 +66,8 @@
       "sage": "粉体塗装セージ",
       "black": "粉体塗装ブラック",
       "pink": "粉体塗装ピンク",
-      "stainless": "ステンレス素地"
+      "stainless": "ステンレス素地",
+      "custom": "カスタム粉体塗装"
     },
     "turntable": "ターンテーブル",
     "laserSweep": "レーザースイープ",
@@ -47,7 +82,10 @@
       "cup": "カップ",
       "cylinder": "円筒"
     },
-    "dimensions": "Ø {min}–{max} mm × {height} mm"
+    "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "color": {
+      "custom": "カスタムカラー"
+    }
   },
   "editor": {
     "undo": "取り消し",
@@ -139,7 +177,21 @@
     "projectDownloadHint": "laser-gen に再インポートできる .lasergen.json バックアップです。",
     "saveCopy": "ライブラリにコピーを保存",
     "savedCopy": "ライブラリに保存しました",
-    "untitled": "無題"
+    "untitled": "無題",
+    "rotary": {
+      "tab": "ロータリー設定",
+      "objectDiameter": "対象物の直径",
+      "circumference": "円周",
+      "artboard": "アートボードサイズ",
+      "dpiNote": "エクスポートされるSVGは実寸ミリメートルです。100%のスケールでインポートしてください。PNGにはDPIが埋め込まれます。",
+      "stepsTitle": "LightBurnでの設定",
+      "step1": "Tools → Rotary Setup を開き、ロータリーを有効にします。",
+      "step2": "チャック式：機械のドキュメントから1回転あたりのステップ数を入力します。ローラー式：ローラー径を入力します。",
+      "step3": "上記の対象物の直径をロータリーの対象物の直径として入力します。",
+      "copy": "クリップボードにコピー",
+      "copied": "コピーしました",
+      "download": ".txt をダウンロード"
+    }
   },
   "tools": {
     "select": "選択",

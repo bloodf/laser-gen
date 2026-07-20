@@ -6,6 +6,7 @@
  * human-readable comment block to embed in exported SVG/PNG metadata.
  */
 
+import { artboardSize } from './profile'
 import { referenceRadius } from './unwrap'
 import type { VesselProfile } from './types'
 
@@ -44,6 +45,50 @@ export function mmToPx(mm: number, dpi: number): number {
   return (mm / MM_PER_INCH) * dpi
 }
 
+/** Options for `rotarySetupText`. */
+export interface RotarySetupOptions {
+  /**
+   * Export resolution in DPI. When given, a px/mm conversion line is
+   * included; omit for a resolution-agnostic text.
+   */
+  dpi?: number
+}
+
+/**
+ * Human-readable rotary setup block for `profile`: object diameter,
+ * circumference, artboard size, and chuck/roller instructions.
+ *
+ * This is the single source for the rotary text — the SVG metadata comment
+ * (`rotaryMetadata`), the export dialog's rotary panel, and the downloadable
+ * `.txt` all render from it. Content is always English — it is read at the
+ * laser, not in the app UI.
+ *
+ * @param profile - Vessel profile being exported.
+ * @param opts - Optional export resolution for the px/mm note.
+ */
+export function rotarySetupText(profile: VesselProfile, opts: RotarySetupOptions = {}): string {
+  const rRefMm = referenceRadius(profile)
+  const objectDiameterMm = 2 * rRefMm
+  const circumferenceMm = Math.PI * objectDiameterMm
+  const midY = (profile.engraveBottom + profile.engraveTop) / 2
+  const board = artboardSize(profile)
+  const lines = [
+    `laser-gen rotary setup for "${profile.id}"`,
+    `- Object diameter: ${objectDiameterMm.toFixed(2)} mm (measured at engrave-zone mid-height y=${midY.toFixed(1)} mm)`,
+    `- Circumference at object diameter: ${circumferenceMm.toFixed(2)} mm`,
+    `- Artboard size: ${board.width.toFixed(2)} × ${board.height.toFixed(2)} mm (full 360° wrap at the widest engrave-zone row).`,
+    `- Artboard wraps 360° at this diameter; set your rotary's object diameter to the value above.`,
+  ]
+  if (opts.dpi !== undefined) {
+    lines.push(`- Export resolution: ${opts.dpi} DPI (${mmToPx(1, opts.dpi).toFixed(2)} px/mm).`)
+  }
+  lines.push(
+    '- Chuck-style rotary: enable rotary, enter steps-per-rotation from your machine docs.',
+    '- Roller-style rotary: enter your roller diameter from your machine docs.',
+  )
+  return lines.join('\n')
+}
+
 /**
  * Build rotary setup metadata for engraving `profile` at `dpi`.
  *
@@ -57,21 +102,11 @@ export function rotaryMetadata(profile: VesselProfile, dpi: number): RotaryMetad
   const rRefMm = referenceRadius(profile)
   const objectDiameterMm = 2 * rRefMm
   const circumferenceMm = Math.PI * objectDiameterMm
-  const midY = (profile.engraveBottom + profile.engraveTop) / 2
-  const comment = [
-    `laser-gen rotary setup for "${profile.id}"`,
-    `- Object diameter: ${objectDiameterMm.toFixed(2)} mm (measured at engrave-zone mid-height y=${midY.toFixed(1)} mm)`,
-    `- Circumference at object diameter: ${circumferenceMm.toFixed(2)} mm`,
-    `- Artboard wraps 360° at this diameter; set your rotary's object diameter to the value above.`,
-    `- Export resolution: ${dpi} DPI (${mmToPx(1, dpi).toFixed(2)} px/mm).`,
-    `- Chuck-style rotary: enable rotary, enter steps-per-rotation from your machine docs.`,
-    `- Roller-style rotary: enter your roller diameter from your machine docs.`,
-  ].join('\n')
   return {
     objectDiameterMm,
     circumferenceMm,
     stepsPerRotation: null,
     rollerDiameterMm: null,
-    comment,
+    comment: rotarySetupText(profile, { dpi }),
   }
 }

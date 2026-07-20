@@ -39,7 +39,8 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                       HowItWorks, VesselShowcase (SVG silhouettes from core
                       presets), OpenSourceSection, RecentProjects, Footer,
                       OfflineIndicator
-  components/viewer3d/ TresJS 3D preview (VesselViewer, LaserSweep, VesselSwitcher)
+  components/viewer3d/ TresJS 3D preview (VesselViewer, LaserSweep, VesselSwitcher,
+                     CustomVesselDialog — M11 user-defined vessel builder)
   components/library/  Library dashboard pieces (ProjectCard, ProjectDetail
                        with job tracker, AssetGrid)
   composables/       useVesselGeometry (three.js lathe from core profiles),
@@ -47,8 +48,10 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      useDocumentTexture (project doc → texture live sync),
                      useRasterImport (shared PNG/JPG → image element import)
   core/              pure-TS domain logic — no Vue/DOM/Nuxt imports here:
-                     geometry/ (profiles, unwrap math, lathe, presets, rotary,
-                     UV remap), svg/ (document model, path math, mm serializer,
+                     geometry/ (profiles, unwrap math, lathe, presets, custom
+                     user-measured vessels + resolveVessel, rotary incl.
+                     rotarySetupText, UV remap), svg/ (document model, path math,
+                     mm serializer,
                      SVG import/sanitize, RDP simplify, seam wrap, Canvas2D
                      renderer), vectorize/ (imagetracerjs Web Worker trace),
                      photo/ (adjust/dither/halftone/stipple pipeline, material
@@ -63,8 +66,9 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      export/ (physical-size SVG with per-program presets
                      for LightBurn/xTool/LaserGRBL, DPI-correct raster PNG
                      with pHYs injection, dated slugified filenames)
-  stores/            Pinia stores (vessel: active preset + persisted viewer
-                     prefs; project: SvgDocument + undo/redo + IndexedDB
+  stores/            Pinia stores (vessel: active preset + persisted custom
+                     vessels/colors + viewer prefs; project: SvgDocument +
+                     undo/redo + IndexedDB
                      autosave via idb-keyval; editor: tool/selection/viewport;
                      library: saved projects + assets over core/library,
                      thumbnails, studio bridge; ai: BYOK provider configs,

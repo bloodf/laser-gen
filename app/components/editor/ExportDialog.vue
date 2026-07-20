@@ -16,7 +16,7 @@ import {
   rasterPixelSize,
 } from '~/core/export'
 import type { ExportProgram, ExportResult, RasterDpi } from '~/core/export'
-import { rotaryMetadata } from '~/core/geometry'
+import { artboardSize, rotaryMetadata, rotarySetupText } from '~/core/geometry'
 import { useLibraryStore } from '~/stores/library'
 import { useProjectStore } from '~/stores/project'
 import { useVesselStore } from '~/stores/vessel'
@@ -28,8 +28,16 @@ const project = useProjectStore()
 const vessel = useVesselStore()
 const library = useLibraryStore()
 
-type TabId = 'svg' | 'raster' | 'project'
+type TabId = 'svg' | 'raster' | 'rotary' | 'project'
 const tab = ref<TabId>('svg')
+
+/** i18n label key per tab id. */
+const TAB_LABEL_KEYS: Record<TabId, string> = {
+  svg: 'export.tabSvg',
+  raster: 'export.tabRaster',
+  rotary: 'export.rotary.tab',
+  project: 'export.tabProject',
+}
 
 /** Name used in export filenames: the open library project, or a fallback. */
 const projectName = computed(() => {
@@ -70,6 +78,43 @@ const background = ref<'white' | 'transparent'>('white')
 
 const rasterDims = computed(() => rasterPixelSize(project.doc.widthMm, project.doc.heightMm, dpi.value))
 const rasterWarnings = computed(() => collectRasterWarnings(project.doc, { background: background.value }))
+
+// --- Rotary tab --------------------------------------------------------------
+
+/** Rotary numbers + text for the active vessel, all from the geometry core. */
+const rotaryMeta = computed(() => rotaryMetadata(vessel.profile, dpi.value))
+const rotaryBoard = computed(() => artboardSize(vessel.profile))
+const rotaryText = computed(() => rotarySetupText(vessel.profile, { dpi: dpi.value }))
+
+/** Brief confirmation after "Copy to clipboard". */
+const copiedFlash = ref(false)
+let copiedFlashTimer: ReturnType<typeof setTimeout> | undefined
+
+async function doCopyRotary(): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(rotaryText.value)
+  }
+  catch {
+    // Fallback for non-secure contexts / denied permission.
+    const textarea = document.createElement('textarea')
+    textarea.value = rotaryText.value
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    textarea.remove()
+  }
+  copiedFlash.value = true
+  clearTimeout(copiedFlashTimer)
+  copiedFlashTimer = setTimeout(() => copiedFlash.value = false, 1500)
+}
+
+function doDownloadRotary(): void {
+  download({
+    blob: new Blob([rotaryText.value], { type: 'text/plain' }),
+    filename: buildFilename('rotary-setup', vessel.activeVesselId, 'txt'),
+    warnings: [],
+  })
+}
 
 // --- Export actions ------------------------------------------------------------
 
@@ -170,7 +215,7 @@ function formatBytes(n: number): string {
         <!-- tabs -->
         <div class="flex gap-1" role="tablist">
           <button
-            v-for="tabId in (['svg', 'raster', 'project'] as TabId[])"
+            v-for="tabId in (['svg', 'raster', 'rotary', 'project'] as TabId[])"
             :key="tabId"
             type="button"
             role="tab"
@@ -179,7 +224,7 @@ function formatBytes(n: number): string {
             :aria-selected="tab === tabId"
             @click="tab = tabId"
           >
-            {{ t(`export.tab${tabId === 'svg' ? 'Svg' : tabId === 'raster' ? 'Raster' : 'Project'}`) }}
+            {{ t(TAB_LABEL_KEYS[tabId]) }}
           </button>
         </div>
 
@@ -313,6 +358,64 @@ function formatBytes(n: number): string {
               @click="doExportRaster"
             >
               {{ busy ? t('export.exporting') : t('export.exportNow') }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Rotary tab -->
+        <div v-else-if="tab === 'rotary'" class="grid gap-4" data-testid="export-rotary-tab">
+          <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 rounded-md border border-ink-700 bg-ink-950 p-3 text-sm">
+            <dt class="text-ink-400">
+              {{ t('export.rotary.objectDiameter') }}
+            </dt>
+            <dd class="font-mono text-ink-100">
+              {{ rotaryMeta.objectDiameterMm.toFixed(2) }} mm
+            </dd>
+            <dt class="text-ink-400">
+              {{ t('export.rotary.circumference') }}
+            </dt>
+            <dd class="font-mono text-ink-100">
+              {{ rotaryMeta.circumferenceMm.toFixed(2) }} mm
+            </dd>
+            <dt class="text-ink-400">
+              {{ t('export.rotary.artboard') }}
+            </dt>
+            <dd class="font-mono text-ink-100">
+              {{ rotaryBoard.width.toFixed(2) }} × {{ rotaryBoard.height.toFixed(2) }} mm
+            </dd>
+          </dl>
+
+          <div class="text-sm text-ink-300">
+            <p class="mb-1 text-xs font-medium text-ink-400">
+              {{ t('export.rotary.stepsTitle') }}
+            </p>
+            <ol class="list-decimal pl-5 text-xs text-ink-300">
+              <li>{{ t('export.rotary.step1') }}</li>
+              <li>{{ t('export.rotary.step2') }}</li>
+              <li>{{ t('export.rotary.step3') }}</li>
+            </ol>
+            <p class="mt-2 text-xs text-ink-500">
+              {{ t('export.rotary.dpiNote') }}
+            </p>
+          </div>
+
+          <div class="flex items-center justify-end gap-2">
+            <button
+              type="button"
+              class="rounded-md border px-3 py-1.5 text-sm transition-colors"
+              :class="copiedFlash ? 'border-emerald-600 text-emerald-300' : 'border-ink-700 text-ink-300 hover:bg-ink-800'"
+              data-testid="export-rotary-copy"
+              @click="doCopyRotary"
+            >
+              {{ copiedFlash ? t('export.rotary.copied') : t('export.rotary.copy') }}
+            </button>
+            <button
+              type="button"
+              class="rounded-md bg-laser px-4 py-1.5 text-sm font-medium text-ink-950 transition-opacity hover:opacity-90"
+              data-testid="export-rotary-download"
+              @click="doDownloadRotary"
+            >
+              {{ t('export.rotary.download') }}
             </button>
           </div>
         </div>

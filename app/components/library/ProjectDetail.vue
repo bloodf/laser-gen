@@ -6,18 +6,21 @@
  */
 import type { LibraryProject, ProjectStatus } from '~/core/library'
 import { MATERIAL_PRESETS } from '~/core/photo'
-import { getPreset } from '~/core/geometry'
 import { useLibraryStore } from '~/stores/library'
+import { useVesselStore } from '~/stores/vessel'
 
 const props = defineProps<{ project: LibraryProject }>()
 const emit = defineEmits<{ close: [] }>()
 
 const { t, te } = useI18n()
 const library = useLibraryStore()
+const vesselStore = useVesselStore()
+const displayName = useVesselDisplayName()
 
+/** Localized vessel name — preset or custom (falls back to the raw id). */
 const vesselName = computed(() => {
-  const preset = getPreset(props.project.meta.vesselId)
-  return preset && te(preset.nameKey) ? t(preset.nameKey) : props.project.meta.vesselId
+  const vessel = vesselStore.resolveVessel(props.project.meta.vesselId)
+  return vessel ? displayName(vessel) : props.project.meta.vesselId
 })
 
 // --- Meta editing ------------------------------------------------------------

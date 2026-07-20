@@ -27,6 +27,7 @@ const project = useProjectStore()
 const editor = useEditorStore()
 const library = useLibraryStore()
 const vessel = useVesselStore()
+const vesselDisplayName = useVesselDisplayName()
 const { importRasterFile } = useRasterImport()
 
 const open = ref(false)
@@ -162,7 +163,7 @@ async function sendChat(): Promise<void> {
   const text = chatInput.value.trim()
   if (!text || ai.chatBusy) return
   chatInput.value = ''
-  const system = buildCopilotSystemPrompt(project.doc, t(vessel.profile.nameKey))
+  const system = buildCopilotSystemPrompt(project.doc, vesselDisplayName(vessel.profile))
   const reply = await ai.sendChat(text, system)
   if (reply === undefined) return
   const { commands, unknown } = parseAiCommands(reply)

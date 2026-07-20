@@ -40,6 +40,11 @@ export interface VesselProfile {
   id: string
   /** i18n key for the display name (see `presets.*` in `i18n/locales/en.json`). */
   nameKey: string
+  /**
+   * Literal display name for user-defined (custom) vessels — set instead of a
+   * translatable `nameKey`, which customs leave empty.
+   */
+  name?: string
   /** Broad vessel class, used by the UI for icons/filtering. */
   category: 'tumbler' | 'mug' | 'bottle' | 'cup' | 'cylinder'
   /**

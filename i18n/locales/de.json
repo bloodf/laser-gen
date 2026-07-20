@@ -21,9 +21,43 @@
     "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
     "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
     "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "stanleyPint16oz": "Stanley Stacking Beer Pint 16oz",
     "wineTumbler12oz": "Weinbecher 12oz",
     "sportsBottle32oz": "Sportflasche 32oz",
+    "waterBottle750ml": "Wasserflasche 750 ml",
     "genericCylinder80mm": "Gerader Zylinder 80 mm"
+  },
+  "vessels": {
+    "custom": {
+      "button": "Eigenes Gefäß",
+      "createTitle": "Eigenes Gefäß",
+      "editTitle": "Eigenes Gefäß bearbeiten",
+      "groupTitle": "Eigene Gefäße",
+      "name": "Name",
+      "namePlaceholder": "Meine Lieblingstasse",
+      "height": "Höhe (mm)",
+      "tapered": "Konisch (abweichender oberer Durchmesser)",
+      "bottom": "Boden",
+      "top": "Oberkante",
+      "unitDiameter": "Ø mm",
+      "unitCircumference": "U mm",
+      "engraveBottom": "Gravurzone unten (mm)",
+      "engraveTop": "Gravurzone oben (mm)",
+      "summary": "Ø unten {bottomD} mm · Ø oben {topD} mm · Umfang {cMin}–{cMax} mm · Zeichenfläche {w} × {h} mm",
+      "save": "Gefäß speichern",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteConfirm": "Eigenes Gefäß „{name}“ löschen?",
+      "errors": {
+        "name": "Bitte einen Namen eingeben.",
+        "height": "Die Höhe muss eine positive Zahl in Millimetern sein.",
+        "dimensionMissing": "Durchmesser oder Umfang eingeben.",
+        "dimensionBoth": "Entweder Durchmesser oder Umfang eingeben, nicht beides.",
+        "dimensionPositive": "Durchmesser und Umfang müssen positive Zahlen sein.",
+        "engraveOrder": "Das obere Ende der Gravurzone muss über dem unteren liegen.",
+        "engraveRange": "Die Gravurzone muss innerhalb der Gefäßhöhe liegen."
+      }
+    }
   },
   "viewer": {
     "finish": "Oberfläche",
@@ -32,7 +66,8 @@
       "sage": "Pulverbeschichtet Salbei",
       "black": "Pulverbeschichtet Schwarz",
       "pink": "Pulverbeschichtet Rosa",
-      "stainless": "Edelstahl blank"
+      "stainless": "Edelstahl blank",
+      "custom": "Pulverbeschichtung individuell"
     },
     "turntable": "Drehteller",
     "laserSweep": "Laser-Sweep",
@@ -47,7 +82,10 @@
       "cup": "Becher",
       "cylinder": "Zylinder"
     },
-    "dimensions": "Ø {min}–{max} mm × {height} mm"
+    "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "color": {
+      "custom": "Eigene Farbe"
+    }
   },
   "editor": {
     "undo": "Rückgängig",
@@ -139,7 +177,21 @@
     "projectDownloadHint": "Ein .lasergen.json-Backup, das sich wieder in laser-gen importieren lässt.",
     "saveCopy": "Kopie in der Bibliothek speichern",
     "savedCopy": "In der Bibliothek gespeichert",
-    "untitled": "unbenannt"
+    "untitled": "unbenannt",
+    "rotary": {
+      "tab": "Rotary-Einrichtung",
+      "objectDiameter": "Objektdurchmesser",
+      "circumference": "Umfang",
+      "artboard": "Zeichenfläche",
+      "dpiNote": "Exportierte SVGs sind echte Millimeter — mit 100 % Skalierung importieren. PNGs enthalten ihre DPI.",
+      "stepsTitle": "Einrichtung in LightBurn",
+      "step1": "Tools → Rotary Setup öffnen und den Rotary aktivieren.",
+      "step2": "Spannfutter-Rotary: Schritte pro Umdrehung aus der Maschinendoku eingeben. Rollen-Rotary: Rollendurchmesser eingeben.",
+      "step3": "Den obigen Objektdurchmesser als Objektdurchmesser des Rotarys eingeben.",
+      "copy": "In die Zwischenablage kopieren",
+      "copied": "Kopiert",
+      "download": ".txt herunterladen"
+    }
   },
   "tools": {
     "select": "Auswählen",

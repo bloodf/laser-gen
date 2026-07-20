@@ -14,14 +14,14 @@
 import { ContactShadows, OrbitControls } from '@tresjs/cientos'
 import { ACESFilmicToneMapping, BoxGeometry, CylinderGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, Vector3 } from 'three'
 import { radiusAt } from '~/core/geometry'
-import { FINISH_COLORS, useVesselStore } from '~/stores/vessel'
+import { useVesselStore } from '~/stores/vessel'
 import type { VesselFinish } from '~/stores/vessel'
 
 const { t } = useI18n()
 const store = useVesselStore()
 
 const profile = computed(() => store.profile)
-const baseColor = computed(() => FINISH_COLORS[store.finish])
+const baseColor = computed(() => store.baseColor)
 
 const { geometry } = useVesselGeometry(profile)
 const artboardTexture = useArtboardTexture({ profile, baseColor })
@@ -42,10 +42,11 @@ const FINISH_PROPS: Record<VesselFinish, { roughness: number, metalness: number 
   black: { roughness: 0.55, metalness: 0.1 },
   pink: { roughness: 0.6, metalness: 0.05 },
   stainless: { roughness: 0.25, metalness: 1 },
+  custom: { roughness: 0.6, metalness: 0.05 },
 }
 
-watch(() => store.finish, (finish) => {
-  const props = FINISH_PROPS[finish]
+watch([() => store.finish, baseColor], () => {
+  const props = FINISH_PROPS[store.finish]
   for (const mat of [bodyMaterial, handleMaterial]) {
     mat.roughness = props.roughness
     mat.metalness = props.metalness

@@ -120,13 +120,51 @@ export const GENERIC_CYLINDER_80MM: VesselProfile = {
   sourceNote: 'Exact synthetic reference profile for testing and calibration.',
 }
 
+/** Stanley Adventure Stacking Beer Pint 16oz — tapered truncated-cone pint. */
+export const STANLEY_PINT_16OZ: VesselProfile = {
+  id: 'stanley-pint-16oz',
+  nameKey: 'presets.stanleyPint16oz',
+  category: 'cup',
+  // ~146 tall, base ~Ø63 tapering up to ~Ø89 at the rim.
+  points: [
+    { r: 31.5, y: 0 },
+    { r: 38, y: 73 },
+    { r: 44.5, y: 146 },
+  ],
+  engraveBottom: 15,
+  engraveTop: 125,
+  seamAngleDeg: 0,
+  sourceNote: COMMUNITY_NOTE,
+}
+
+/** Standard single-wall water bottle 750ml — straight body with a shoulder. */
+export const WATER_BOTTLE_750ML: VesselProfile = {
+  id: 'water-bottle-750ml',
+  nameKey: 'presets.waterBottle750ml',
+  category: 'bottle',
+  // ~Ø73 straight body to y≈200, shoulder tapering to the neck above; ~265 tall.
+  points: [
+    { r: 36.5, y: 0 },
+    { r: 36.5, y: 200 },
+    { r: 33, y: 225 },
+    { r: 24, y: 245 },
+    { r: 22, y: 265 },
+  ],
+  engraveBottom: 30,
+  engraveTop: 200,
+  seamAngleDeg: 0,
+  sourceNote: COMMUNITY_NOTE,
+}
+
 /** All built-in vessel presets. */
 export const VESSEL_PRESETS: VesselProfile[] = [
   STANLEY_QUENCHER_40OZ,
   STANLEY_QUENCHER_30OZ,
   STANLEY_CAMP_MUG_24OZ,
+  STANLEY_PINT_16OZ,
   WINE_TUMBLER_12OZ,
   SPORTS_BOTTLE_32OZ,
+  WATER_BOTTLE_750ML,
   GENERIC_CYLINDER_80MM,
 ]
 
@@ -138,4 +176,17 @@ export const VESSEL_PRESETS: VesselProfile[] = [
  */
 export function getPreset(id: string): VesselProfile | undefined {
   return VESSEL_PRESETS.find(p => p.id === id)
+}
+
+/**
+ * Resolve any vessel id — built-in preset or user-defined custom — to a
+ * profile. Presets win on id collision (custom ids are `custom-*` prefixed,
+ * so collisions can't happen in practice).
+ *
+ * @param id - Vessel id to resolve.
+ * @param customs - User-defined custom vessels (see `customVesselProfile`).
+ * @returns The matching profile, or `undefined` when unknown.
+ */
+export function resolveVessel(id: string, customs: readonly VesselProfile[] = []): VesselProfile | undefined {
+  return getPreset(id) ?? customs.find(v => v.id === id)
 }

@@ -93,6 +93,19 @@ laser-gen is developed in milestones. Each milestone ships working, verifiable s
   Released as **0.1.0**. (The AI-provider milestone shipped early as M7 — see
   [docs/ai-providers.md](docs/ai-providers.md).)
 
+- **M11 — 1.0.0: real vessels, custom dimensions, rotary hand-off** ✅
+  New community presets (Stanley Stacking Beer Pint 16oz, 750ml single-wall water
+  bottle); a custom vessel builder (`app/core/geometry/custom.ts` — diameter *or*
+  circumference at the bottom and, for tapered vessels, the top; deterministic
+  slug+hash ids) with persisted customs in the vessel store, a
+  `CustomVesselDialog` in the studio, and a `resolveVessel` helper every consumer
+  (switcher, library, AI copilot, export) resolves through; a free powder-coat
+  color picker in the 3D viewer (persisted, tints the artboard texture); and a
+  LightBurn rotary-setup export — `rotarySetupText` in the geometry core is the
+  single source for the SVG metadata comment, the Export dialog's rotary tab
+  (object diameter / circumference / artboard size / step-by-step instructions,
+  copy-to-clipboard and `.txt` download).
+
 ## Next (post-0.1.0)
 
 Not shipped yet — contributions welcome:

@@ -20,11 +20,11 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 | Area | What you get |
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Wrap studio** | mm-accurate 2D canvas that maps exactly onto your vessel's surface: pen, rect, ellipse, polygon, star, freehand, live text, layers, snapping, seam & handle-safe-zone guides, undo/redo with IndexedDB autosave |
-| **Vessels** | Parametric cylinders and tapered cones from real millimeter dimensions, with community presets (Stanley Quencher 30/40 oz, camp mug, wine tumbler, sports bottle, straight cylinder) |
-| **3D preview** | Live TresJS/three.js vessel with your wrap applied as a texture — turntable, laser-sweep animation, finish materials, seam & safe-zone overlays |
+| **Vessels** | Parametric cylinders and tapered cones from real millimeter dimensions, with community presets (Stanley Quencher 30/40 oz, camp mug, stacking beer pint 16 oz, wine tumbler, sports bottle, 750 ml water bottle, straight cylinder) — plus a custom vessel builder: measure diameter *or* circumference at the bottom and (for tapered vessels) the top |
+| **3D preview** | Live TresJS/three.js vessel with your wrap applied as a texture — turntable, laser-sweep animation, finish materials with a custom powder-coat color picker, seam & safe-zone overlays |
 | **Vectorize** | In-browser raster→vector tracing (imagetracerjs in a Web Worker) with threshold, smoothing, and simplify controls |
 | **Photo prep** | Grayscale, levels/contrast, sharpening, dithering (Floyd–Steinberg, ordered, halftone, stipple), material presets, corner flood-fill background removal, halftone→vector dots |
-| **Export** | Physical-size SVG with per-program presets for LightBurn, xTool Creative Space, and LaserGRBL; DPI-correct raster PNG (pHYs chunk); rotary setup metadata embedded in the file |
+| **Export** | Physical-size SVG with per-program presets for LightBurn, xTool Creative Space, and LaserGRBL; DPI-correct raster PNG (pHYs chunk); rotary setup metadata embedded in the file plus a copy/download rotary-setup panel |
 | **Library** | Local-first project library (IndexedDB): thumbnails, tags, status, job tracker with burn attempts, reusable assets, versioned JSON import/export |
 | **AI (BYOK)** | Optional assistant — Anthropic, OpenAI, or any OpenAI-compatible endpoint: prompt→SVG, prompt→image, design copilot. Keys are encrypted at rest and never leave your device |
 | **PWA** | Offline-first installable app (Workbox, auto-update) |

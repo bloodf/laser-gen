@@ -21,9 +21,43 @@
     "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
     "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
     "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "stanleyPint16oz": "Stanley Stacking Beer Pint 16oz",
     "wineTumbler12oz": "Wine tumbler 12oz",
     "sportsBottle32oz": "Sports bottle 32oz",
+    "waterBottle750ml": "Water bottle 750ml",
     "genericCylinder80mm": "Straight cylinder 80mm"
+  },
+  "vessels": {
+    "custom": {
+      "button": "Custom vessel",
+      "createTitle": "Custom vessel",
+      "editTitle": "Edit custom vessel",
+      "groupTitle": "Custom vessels",
+      "name": "Name",
+      "namePlaceholder": "My favorite mug",
+      "height": "Height (mm)",
+      "tapered": "Tapered (top diameter differs)",
+      "bottom": "Bottom",
+      "top": "Top",
+      "unitDiameter": "Ø mm",
+      "unitCircumference": "C mm",
+      "engraveBottom": "Engrave zone bottom (mm)",
+      "engraveTop": "Engrave zone top (mm)",
+      "summary": "Bottom Ø {bottomD} mm · top Ø {topD} mm · circumference {cMin}–{cMax} mm · artboard {w} × {h} mm",
+      "save": "Save vessel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Delete custom vessel “{name}”?",
+      "errors": {
+        "name": "Enter a name.",
+        "height": "Height must be a positive number of millimeters.",
+        "dimensionMissing": "Enter a diameter or a circumference.",
+        "dimensionBoth": "Enter either a diameter or a circumference, not both.",
+        "dimensionPositive": "Diameter and circumference must be positive numbers.",
+        "engraveOrder": "The engrave zone top must be above its bottom.",
+        "engraveRange": "The engrave zone must fit within the vessel height."
+      }
+    }
   },
   "viewer": {
     "finish": "Finish",
@@ -32,7 +66,8 @@
       "sage": "Powder-coat sage",
       "black": "Powder-coat black",
       "pink": "Powder-coat pink",
-      "stainless": "Bare stainless"
+      "stainless": "Bare stainless",
+      "custom": "Custom powder-coat"
     },
     "turntable": "Turntable",
     "laserSweep": "Laser sweep",
@@ -47,7 +82,10 @@
       "cup": "Cup",
       "cylinder": "Cylinder"
     },
-    "dimensions": "Ø {min}–{max} mm × {height} mm"
+    "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "color": {
+      "custom": "Custom color"
+    }
   },
   "editor": {
     "undo": "Undo",
@@ -139,7 +177,21 @@
     "projectDownloadHint": "A .lasergen.json backup you can re-import in laser-gen.",
     "saveCopy": "Save copy to library",
     "savedCopy": "Saved to library",
-    "untitled": "untitled"
+    "untitled": "untitled",
+    "rotary": {
+      "tab": "Rotary setup",
+      "objectDiameter": "Object diameter",
+      "circumference": "Circumference",
+      "artboard": "Artboard size",
+      "dpiNote": "SVG exports are true millimeters — import at 100% scale. Raster exports embed their DPI.",
+      "stepsTitle": "LightBurn setup",
+      "step1": "Open Tools → Rotary Setup and enable the rotary.",
+      "step2": "Chuck rotary: enter steps-per-rotation from your machine docs. Roller rotary: enter your roller diameter.",
+      "step3": "Enter the object diameter above as the rotary's object diameter.",
+      "copy": "Copy to clipboard",
+      "copied": "Copied",
+      "download": "Download .txt"
+    }
   },
   "tools": {
     "select": "Select",

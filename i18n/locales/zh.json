@@ -21,9 +21,43 @@
     "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
     "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
     "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "stanleyPint16oz": "Stanley Stacking Beer Pint 16oz",
     "wineTumbler12oz": "红酒杯 12oz",
     "sportsBottle32oz": "运动水壶 32oz",
+    "waterBottle750ml": "水瓶 750ml",
     "genericCylinder80mm": "直圆柱 80mm"
+  },
+  "vessels": {
+    "custom": {
+      "button": "自定义容器",
+      "createTitle": "自定义容器",
+      "editTitle": "编辑自定义容器",
+      "groupTitle": "自定义容器",
+      "name": "名称",
+      "namePlaceholder": "我最喜欢的杯子",
+      "height": "高度（mm）",
+      "tapered": "锥形（顶部直径不同）",
+      "bottom": "底部",
+      "top": "顶部",
+      "unitDiameter": "Ø mm",
+      "unitCircumference": "周长 mm",
+      "engraveBottom": "雕刻区域底部（mm）",
+      "engraveTop": "雕刻区域顶部（mm）",
+      "summary": "底部 Ø {bottomD} mm · 顶部 Ø {topD} mm · 周长 {cMin}–{cMax} mm · 画板 {w} × {h} mm",
+      "save": "保存容器",
+      "edit": "编辑",
+      "delete": "删除",
+      "deleteConfirm": "删除自定义容器“{name}”？",
+      "errors": {
+        "name": "请输入名称。",
+        "height": "高度必须为正数（毫米）。",
+        "dimensionMissing": "请输入直径或周长。",
+        "dimensionBoth": "请只输入直径或周长之一。",
+        "dimensionPositive": "直径和周长必须为正数。",
+        "engraveOrder": "雕刻区域顶部必须高于底部。",
+        "engraveRange": "雕刻区域必须在容器高度范围内。"
+      }
+    }
   },
   "viewer": {
     "finish": "表面",
@@ -32,7 +66,8 @@
       "sage": "喷塑鼠尾草绿",
       "black": "喷塑黑色",
       "pink": "喷塑粉色",
-      "stainless": "不锈钢原色"
+      "stainless": "不锈钢原色",
+      "custom": "自定义喷塑"
     },
     "turntable": "自动旋转",
     "laserSweep": "激光扫描",
@@ -47,7 +82,10 @@
       "cup": "杯子",
       "cylinder": "圆柱"
     },
-    "dimensions": "Ø {min}–{max} mm × {height} mm"
+    "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "color": {
+      "custom": "自定义颜色"
+    }
   },
   "editor": {
     "undo": "撤销",
@@ -139,7 +177,21 @@
     "projectDownloadHint": "可重新导入 laser-gen 的 .lasergen.json 备份。",
     "saveCopy": "保存副本到库",
     "savedCopy": "已保存到库",
-    "untitled": "未命名"
+    "untitled": "未命名",
+    "rotary": {
+      "tab": "旋转轴设置",
+      "objectDiameter": "物体直径",
+      "circumference": "周长",
+      "artboard": "画板尺寸",
+      "dpiNote": "导出的 SVG 为真实毫米尺寸——请以 100% 比例导入。PNG 内嵌 DPI 信息。",
+      "stepsTitle": "LightBurn 设置",
+      "step1": "打开 Tools → Rotary Setup 并启用旋转轴。",
+      "step2": "卡盘式：根据机器文档输入每转步数。滚轮式：输入滚轮直径。",
+      "step3": "将上方的物体直径输入为旋转轴的物体直径。",
+      "copy": "复制到剪贴板",
+      "copied": "已复制",
+      "download": "下载 .txt"
+    }
   },
   "tools": {
     "select": "选择",

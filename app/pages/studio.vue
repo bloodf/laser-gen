@@ -118,6 +118,26 @@ function endSplit(): void {
             </select>
           </label>
 
+          <label class="flex items-center gap-2">
+            <span class="text-ink-400">{{ t('viewer.color.custom') }}</span>
+            <input
+              type="color"
+              :value="store.customColor"
+              class="h-7 w-9 cursor-pointer rounded border border-ink-700 bg-ink-950 p-0.5"
+              data-testid="custom-color-input"
+              @input="store.setCustomColor(($event.target as HTMLInputElement).value)"
+            >
+            <input
+              type="text"
+              :value="store.customColor"
+              maxlength="7"
+              spellcheck="false"
+              class="w-20 rounded-md border border-ink-700 bg-ink-950 px-2 py-1 font-mono text-xs text-ink-100 focus:border-laser focus:outline-none"
+              data-testid="custom-color-hex"
+              @change="store.setCustomColor(($event.target as HTMLInputElement).value)"
+            >
+          </label>
+
           <label class="flex items-center gap-2 text-ink-300">
             <input v-model="store.turntable" type="checkbox" class="accent-laser">
             {{ t('viewer.turntable') }}

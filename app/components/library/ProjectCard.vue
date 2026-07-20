@@ -6,7 +6,7 @@
  * and list layouts.
  */
 import type { LibraryProject, ProjectStatus } from '~/core/library'
-import { getPreset } from '~/core/geometry'
+import { useVesselStore } from '~/stores/vessel'
 
 const props = defineProps<{
   project: LibraryProject
@@ -21,12 +21,14 @@ const emit = defineEmits<{
   detail: []
 }>()
 
-const { t, te } = useI18n()
+const { t } = useI18n()
+const vesselStore = useVesselStore()
+const displayName = useVesselDisplayName()
 
-/** Localized vessel preset name (falls back to the raw id). */
+/** Localized vessel name — preset or custom (falls back to the raw id). */
 const vesselName = computed(() => {
-  const preset = getPreset(props.project.meta.vesselId)
-  return preset && te(preset.nameKey) ? t(preset.nameKey) : props.project.meta.vesselId
+  const vessel = vesselStore.resolveVessel(props.project.meta.vesselId)
+  return vessel ? displayName(vessel) : props.project.meta.vesselId
 })
 
 const statusClasses: Record<ProjectStatus, string> = {

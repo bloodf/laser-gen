@@ -21,9 +21,43 @@
     "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
     "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
     "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "stanleyPint16oz": "Stanley Stacking Beer Pint 16oz",
     "wineTumbler12oz": "Vaso de vino 12oz",
     "sportsBottle32oz": "Botella deportiva 32oz",
+    "waterBottle750ml": "Botella de agua 750ml",
     "genericCylinder80mm": "Cilindro recto 80mm"
+  },
+  "vessels": {
+    "custom": {
+      "button": "Recipiente personalizado",
+      "createTitle": "Recipiente personalizado",
+      "editTitle": "Editar recipiente personalizado",
+      "groupTitle": "Recipientes personalizados",
+      "name": "Nombre",
+      "namePlaceholder": "Mi taza favorita",
+      "height": "Altura (mm)",
+      "tapered": "Cónico (diámetro superior distinto)",
+      "bottom": "Base",
+      "top": "Parte superior",
+      "unitDiameter": "Ø mm",
+      "unitCircumference": "C mm",
+      "engraveBottom": "Base de la zona de grabado (mm)",
+      "engraveTop": "Parte superior de la zona de grabado (mm)",
+      "summary": "Ø base {bottomD} mm · Ø superior {topD} mm · circunferencia {cMin}–{cMax} mm · lienzo {w} × {h} mm",
+      "save": "Guardar recipiente",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar el recipiente personalizado «{name}»?",
+      "errors": {
+        "name": "Introduce un nombre.",
+        "height": "La altura debe ser un número positivo en milímetros.",
+        "dimensionMissing": "Introduce un diámetro o una circunferencia.",
+        "dimensionBoth": "Introduce diámetro o circunferencia, no ambos.",
+        "dimensionPositive": "El diámetro y la circunferencia deben ser números positivos.",
+        "engraveOrder": "La parte superior de la zona de grabado debe estar por encima de la base.",
+        "engraveRange": "La zona de grabado debe caber dentro de la altura del recipiente."
+      }
+    }
   },
   "viewer": {
     "finish": "Acabado",
@@ -32,7 +66,8 @@
       "sage": "Pintura en polvo salvia",
       "black": "Pintura en polvo negra",
       "pink": "Pintura en polvo rosa",
-      "stainless": "Acero inoxidable"
+      "stainless": "Acero inoxidable",
+      "custom": "Pintura en polvo personalizada"
     },
     "turntable": "Giro automático",
     "laserSweep": "Barrido láser",
@@ -47,7 +82,10 @@
       "cup": "Vaso",
       "cylinder": "Cilindro"
     },
-    "dimensions": "Ø {min}–{max} mm × {height} mm"
+    "dimensions": "Ø {min}–{max} mm × {height} mm",
+    "color": {
+      "custom": "Color personalizado"
+    }
   },
   "editor": {
     "undo": "Deshacer",
@@ -139,7 +177,21 @@
     "projectDownloadHint": "Una copia .lasergen.json que puedes reimportar en laser-gen.",
     "saveCopy": "Guardar copia en la biblioteca",
     "savedCopy": "Guardado en la biblioteca",
-    "untitled": "sin-título"
+    "untitled": "sin-título",
+    "rotary": {
+      "tab": "Configuración del rotativo",
+      "objectDiameter": "Diámetro del objeto",
+      "circumference": "Circunferencia",
+      "artboard": "Tamaño del lienzo",
+      "dpiNote": "Los SVG exportados son milímetros reales: impórtalos al 100 % de escala. Los PNG incorporan su DPI.",
+      "stepsTitle": "Configuración en LightBurn",
+      "step1": "Abre Tools → Rotary Setup y activa el rotativo.",
+      "step2": "Rotativo de mandril: introduce los pasos por rotación del manual de tu máquina. Rotativo de rodillos: introduce el diámetro del rodillo.",
+      "step3": "Introduce el diámetro del objeto de arriba como diámetro del objeto del rotativo.",
+      "copy": "Copiar al portapapeles",
+      "copied": "Copiado",
+      "download": "Descargar .txt"
+    }
   },
   "tools": {
     "select": "Seleccionar",
