@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# nuxt build output
+.nuxt
+.output
+.data
+dist
+
+# logs
+*.log
+
+# playwright
+/test-results/
+/playwright-report/
+
+# vercel
+.vercel
+
+# os
+.DS_Store

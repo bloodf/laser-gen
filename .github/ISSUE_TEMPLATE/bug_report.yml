@@ -1,0 +1,57 @@
+name: Bug report
+description: Something in laser-gen isn't working as expected
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a bug!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected instead.
+      placeholder: When I..., I expected..., but instead...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: e.g. Chrome 138, Safari 18, Firefox 141
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - iOS / iPadOS
+        - Android
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: laser-gen version or commit
+      placeholder: e.g. 0.1.0 or a commit SHA
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console errors / screenshots
+      description: Paste any errors from the browser dev tools console, or drag in screenshots.
+      render: text

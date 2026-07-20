@@ -1,0 +1,262 @@
+<script setup lang="ts">
+/**
+ * Library dashboard: search/filter/sort over saved projects, a job-tracker
+ * detail modal per project, and a reusable-assets section. Library saves are
+ * explicit — the studio's working-document autosave is untouched.
+ */
+import { applyProjectQuery } from '~/core/library'
+import type { LibraryAsset, LibraryProject, LibrarySort, ProjectStatus } from '~/core/library'
+import { useLibraryStore } from '~/stores/library'
+
+const { t } = useI18n()
+const localePath = useLocalePath()
+const library = useLibraryStore()
+
+// --- Filters -------------------------------------------------------------------
+
+const tab = ref<'projects' | 'assets'>('projects')
+const search = ref('')
+const activeTag = ref('')
+const statusFilter = ref<ProjectStatus | ''>('')
+const sort = ref<LibrarySort>('updatedAt')
+const view = ref<'grid' | 'list'>('grid')
+
+/** All tags in use across projects (for the filter chips). */
+const allTags = computed(() => {
+  const tags = new Set<string>()
+  for (const p of library.projects) for (const tag of p.meta.tags) tags.add(tag)
+  return [...tags].sort()
+})
+
+const filteredProjects = computed(() => applyProjectQuery(library.projects, {
+  search: search.value,
+  tag: activeTag.value || undefined,
+  status: statusFilter.value || undefined,
+  sort: sort.value,
+}))
+
+const hasProjects = computed(() => library.projects.length > 0)
+
+// --- Project actions -------------------------------------------------------------
+
+const detailId = ref<string | null>(null)
+const detailProject = computed(() => library.projects.find(p => p.meta.id === detailId.value))
+
+async function openProject(project: LibraryProject): Promise<void> {
+  if (await library.openProject(project.meta.id)) {
+    await navigateTo(localePath('/studio'))
+  }
+}
+
+function newProject(): void {
+  library.startNewProject()
+  void navigateTo(localePath('/studio'))
+}
+
+function confirmDelete(project: LibraryProject): void {
+  if (window.confirm(t('library.confirmDelete', { name: project.meta.name }))) {
+    void library.deleteProject(project.meta.id)
+  }
+}
+
+// --- Import / export -------------------------------------------------------------
+
+const importInput = ref<HTMLInputElement | null>(null)
+const importMessage = ref('')
+
+function onImportFile(e: Event): void {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  ;(e.target as HTMLInputElement).value = ''
+  if (!file) return
+  const mode = window.confirm(t('library.importMergePrompt')) ? 'merge' : 'replace'
+  library.importFromFile(file, mode)
+    .then(counts => importMessage.value = t('library.importDone', counts))
+    .catch(() => importMessage.value = t('library.importError'))
+}
+
+// --- Assets -----------------------------------------------------------------------
+
+function addAssetFromCurrent(): void {
+  const name = window.prompt(t('assets.namePrompt'), t('assets.defaultName'))
+  if (!name?.trim()) return
+  void library.saveCurrentDocAsAsset(name.trim())
+}
+
+function insertAsset(asset: LibraryAsset): void {
+  if (library.insertAssetIntoCurrent(asset.id)) {
+    void navigateTo(localePath('/studio'))
+  }
+}
+</script>
+
+<template>
+  <section class="space-y-5">
+    <header class="flex flex-wrap items-center gap-3">
+      <h1 class="text-2xl font-bold tracking-tight">
+        {{ t('nav.library') }}
+      </h1>
+      <span class="flex-1" />
+      <button
+        type="button"
+        class="rounded-md bg-laser px-4 py-2 text-sm font-semibold text-ink-950 transition-opacity hover:opacity-90"
+        @click="newProject"
+      >
+        {{ t('common.newProject') }}
+      </button>
+      <button
+        type="button"
+        class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
+        @click="importInput?.click()"
+      >
+        {{ t('library.import') }}
+      </button>
+      <button
+        type="button"
+        class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
+        @click="library.exportToFile()"
+      >
+        {{ t('library.export') }}
+      </button>
+      <input ref="importInput" type="file" accept="application/json,.json" class="hidden" @change="onImportFile">
+    </header>
+
+    <p v-if="importMessage" class="text-sm text-ink-300">
+      {{ importMessage }}
+    </p>
+
+    <!-- tabs -->
+    <div class="flex gap-1 border-b border-ink-800" role="tablist">
+      <button
+        type="button"
+        role="tab"
+        class="rounded-t-md px-4 py-2 text-sm"
+        :class="tab === 'projects' ? 'bg-ink-800 text-ink-100' : 'text-ink-400 hover:text-ink-100'"
+        :aria-selected="tab === 'projects'"
+        @click="tab = 'projects'"
+      >
+        {{ t('library.tabProjects') }}
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="rounded-t-md px-4 py-2 text-sm"
+        :class="tab === 'assets' ? 'bg-ink-800 text-ink-100' : 'text-ink-400 hover:text-ink-100'"
+        :aria-selected="tab === 'assets'"
+        @click="tab = 'assets'"
+      >
+        {{ t('assets.title') }}
+      </button>
+    </div>
+
+    <!-- projects tab -->
+    <template v-if="tab === 'projects'">
+      <div class="flex flex-wrap items-center gap-2">
+        <input
+          v-model="search"
+          type="search"
+          :placeholder="t('library.searchPlaceholder')"
+          class="w-56 rounded-md border border-ink-700 bg-ink-900 px-3 py-1.5 text-sm text-ink-100 focus:border-laser focus:outline-none"
+        >
+        <select
+          v-model="statusFilter"
+          class="rounded-md border border-ink-700 bg-ink-900 px-2 py-1.5 text-sm text-ink-100 focus:border-laser focus:outline-none"
+          :aria-label="t('library.filterStatus')"
+        >
+          <option value="">
+            {{ t('library.allStatuses') }}
+          </option>
+          <option value="draft">
+            {{ t('library.status.draft') }}
+          </option>
+          <option value="ready">
+            {{ t('library.status.ready') }}
+          </option>
+          <option value="engraved">
+            {{ t('library.status.engraved') }}
+          </option>
+        </select>
+        <select
+          v-model="sort"
+          class="rounded-md border border-ink-700 bg-ink-900 px-2 py-1.5 text-sm text-ink-100 focus:border-laser focus:outline-none"
+          :aria-label="t('library.filterSort')"
+        >
+          <option value="updatedAt">
+            {{ t('library.sortUpdated') }}
+          </option>
+          <option value="name">
+            {{ t('library.sortName') }}
+          </option>
+          <option value="createdAt">
+            {{ t('library.sortCreated') }}
+          </option>
+        </select>
+        <button
+          type="button"
+          class="rounded-md border border-ink-700 px-2.5 py-1.5 text-xs text-ink-300 transition-colors hover:bg-ink-800"
+          @click="view = view === 'grid' ? 'list' : 'grid'"
+        >
+          {{ view === 'grid' ? t('library.listView') : t('library.gridView') }}
+        </button>
+      </div>
+
+      <div v-if="allTags.length" class="flex flex-wrap gap-1.5">
+        <button
+          v-for="tag in allTags"
+          :key="tag"
+          type="button"
+          class="rounded-full px-3 py-1 text-xs transition-colors"
+          :class="activeTag === tag ? 'bg-laser text-ink-950' : 'bg-ink-800 text-ink-300 hover:text-ink-100'"
+          @click="activeTag = activeTag === tag ? '' : tag"
+        >
+          {{ tag }}
+        </button>
+      </div>
+
+      <p v-if="!hasProjects" class="rounded-lg border border-dashed border-ink-700 p-10 text-center">
+        <span class="block text-sm font-medium text-ink-300">{{ t('library.emptyTitle') }}</span>
+        <span class="mt-1 block text-xs text-ink-500">{{ t('library.emptyHint') }}</span>
+      </p>
+      <p v-else-if="filteredProjects.length === 0" class="py-8 text-center text-sm text-ink-400">
+        {{ t('library.noMatches') }}
+      </p>
+
+      <div
+        v-else
+        class="grid gap-3"
+        :class="view === 'grid' ? 'sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'"
+      >
+        <LibraryProjectCard
+          v-for="project in filteredProjects"
+          :key="project.meta.id"
+          :project="project"
+          :layout="view"
+          @open="openProject(project)"
+          @duplicate="library.duplicateProject(project.meta.id)"
+          @rename="name => library.renameProject(project.meta.id, name)"
+          @delete="confirmDelete(project)"
+          @detail="detailId = project.meta.id"
+        />
+      </div>
+    </template>
+
+    <!-- assets tab -->
+    <template v-else>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
+          @click="addAssetFromCurrent"
+        >
+          {{ t('assets.addFromCurrent') }}
+        </button>
+      </div>
+      <LibraryAssetGrid @insert="insertAsset" />
+    </template>
+
+    <LibraryProjectDetail
+      v-if="detailProject"
+      :project="detailProject"
+      @close="detailId = null"
+    />
+  </section>
+</template>

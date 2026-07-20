@@ -1,0 +1,57 @@
+name: Vessel request
+description: Request a preset for a specific cup, mug, tumbler, or bottle
+title: "[Vessel]: "
+labels: [vessel-preset]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a vessel preset. Please measure carefully — presets are only useful
+        when the millimeter dimensions are accurate.
+  - type: input
+    id: product-name
+    attributes:
+      label: Product name and brand
+      placeholder: e.g. Stanley Quencher H2.0 40 oz
+    validations:
+      required: true
+  - type: input
+    id: product-url
+    attributes:
+      label: Product URL (optional)
+      placeholder: Link to the manufacturer's product page
+  - type: textarea
+    id: dimensions
+    attributes:
+      label: Dimensions (millimeters)
+      description: Provide as many as you can, in mm.
+      placeholder: |
+        Height: 270 mm
+        Top outer diameter: 98 mm
+        Bottom outer diameter: 75 mm
+        Lid/shoulder notes: tapers above 220 mm
+    validations:
+      required: true
+  - type: dropdown
+    id: taper
+    attributes:
+      label: Does the vessel taper?
+      description: Is the body a straight cylinder or does the diameter change along its height?
+      options:
+        - Straight cylinder (same diameter top and bottom)
+        - Tapered cone (narrower at the bottom)
+        - Tapered cone (narrower at the top)
+        - Complex shape (describe in dimensions above)
+    validations:
+      required: true
+  - type: input
+    id: circumference
+    attributes:
+      label: Measured circumference (optional)
+      placeholder: e.g. tape-measured around the top: 308 mm
+  - type: checkboxes
+    id: owns
+    attributes:
+      label: Verification
+      options:
+        - label: I own this vessel and can verify measurements or test a wrap print

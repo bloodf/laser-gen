@@ -1,0 +1,566 @@
+{
+  "nav": {
+    "home": "Home",
+    "studio": "Studio",
+    "library": "Library",
+    "settings": "Settings",
+    "docs": "Docs"
+  },
+  "common": {
+    "save": "Save",
+    "export": "Export",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "newProject": "New project"
+  },
+  "hero": {
+    "tagline": "Design 360° wrap art for cups, mugs, and bottles — right in your browser."
+  },
+  "presets": {
+    "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
+    "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
+    "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "wineTumbler12oz": "Wine tumbler 12oz",
+    "sportsBottle32oz": "Sports bottle 32oz",
+    "genericCylinder80mm": "Straight cylinder 80mm"
+  },
+  "viewer": {
+    "finish": "Finish",
+    "finishes": {
+      "cream": "Powder-coat cream",
+      "sage": "Powder-coat sage",
+      "black": "Powder-coat black",
+      "pink": "Powder-coat pink",
+      "stainless": "Bare stainless"
+    },
+    "turntable": "Turntable",
+    "laserSweep": "Laser sweep",
+    "seam": "Seam",
+    "safeZone": "Handle safe zone",
+    "loading": "Loading 3D preview…",
+    "webglUnavailable": "WebGL isn't available in this browser, so the 3D preview can't start.",
+    "categories": {
+      "tumbler": "Tumbler",
+      "mug": "Mug",
+      "bottle": "Bottle",
+      "cup": "Cup",
+      "cylinder": "Cylinder"
+    },
+    "dimensions": "Ø {min}–{max} mm × {height} mm"
+  },
+  "editor": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "stroke": "Stroke",
+    "strokeColor": "Stroke color",
+    "strokeWidth": "Width (mm)",
+    "fill": "Fill",
+    "snap": "Snap",
+    "grid": "Grid",
+    "rulers": "Rulers",
+    "zoomReset": "Reset zoom",
+    "tabEditor": "Editor",
+    "tabPreview": "3D preview",
+    "textPlaceholder": "Enter text…",
+    "align": {
+      "title": "Align",
+      "left": "Align left",
+      "centerX": "Align center",
+      "right": "Align right",
+      "top": "Align top",
+      "centerY": "Align middle",
+      "bottom": "Align bottom",
+      "relativeTo": "Toggle alignment reference",
+      "toArtboard": "Artboard",
+      "toSelection": "Selection",
+      "distributeH": "Distribute H",
+      "distributeV": "Distribute V",
+      "flipH": "Flip H",
+      "flipV": "Flip V"
+    },
+    "import": {
+      "svg": "Import SVG",
+      "image": "Import image",
+      "empty": "No importable shapes found in that SVG."
+    }
+  },
+  "export": {
+    "button": "Export",
+    "title": "Export for your laser",
+    "tabSvg": "SVG",
+    "tabRaster": "Raster PNG",
+    "tabProject": "Project",
+    "program": "Target program",
+    "programs": {
+      "lightburn": {
+        "name": "LightBurn",
+        "notes": "File → Import, then enable the rotary under Tools → Rotary Setup and enter the object diameter."
+      },
+      "xtool": {
+        "name": "xTool Creative Space",
+        "notes": "Import the SVG into XCS, choose cylindrical (rotary) processing and enter the object diameter."
+      },
+      "lasergrbl": {
+        "name": "LaserGRBL",
+        "notes": "Open the SVG, enable the rotary axis and set steps-per-rotation from your machine's documentation."
+      },
+      "generic": {
+        "name": "Generic SVG",
+        "notes": "Physical size is true millimeters — import at 100% scale and set up your rotary manually."
+      }
+    },
+    "flattenShapes": "Flatten shapes to paths",
+    "flattenShapesHint": "Converts rects, ellipses and polygons to SVG paths for simpler importers.",
+    "embedMetadata": "Embed rotary setup metadata",
+    "embedMetadataHint": "Adds a comment with the object diameter and setup notes to the file.",
+    "layerMode": "Layers",
+    "layerPreserve": "Preserve as named groups",
+    "layerMerge": "Merge into one group",
+    "warningsTitle": "Heads up",
+    "warnings": {
+      "textFontsLightburn": "Text stays as live text — LightBurn needs the same font installed, or convert text to paths first.",
+      "textFonts": "Text stays as live text — the receiving program needs the same font installed.",
+      "imagesEmbedded": "Raster images are embedded as data URIs, which can make the SVG large.",
+      "rasterFonts": "Text is rendered with this device's fonts into the PNG.",
+      "transparentBg": "Transparent background: some laser programs render transparency as black."
+    },
+    "sizeEstimate": "Estimated size: {size}",
+    "dpi": "Resolution (DPI)",
+    "pixelSize": "{w} × {h} px",
+    "background": "Background",
+    "bgWhite": "White",
+    "bgTransparent": "Transparent",
+    "exportNow": "Export",
+    "exporting": "Exporting…",
+    "done": "Exported {filename}",
+    "rotaryReminder": "Rotary reminder: enter object diameter {diameter} mm in your laser software.",
+    "projectDownload": "Download project file",
+    "projectDownloadHint": "A .lasergen.json backup you can re-import in laser-gen.",
+    "saveCopy": "Save copy to library",
+    "savedCopy": "Saved to library",
+    "untitled": "untitled"
+  },
+  "tools": {
+    "select": "Select",
+    "pen": "Pen",
+    "rect": "Rectangle",
+    "ellipse": "Ellipse",
+    "polygon": "Polygon",
+    "star": "Star",
+    "freehand": "Freehand",
+    "text": "Text",
+    "pan": "Pan",
+    "options": {
+      "sides": "Sides",
+      "points": "Points",
+      "innerRatio": "Inner ratio",
+      "font": "Font",
+      "fontSize": "Size (mm)",
+      "tolerance": "Smoothing (mm)"
+    },
+    "fonts": {
+      "sans": "Sans",
+      "serif": "Serif",
+      "mono": "Mono",
+      "cursive": "Handwritten"
+    }
+  },
+  "layers": {
+    "title": "Layers",
+    "add": "Add layer",
+    "remove": "Delete layer",
+    "up": "Move layer up",
+    "down": "Move layer down",
+    "duplicate": "Duplicate layer",
+    "visible": "Toggle visibility",
+    "locked": "Toggle lock",
+    "opacity": "Opacity",
+    "elements": "no elements | {count} element | {count} elements"
+  },
+  "vectorize": {
+    "title": "Vectorize",
+    "source": "Source",
+    "upload": "Upload…",
+    "uploadReady": "Uploaded image ready ({width} × {height} px).",
+    "noSource": "Import an image onto the artboard or upload one to trace.",
+    "mode": "Mode",
+    "modeMono": "Monochrome",
+    "modeColor": "Color",
+    "threshold": "Threshold",
+    "colors": "Colors",
+    "smoothing": "Smoothing",
+    "simplification": "Simplify",
+    "run": "Trace",
+    "running": "Tracing…",
+    "cancel": "Cancel",
+    "done": "Traced layer added.",
+    "error": "Tracing failed.",
+    "empty": "The trace produced no shapes.",
+    "layerName": "Vectorized",
+    "artboardImage": "Artboard image {id}"
+  },
+  "photo": {
+    "title": "Photo prep",
+    "selectHint": "Select an image on the artboard — or add one — to prepare it for engraving.",
+    "add": "Add photo",
+    "material": "Material preset",
+    "materialCustom": "Custom",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "gamma": "Gamma",
+    "grayscale": "Grayscale",
+    "invert": "Invert",
+    "sharpen": "Sharpen",
+    "mode": "Mode",
+    "modeNone": "Original",
+    "modeThreshold": "Threshold",
+    "modeFloyd": "Floyd–Steinberg",
+    "modeBayer4": "Ordered 4×4",
+    "modeBayer8": "Ordered 8×8",
+    "modeHalftone": "Halftone",
+    "modeStipple": "Stipple",
+    "threshold": "Threshold",
+    "cellSizeMm": "Cell size (mm)",
+    "maxDotMm": "Max dot radius (mm, 0 = auto)",
+    "stippleDensity": "Density",
+    "before": "Before",
+    "after": "After",
+    "removeBg": "Remove background",
+    "removingBg": "Removing…",
+    "bgTolerance": "BG tolerance",
+    "reset": "Reset to original",
+    "processing": "Processing…",
+    "cancel": "Cancel",
+    "error": "Processing failed.",
+    "toVectors": "Convert halftone to vectors",
+    "tooManyDots": "Too many dots ({count}) — increase the cell size.",
+    "vectorize": "Vectorize…",
+    "layerName": "Halftone dots",
+    "resolutionNote": "Processing is capped at {px} px on the long edge."
+  },
+  "materials": {
+    "powderCoatedSteel": {
+      "name": "Powder-coated steel",
+      "note": "The laser burns the coating away to bright metal, so dark tones stay dark (no invert). Extra contrast and Floyd–Steinberg keep tones crisp."
+    },
+    "bareStainless": {
+      "name": "Bare stainless",
+      "note": "Marking darkens bare steel; a mild contrast boost with Floyd–Steinberg keeps gradients smooth."
+    },
+    "wood": {
+      "name": "Wood",
+      "note": "Wood burns dark and bleeds a little; softer contrast and an ordered 8×8 dither avoid muddy, over-burned patches."
+    },
+    "glass": {
+      "name": "Glass",
+      "note": "Glass etches bright where the beam hits, so the image is inverted; Floyd–Steinberg keeps the frosting detailed."
+    },
+    "coatedCeramic": {
+      "name": "Coated ceramic",
+      "note": "Like powder coat, the glaze burns to bright; moderate contrast with Floyd–Steinberg suits coated mugs and tiles."
+    }
+  },
+  "library": {
+    "searchPlaceholder": "Search projects…",
+    "filterStatus": "Status filter",
+    "allStatuses": "All statuses",
+    "filterSort": "Sort order",
+    "sortUpdated": "Recently updated",
+    "sortName": "Name",
+    "sortCreated": "Recently created",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "import": "Import library",
+    "export": "Export library",
+    "importMergePrompt": "Merge with your existing library? Press OK to merge, Cancel to replace everything.",
+    "importDone": "Imported {projects} projects and {assets} assets.",
+    "importError": "That file isn't a valid laser-gen library export.",
+    "tabProjects": "Projects",
+    "status": {
+      "draft": "Draft",
+      "ready": "Ready",
+      "engraved": "Engraved"
+    },
+    "open": "Open",
+    "duplicate": "Duplicate",
+    "rename": "Rename",
+    "details": "Details",
+    "confirmDelete": "Delete “{name}”? This can't be undone.",
+    "emptyTitle": "No projects yet",
+    "emptyHint": "Design a wrap in the studio, then save it to your library with the save button in the toolbar.",
+    "noMatches": "No projects match your filters.",
+    "saveToLibrary": "Save to library",
+    "saved": "Saved",
+    "namePrompt": "Name this project",
+    "defaultName": "Untitled project",
+    "recent": "Recent projects",
+    "rel": {
+      "justNow": "just now",
+      "minutes": "{count} min ago",
+      "hours": "{count} h ago",
+      "days": "{count} d ago"
+    },
+    "detail": {
+      "name": "Name",
+      "tags": "Tags",
+      "tagsPlaceholder": "comma, separated, tags",
+      "status": "Status"
+    }
+  },
+  "jobs": {
+    "title": "Job tracker",
+    "empty": "No burn attempts logged yet.",
+    "add": "Add note",
+    "material": "Material",
+    "materialNone": "—",
+    "power": "Power %",
+    "speed": "Speed mm/s",
+    "passes": "Passes",
+    "notePlaceholder": "How did it burn? Settings, issues, results…",
+    "attachPhoto": "Attach result photo",
+    "removeNote": "Delete note"
+  },
+  "assets": {
+    "title": "Assets",
+    "addFromCurrent": "Save current project as asset",
+    "namePrompt": "Name this asset",
+    "defaultName": "Untitled asset",
+    "insert": "Insert into project",
+    "emptyTitle": "No assets yet",
+    "emptyHint": "Save art here to reuse it across projects."
+  },
+  "ai": {
+    "title": "AI assistant",
+    "noProvider": "The AI assistant needs a provider. Add your own API key in Settings — it never leaves this device except to the provider you choose.",
+    "setupCta": "Set up an AI provider",
+    "using": "Using {label} ({model})",
+    "generating": "Generating…",
+    "generatingHint": "Asking the model for SVG art — this can take a few seconds.",
+    "retry": "Retry",
+    "saveToAssets": "Save to assets",
+    "saved": "Saved",
+    "svg": {
+      "title": "Prompt to SVG",
+      "placeholder": "A leaping fox, geometric line art…",
+      "generate": "Generate SVG",
+      "layerName": "AI",
+      "failed": "The model did not return usable SVG.",
+      "styles": {
+        "line-art": "Line art",
+        "mandala": "Mandala",
+        "monogram": "Monogram",
+        "geometric": "Geometric pattern",
+        "halftone-friendly": "Halftone-friendly"
+      }
+    },
+    "image": {
+      "title": "Prompt to image",
+      "placeholder": "A mountain landscape, bold black-and-white…",
+      "generate": "Generate image",
+      "vectorize": "Vectorize…",
+      "vectorizeHint": "The image is on the artboard — run Vectorize on it for engraving-ready paths.",
+      "assetName": "AI image"
+    },
+    "copilot": {
+      "title": "Design copilot",
+      "hint": "Ask about layout, engraving suitability, or let it tweak the design.",
+      "placeholder": "Ask the copilot…",
+      "send": "Send",
+      "sending": "Sending…",
+      "clear": "Clear",
+      "unknownAction": "Unknown action \"{action}\" — ignored."
+    }
+  },
+  "settings": {
+    "ai": {
+      "title": "AI providers",
+      "add": "Add provider",
+      "kind": "Type",
+      "kinds": {
+        "anthropic": "Anthropic (Claude)",
+        "openai": "OpenAI (GPT)",
+        "openai-compatible": "Custom (OpenAI-compatible)"
+      },
+      "label": "Name",
+      "labelPlaceholder": "e.g. My Claude",
+      "baseUrl": "Base URL",
+      "baseUrlHint": "Any OpenAI-compatible endpoint: Ollama, LM Studio, OpenRouter, vLLM… Must allow browser requests (CORS).",
+      "apiKey": "API key",
+      "apiKeyOptional": "optional for local servers",
+      "model": "Model",
+      "save": "Save provider",
+      "saving": "Saving…",
+      "errorLabel": "Give the provider a name.",
+      "errorBaseUrl": "A base URL is required for custom endpoints.",
+      "errorKey": "An API key is required for this provider.",
+      "errorModel": "A model id is required.",
+      "empty": "No AI providers configured yet. Add one to enable the studio AI assistant — your key stays on this device.",
+      "test": "Test connection",
+      "testing": "Testing…",
+      "latency": "{ms} ms",
+      "setDefault": "Set default",
+      "default": "Default",
+      "privacyTitle": "Privacy",
+      "privacyBody": "Keys are stored encrypted on this device only (AES-GCM in IndexedDB) and are never shown again after saving. Requests go directly from your browser to the provider — no proxy, no telemetry. Note: this protects keys at rest, not against a compromised device."
+    }
+  },
+  "pages": {
+    "settings": {
+      "placeholder": "App preferences and AI provider keys (stored only on this device) will live here."
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "laser-gen — 360° wrap art for laser engraving",
+      "description": "Design wrap art for cups, mugs and bottles in your browser: vector editor, live 3D preview, photo-to-engraving, AI assistant, LightBurn/xTool/LaserGRBL export. Free, open source, offline-capable."
+    },
+    "hero": {
+      "eyebrow": "Free · Open source · 100% in your browser",
+      "sub": "A fully client-side PWA for laser engraving: draw, trace, or generate art, preview it live on a 3D vessel, and export millimeter-perfect files for your laser software.",
+      "ctaStudio": "Open Studio",
+      "ctaHow": "See how it works",
+      "github": "Star on GitHub"
+    },
+    "features": {
+      "title": "Everything between photo and burn",
+      "subtitle": "One tool for the whole wrap workflow — no installs, no accounts, no uploads.",
+      "wrap360": {
+        "title": "360° wrap editor",
+        "body": "A millimeter-accurate artboard that maps the full circumference of your vessel, with seam and safe-zone guides."
+      },
+      "preview3d": {
+        "title": "Live 3D preview",
+        "body": "See your design wrapped around the vessel in real time, with a laser-sweep shader showing exactly where the beam will travel."
+      },
+      "photo": {
+        "title": "Photo to engraving",
+        "body": "Brightness, contrast and gamma plus Floyd–Steinberg, ordered dither, halftone and stipple — tuned per material."
+      },
+      "vectorize": {
+        "title": "Vectorizer",
+        "body": "Trace raster images into clean vector paths right in the browser, with smoothing and simplification controls."
+      },
+      "ai": {
+        "title": "AI assistant (BYOK)",
+        "body": "Prompt-to-SVG, prompt-to-image and a design copilot with your own Anthropic, OpenAI or OpenAI-compatible key. Keys never leave your device except to the provider you choose."
+      },
+      "library": {
+        "title": "Library & jobs",
+        "body": "Save projects and reusable assets locally, track burn attempts with power, speed and passes, and attach result photos."
+      },
+      "export": {
+        "title": "Export for your laser",
+        "body": "Physical-size SVG and DPI-correct PNG presets for LightBurn, xTool Creative Space and LaserGRBL, with rotary setup hints."
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "pick": {
+        "title": "Pick a vessel",
+        "body": "Choose a preset — Stanley Quencher, camp mug, wine tumbler and more — or measure your own."
+      },
+      "design": {
+        "title": "Design or trace",
+        "body": "Draw vectors, import SVGs, prep a photo, or let the AI assistant sketch something for you."
+      },
+      "export": {
+        "title": "Export & burn",
+        "body": "Download a millimeter-perfect file, set up your rotary, and watch it engrave."
+      }
+    },
+    "vessels": {
+      "title": "Made for real vessels",
+      "subtitle": "Built-in presets with real-world dimensions — the engrave window highlighted.",
+      "disclaimer": "Preset dimensions are approximate community measurements, not manufacturer specs. Measure your own vessel before a production engraving."
+    },
+    "openSource": {
+      "title": "Open source, MIT licensed",
+      "body": "laser-gen is a community project. No backend, no telemetry, no paywall — audit every line, or help shape the roadmap.",
+      "contribute": "Contribute on GitHub",
+      "license": "MIT license",
+      "stackTitle": "Built with"
+    },
+    "footer": {
+      "tagline": "360° wrap art for laser engraving, fully in your browser.",
+      "docsHeading": "Docs",
+      "projectHeading": "Project",
+      "contributing": "Contributing",
+      "license": "License (MIT)",
+      "mit": "MIT licensed · Fully client-side · No telemetry"
+    },
+    "offline": "You're offline — laser-gen keeps working; everything is stored on this device."
+  },
+  "docsPages": {
+    "title": "Docs",
+    "intro": "Short, practical guides — from your first burn to adding your own AI provider.",
+    "moreOnGithub": "Full contributor documentation lives in the repo:",
+    "backToDocs": "All docs",
+    "pages": {
+      "gettingStarted": {
+        "title": "Getting started",
+        "description": "The 60-second tour: pick a vessel, design, export, burn."
+      },
+      "aiProviders": {
+        "title": "AI providers",
+        "description": "Bring-your-own-key setup, privacy model and CORS notes."
+      },
+      "vessels": {
+        "title": "Vessels",
+        "description": "Built-in presets, their dimensions, and how to contribute one."
+      }
+    },
+    "gettingStarted": {
+      "intro": "From zero to first burn in about five minutes — everything runs locally in your browser.",
+      "quickTitle": "Quick start",
+      "quick1": "Open the Studio and pick a vessel preset — or measure yours and enter the profile.",
+      "quick2": "Design on the unwrapped artboard: draw shapes, import an SVG, prep a photo, or ask the AI assistant.",
+      "quick3": "Check the live 3D preview — the wrap, seam and handle safe zones update as you edit.",
+      "quick4": "Export for your laser software, enter the object diameter in its rotary setup, and burn.",
+      "wrapTitle": "The wrap concept",
+      "wrapBody1": "The artboard is the vessel's outer surface unrolled flat: its width equals the circumference at the widest engraved row, its height the engrave window. Anything you draw maps straight onto the vessel.",
+      "wrapBody2": "The left and right edges are the same line on the vessel — the seam. Elements that cross an edge wrap automatically, so continuous patterns stay continuous.",
+      "diagramAlt": "Diagram: a cylinder with its engrave band, unwrapped into a flat rectangle whose dashed edges mark the seam.",
+      "diagramVessel": "Vessel",
+      "diagramUnwrap": "unwrap 360°",
+      "diagramArtboard": "Artboard (full circumference)",
+      "diagramSeam": "seam = seam",
+      "offlineTitle": "Works offline",
+      "offlineBody": "laser-gen is an installable PWA: the whole app is cached on your device and every project is stored locally in IndexedDB. Design on the shop network — or with no network at all."
+    },
+    "aiProviders": {
+      "intro": "The AI assistant is bring-your-own-key: your browser talks directly to the provider you configure.",
+      "modelTitle": "The BYOK model",
+      "model1": "No backend, no proxy — requests go straight from your browser to the provider API.",
+      "model2": "Keys are encrypted at rest (AES-GCM in IndexedDB) and never shown again after saving.",
+      "model3": "A key is sent only to its own provider, over HTTPS, when you invoke an AI feature.",
+      "model4": "Delete a provider in Settings and nothing retains it.",
+      "providersTitle": "Supported providers",
+      "providersBody": "One small interface with an adapter per provider; vendor SDKs load lazily, so they only cost bundle size when actually used.",
+      "thProvider": "Provider",
+      "thApi": "API",
+      "thNotes": "Notes",
+      "rowAnthropic": "Chat (default claude-sonnet-4-5). No image generation.",
+      "rowOpenai": "Chat (default gpt-4o-mini) plus image generation via gpt-image-1.",
+      "customName": "Custom (OpenAI-compatible)",
+      "rowCustom": "Ollama, LM Studio, OpenRouter, vLLM — any chat-completions endpoint.",
+      "corsTitle": "CORS notes",
+      "corsBody": "Because requests originate in the browser, the endpoint must allow cross-origin browser requests:",
+      "corsLocal": "Local servers: start Ollama with OLLAMA_ORIGINS set (e.g. OLLAMA_ORIGINS=\"*\" for local use) or your requests will be blocked.",
+      "corsHosted": "Hosted gateways: OpenRouter and most hosted OpenAI-compatible endpoints send permissive CORS headers; Anthropic and OpenAI's official APIs accept browser requests with your own key.",
+      "securityTitle": "Security",
+      "securityBody": "Encryption at rest protects keys on an intact device — it cannot protect against a compromised device. Use scoped keys where possible; see SECURITY.md in the repo for the full threat model."
+    },
+    "vessels": {
+      "intro": "Presets spare you the calipers: pick a vessel and its profile drives both the 3D preview and the artboard.",
+      "thName": "Preset",
+      "thCategory": "Category",
+      "thSize": "Size",
+      "thEngrave": "Engrave window",
+      "measureTitle": "Measure your own",
+      "measureBody": "Presets are approximate community measurements, not manufacturer specs. For production work, measure height and diameter at a few points with a ruler or calipers — wall taper changes the circumference your art wraps across.",
+      "contributeTitle": "Contribute a preset",
+      "contributeBody": "Measured a vessel we're missing? Presets are small profile definitions — see"
+    }
+  }
+}

@@ -1,0 +1,545 @@
+{
+  "nav": {
+    "home": "首页",
+    "studio": "工作室",
+    "library": "项目库",
+    "settings": "设置",
+    "docs": "文档"
+  },
+  "common": {
+    "save": "保存",
+    "export": "导出",
+    "cancel": "取消",
+    "close": "关闭",
+    "delete": "删除",
+    "newProject": "新建项目"
+  },
+  "hero": {
+    "tagline": "在浏览器中为水杯、马克杯和瓶子设计 360° 环绕图案。"
+  },
+  "presets": {
+    "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
+    "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
+    "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "wineTumbler12oz": "红酒杯 12oz",
+    "sportsBottle32oz": "运动水壶 32oz",
+    "genericCylinder80mm": "直圆柱 80mm"
+  },
+  "viewer": {
+    "finish": "表面",
+    "finishes": {
+      "cream": "喷塑米白",
+      "sage": "喷塑鼠尾草绿",
+      "black": "喷塑黑色",
+      "pink": "喷塑粉色",
+      "stainless": "不锈钢原色"
+    },
+    "turntable": "自动旋转",
+    "laserSweep": "激光扫描",
+    "seam": "接缝",
+    "safeZone": "把手安全区",
+    "loading": "正在加载 3D 预览…",
+    "webglUnavailable": "此浏览器不支持 WebGL，无法启动 3D 预览。",
+    "categories": {
+      "tumbler": "保温杯",
+      "mug": "马克杯",
+      "bottle": "瓶子",
+      "cup": "杯子",
+      "cylinder": "圆柱"
+    },
+    "dimensions": "Ø {min}–{max} mm × {height} mm"
+  },
+  "editor": {
+    "undo": "撤销",
+    "redo": "重做",
+    "stroke": "描边",
+    "strokeColor": "描边颜色",
+    "strokeWidth": "线宽 (mm)",
+    "fill": "填充",
+    "snap": "吸附",
+    "grid": "网格",
+    "rulers": "标尺",
+    "zoomReset": "重置缩放",
+    "tabEditor": "编辑器",
+    "tabPreview": "3D 预览",
+    "textPlaceholder": "输入文字…",
+    "align": {
+      "title": "对齐",
+      "left": "左对齐",
+      "centerX": "水平居中",
+      "right": "右对齐",
+      "top": "顶对齐",
+      "centerY": "垂直居中",
+      "bottom": "底对齐",
+      "relativeTo": "切换对齐基准",
+      "toArtboard": "画板",
+      "toSelection": "选区",
+      "distributeH": "水平分布",
+      "distributeV": "垂直分布",
+      "flipH": "水平翻转",
+      "flipV": "垂直翻转"
+    },
+    "import": {
+      "svg": "导入 SVG",
+      "image": "导入图片",
+      "empty": "该 SVG 中没有可导入的图形。"
+    }
+  },
+  "export": {
+    "button": "导出",
+    "title": "导出到激光软件",
+    "tabSvg": "SVG",
+    "tabRaster": "位图 PNG",
+    "tabProject": "项目",
+    "program": "目标程序",
+    "programs": {
+      "lightburn": {
+        "name": "LightBurn",
+        "notes": "文件 → 导入，然后在 工具 → Rotary Setup 中启用旋转轴并输入物体直径。"
+      },
+      "xtool": {
+        "name": "xTool Creative Space",
+        "notes": "将 SVG 导入 XCS；选择圆柱（旋转）加工并输入物体直径。"
+      },
+      "lasergrbl": {
+        "name": "LaserGRBL",
+        "notes": "打开 SVG，启用旋转轴，并按机器文档设置每转步数。"
+      },
+      "generic": {
+        "name": "通用 SVG",
+        "notes": "物理尺寸为真实毫米 — 请以 100% 比例导入并手动设置旋转轴。"
+      }
+    },
+    "flattenShapes": "将形状转换为路径",
+    "flattenShapesHint": "将矩形、椭圆和多边形转换为 SVG 路径，以适配更简单的导入器。",
+    "embedMetadata": "嵌入旋转轴设置元数据",
+    "embedMetadataHint": "在文件中加入包含物体直径和设置说明的注释。",
+    "layerMode": "图层",
+    "layerPreserve": "保留为命名分组",
+    "layerMerge": "合并为单个分组",
+    "warningsTitle": "注意事项",
+    "warnings": {
+      "textFontsLightburn": "文本保持可编辑 — LightBurn 需要安装相同字体，否则请先转换为路径。",
+      "textFonts": "文本保持可编辑 — 目标程序需要安装相同字体。",
+      "imagesEmbedded": "位图图像以 data URI 嵌入，可能使 SVG 文件变大。",
+      "rasterFonts": "文本将使用本设备的字体渲染进 PNG。",
+      "transparentBg": "透明背景：某些激光软件会将透明渲染为黑色。"
+    },
+    "sizeEstimate": "预计大小：{size}",
+    "dpi": "分辨率 (DPI)",
+    "pixelSize": "{w} × {h} px",
+    "background": "背景",
+    "bgWhite": "白色",
+    "bgTransparent": "透明",
+    "exportNow": "导出",
+    "exporting": "导出中…",
+    "done": "已导出 {filename}",
+    "rotaryReminder": "旋转轴提醒：请在激光软件中输入物体直径 {diameter} mm。",
+    "projectDownload": "下载项目文件",
+    "projectDownloadHint": "可重新导入 laser-gen 的 .lasergen.json 备份。",
+    "saveCopy": "保存副本到库",
+    "savedCopy": "已保存到库",
+    "untitled": "未命名"
+  },
+  "tools": {
+    "select": "选择",
+    "pen": "钢笔",
+    "rect": "矩形",
+    "ellipse": "椭圆",
+    "polygon": "多边形",
+    "star": "星形",
+    "freehand": "手绘",
+    "text": "文字",
+    "pan": "平移",
+    "options": {
+      "sides": "边数",
+      "points": "角数",
+      "innerRatio": "内径比",
+      "font": "字体",
+      "fontSize": "字号 (mm)",
+      "tolerance": "平滑 (mm)"
+    },
+    "fonts": {
+      "sans": "无衬线",
+      "serif": "衬线",
+      "mono": "等宽",
+      "cursive": "手写"
+    }
+  },
+  "layers": {
+    "title": "图层",
+    "add": "添加图层",
+    "remove": "删除图层",
+    "up": "图层上移",
+    "down": "图层下移",
+    "duplicate": "复制图层",
+    "visible": "切换可见性",
+    "locked": "切换锁定",
+    "opacity": "不透明度",
+    "elements": "{count} 个元素"
+  },
+  "vectorize": {
+    "title": "矢量化",
+    "source": "来源",
+    "upload": "上传…",
+    "uploadReady": "上传的图片已就绪（{width} × {height} px）。",
+    "noSource": "请先在画板上导入图片，或上传一张图片进行描摹。",
+    "mode": "模式",
+    "modeMono": "单色",
+    "modeColor": "彩色",
+    "threshold": "阈值",
+    "colors": "颜色数",
+    "smoothing": "平滑",
+    "simplification": "简化",
+    "run": "描摹",
+    "running": "正在描摹…",
+    "cancel": "取消",
+    "done": "已添加描摹图层。",
+    "error": "描摹失败。",
+    "empty": "描摹未生成任何图形。",
+    "layerName": "矢量化",
+    "artboardImage": "画板图片 {id}"
+  },
+  "photo": {
+    "title": "照片处理",
+    "selectHint": "在画板上选择一张图片——或添加一张——为雕刻做准备。",
+    "add": "添加照片",
+    "material": "材料预设",
+    "materialCustom": "自定义",
+    "brightness": "亮度",
+    "contrast": "对比度",
+    "gamma": "伽马",
+    "grayscale": "灰度",
+    "invert": "反相",
+    "sharpen": "锐化",
+    "mode": "模式",
+    "modeNone": "原图",
+    "modeThreshold": "阈值",
+    "modeFloyd": "Floyd–Steinberg",
+    "modeBayer4": "有序 4×4",
+    "modeBayer8": "有序 8×8",
+    "modeHalftone": "半调",
+    "modeStipple": "点刻",
+    "threshold": "阈值",
+    "cellSizeMm": "网点单元 (mm)",
+    "maxDotMm": "最大点半径 (mm，0 = 自动)",
+    "stippleDensity": "密度",
+    "before": "处理前",
+    "after": "处理后",
+    "removeBg": "移除背景",
+    "removingBg": "移除中…",
+    "bgTolerance": "背景容差",
+    "reset": "还原原图",
+    "processing": "处理中…",
+    "cancel": "取消",
+    "error": "处理失败。",
+    "toVectors": "将半调转换为矢量",
+    "tooManyDots": "点数量过多（{count}）——请增大网点单元。",
+    "vectorize": "矢量化…",
+    "layerName": "半调网点",
+    "resolutionNote": "处理时长边限制为 {px} 像素。"
+  },
+  "materials": {
+    "powderCoatedSteel": {
+      "name": "喷塑钢（粉末涂层）",
+      "note": "激光烧掉涂层露出明亮金属，因此暗部保持为暗（不反相）。更高的对比度配合 Floyd–Steinberg 抖动使色调更清晰。"
+    },
+    "bareStainless": {
+      "name": "裸露不锈钢",
+      "note": "打标会使钢材变暗；适度提升对比度并使用 Floyd–Steinberg 可保持渐变平滑。"
+    },
+    "wood": {
+      "name": "木材",
+      "note": "木材烧灼颜色深且略有晕染；较柔和的对比度配合有序 8×8 抖动可避免浑浊的过烧区域。"
+    },
+    "glass": {
+      "name": "玻璃",
+      "note": "玻璃在光束击中处呈现明亮的磨砂效果，因此需要反相；Floyd–Steinberg 可保留磨砂细节。"
+    },
+    "coatedCeramic": {
+      "name": "涂层陶瓷",
+      "note": "与粉末涂层类似，釉面烧后呈亮色；中等对比度配合 Floyd–Steinberg 适合涂层马克杯和瓷砖。"
+    }
+  },
+  "library": {
+    "searchPlaceholder": "搜索项目…",
+    "filterStatus": "状态筛选",
+    "allStatuses": "全部状态",
+    "filterSort": "排序方式",
+    "sortUpdated": "最近更新",
+    "sortName": "名称",
+    "sortCreated": "最近创建",
+    "gridView": "网格视图",
+    "listView": "列表视图",
+    "import": "导入库",
+    "export": "导出库",
+    "importMergePrompt": "与现有库合并？点击“确定”合并，点击“取消”全部替换。",
+    "importDone": "已导入 {projects} 个项目和 {assets} 个素材。",
+    "importError": "该文件不是有效的 laser-gen 库导出文件。",
+    "tabProjects": "项目",
+    "status": {
+      "draft": "草稿",
+      "ready": "就绪",
+      "engraved": "已雕刻"
+    },
+    "open": "打开",
+    "duplicate": "复制",
+    "rename": "重命名",
+    "details": "详情",
+    "confirmDelete": "删除“{name}”？此操作无法撤销。",
+    "emptyTitle": "还没有项目",
+    "emptyHint": "在工作室中设计环绕图案，然后用工具栏上的保存按钮保存到库中。",
+    "noMatches": "没有符合筛选条件的项目。",
+    "saveToLibrary": "保存到库",
+    "saved": "已保存",
+    "namePrompt": "为这个项目命名",
+    "defaultName": "未命名项目",
+    "recent": "最近的项目",
+    "rel": {
+      "justNow": "刚刚",
+      "minutes": "{count} 分钟前",
+      "hours": "{count} 小时前",
+      "days": "{count} 天前"
+    },
+    "detail": {
+      "name": "名称",
+      "tags": "标签",
+      "tagsPlaceholder": "用逗号, 分隔, 标签",
+      "status": "状态"
+    }
+  },
+  "jobs": {
+    "title": "加工记录",
+    "empty": "还没有记录任何雕刻尝试。",
+    "add": "添加备注",
+    "material": "材料",
+    "materialNone": "—",
+    "power": "功率 %",
+    "speed": "速度 mm/s",
+    "passes": "遍数",
+    "notePlaceholder": "效果如何？参数、问题、结果…",
+    "attachPhoto": "附上成品照片",
+    "removeNote": "删除备注"
+  },
+  "assets": {
+    "title": "素材",
+    "addFromCurrent": "将当前项目保存为素材",
+    "namePrompt": "为这个素材命名",
+    "defaultName": "未命名素材",
+    "insert": "插入到项目",
+    "emptyTitle": "还没有素材",
+    "emptyHint": "把图案保存到这里，以便在不同项目中重复使用。"
+  },
+  "ai": {
+    "title": "AI 助手",
+    "noProvider": "AI 助手需要一个提供商。请在设置中添加你自己的 API 密钥——除了你选择的提供商，密钥绝不会离开此设备。",
+    "setupCta": "设置 AI 提供商",
+    "using": "正在使用 {label}（{model}）",
+    "generating": "正在生成…",
+    "generatingHint": "正在向模型请求 SVG 图案——可能需要几秒钟。",
+    "retry": "重试",
+    "saveToAssets": "保存到素材",
+    "saved": "已保存",
+    "svg": {
+      "title": "文本生成 SVG",
+      "placeholder": "一只跳跃的狐狸，几何线条画…",
+      "generate": "生成 SVG",
+      "layerName": "AI",
+      "failed": "模型未返回可用的 SVG。",
+      "styles": {
+        "line-art": "线条画",
+        "mandala": "曼陀罗",
+        "monogram": "花押字",
+        "geometric": "几何图案",
+        "halftone-friendly": "适合半色调"
+      }
+    },
+    "image": {
+      "title": "文本生成图像",
+      "placeholder": "山间风景，醒目的黑白…",
+      "generate": "生成图像",
+      "vectorize": "矢量化…",
+      "vectorizeHint": "图像已放入画布——对其运行矢量化即可获得可用于雕刻的路径。",
+      "assetName": "AI 图像"
+    },
+    "copilot": {
+      "title": "设计副驾驶",
+      "hint": "询问布局、雕刻适用性，或让它调整设计。",
+      "placeholder": "向副驾驶提问…",
+      "send": "发送",
+      "sending": "发送中…",
+      "clear": "清空",
+      "unknownAction": "未知操作“{action}”——已忽略。"
+    }
+  },
+  "settings": {
+    "ai": {
+      "title": "AI 提供商",
+      "add": "添加提供商",
+      "kind": "类型",
+      "kinds": {
+        "anthropic": "Anthropic (Claude)",
+        "openai": "OpenAI (GPT)",
+        "openai-compatible": "自定义（OpenAI 兼容）"
+      },
+      "label": "名称",
+      "labelPlaceholder": "例如：我的 Claude",
+      "baseUrl": "基础 URL",
+      "baseUrlHint": "任何 OpenAI 兼容端点：Ollama、LM Studio、OpenRouter、vLLM……必须允许浏览器请求（CORS）。",
+      "apiKey": "API 密钥",
+      "apiKeyOptional": "本地服务器可选",
+      "model": "模型",
+      "save": "保存提供商",
+      "saving": "保存中…",
+      "errorLabel": "请为提供商命名。",
+      "errorBaseUrl": "自定义端点必须填写基础 URL。",
+      "errorKey": "此提供商必须填写 API 密钥。",
+      "errorModel": "必须填写模型 ID。",
+      "empty": "尚未配置 AI 提供商。添加一个即可启用工作室的 AI 助手——你的密钥保存在此设备上。",
+      "test": "测试连接",
+      "testing": "测试中…",
+      "latency": "{ms} 毫秒",
+      "setDefault": "设为默认",
+      "default": "默认",
+      "privacyTitle": "隐私",
+      "privacyBody": "密钥仅以加密形式存储在此设备上（IndexedDB 中的 AES-GCM），保存后不会再显示。请求直接从你的浏览器发送到提供商——无代理、无遥测。注意：这只能在静态存储时保护密钥，无法抵御已被入侵的设备。"
+    }
+  },
+  "pages": {
+    "settings": {
+      "placeholder": "应用偏好设置和 AI 服务商密钥（仅保存在本设备上）将显示在这里。"
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "laser-gen — 激光雕刻 360° 环绕图案",
+      "description": "在浏览器中为杯子、马克杯和瓶子设计环绕图案:矢量编辑器、实时 3D 预览、照片转雕刻、AI 助手,导出 LightBurn/xTool/LaserGRBL 文件。免费、开源、可离线使用。"
+    },
+    "hero": {
+      "eyebrow": "免费 · 开源 · 完全在浏览器中运行",
+      "sub": "完全客户端的激光雕刻 PWA:绘制、描摹或生成图案,在 3D 器皿上实时预览,导出毫米级精确文件到你的激光软件。",
+      "ctaStudio": "打开工作室",
+      "ctaHow": "了解工作原理",
+      "github": "在 GitHub 加星"
+    },
+    "features": {
+      "title": "从照片到雕刻,一应俱全",
+      "subtitle": "一个工具完成整个环绕图案流程 — 无需安装、无需账号、无需上传。",
+      "wrap360": {
+        "title": "360° 环绕编辑器",
+        "body": "毫米级精确的画布映射器皿的整个圆周,带接缝和安全区参考线。"
+      },
+      "preview3d": {
+        "title": "实时 3D 预览",
+        "body": "实时查看图案环绕器皿的效果,激光扫描着色器精确显示光束的行进路径。"
+      },
+      "photo": {
+        "title": "照片转雕刻",
+        "body": "亮度、对比度、伽马调整,以及 Floyd–Steinberg、有序抖动、半色调和点刻 — 按材料优化。"
+      },
+      "vectorize": {
+        "title": "矢量化",
+        "body": "在浏览器中将位图描摹为干净的矢量路径,带平滑和简化控制。"
+      },
+      "ai": {
+        "title": "AI 助手(BYOK)",
+        "body": "提示词生成 SVG、提示词生成图像,以及设计副驾驶。使用你自己的 Anthropic、OpenAI 或兼容接口密钥,密钥只发送给你选择的服务商。"
+      },
+      "library": {
+        "title": "作品库与任务",
+        "body": "本地保存项目和可复用素材,记录功率、速度、遍数的雕刻日志,并附上成品照片。"
+      },
+      "export": {
+        "title": "导出到你的激光机",
+        "body": "实体尺寸 SVG 和 DPI 正确的 PNG,提供 LightBurn、xTool Creative Space 和 LaserGRBL 预设,附旋转轴设置提示。"
+      }
+    },
+    "howItWorks": {
+      "title": "工作原理",
+      "pick": {
+        "title": "选择器皿",
+        "body": "选择预设 — Stanley Quencher、露营马克杯、红酒杯等 — 或自己测量。"
+      },
+      "design": {
+        "title": "设计或描摹",
+        "body": "绘制矢量、导入 SVG、处理照片,或让 AI 助手为你起草。"
+      },
+      "export": {
+        "title": "导出并雕刻",
+        "body": "下载毫米级精确文件,设置旋转轴,观看雕刻完成。"
+      }
+    },
+    "vessels": {
+      "title": "为真实器皿而生",
+      "subtitle": "内置真实尺寸预设 — 高亮显示雕刻区域。",
+      "disclaimer": "预设尺寸为社区近似测量值,并非厂商规格。生产雕刻前请测量你自己的器皿。"
+    },
+    "openSource": {
+      "title": "开源,MIT 许可",
+      "body": "laser-gen 是社区项目。无后端、无遥测、无付费墙 — 审计每一行代码,或参与规划路线图。",
+      "contribute": "在 GitHub 上贡献",
+      "license": "MIT 许可证",
+      "stackTitle": "技术栈"
+    },
+    "footer": {
+      "tagline": "激光雕刻 360° 环绕图案,完全在浏览器中运行。",
+      "docsHeading": "文档",
+      "projectHeading": "项目",
+      "contributing": "参与贡献",
+      "license": "许可证(MIT)",
+      "mit": "MIT 许可 · 完全客户端 · 无遥测"
+    },
+    "offline": "当前离线 — laser-gen 仍可正常工作;所有内容都保存在此设备上。"
+  },
+  "docsPages": {
+    "title": "文档",
+    "intro": "简短实用的指南 — 从首次雕刻到接入你自己的 AI 服务商。",
+    "moreOnGithub": "完整的贡献者文档位于代码仓库:",
+    "backToDocs": "所有文档",
+    "pages": {
+      "gettingStarted": {
+        "title": "快速上手",
+        "description": "60 秒速览:选器皿、做设计、导出、雕刻。"
+      },
+      "aiProviders": {
+        "title": "AI 服务商",
+        "description": "BYOK 配置、隐私模型与 CORS 说明。"
+      },
+      "vessels": {
+        "title": "器皿",
+        "description": "内置预设及其尺寸,以及如何贡献新预设。"
+      }
+    },
+    "gettingStarted": {
+      "intro": "从零到首次雕刻约需五分钟 — 一切都在浏览器本地运行。",
+      "quickTitle": "快速开始",
+      "wrapTitle": "环绕概念",
+      "diagramAlt": "示意图:带雕刻带的圆柱体展开为一个平面矩形,虚线边缘表示接缝。",
+      "diagramVessel": "器皿",
+      "diagramUnwrap": "展开 360°",
+      "diagramArtboard": "画布(完整圆周)",
+      "diagramSeam": "接缝 = 接缝",
+      "offlineTitle": "离线可用"
+    },
+    "aiProviders": {
+      "intro": "AI 助手采用 BYOK(自带密钥)模式:浏览器直接与你配置的服务商通信。",
+      "modelTitle": "BYOK 模式",
+      "providersTitle": "支持的服务商",
+      "thProvider": "服务商",
+      "thApi": "API",
+      "thNotes": "备注",
+      "customName": "自定义(OpenAI 兼容)",
+      "corsTitle": "CORS 说明",
+      "securityTitle": "安全性"
+    },
+    "vessels": {
+      "intro": "预设让你省去卡尺:选择器皿后,其轮廓将驱动 3D 预览和画布。",
+      "thName": "预设",
+      "thCategory": "类别",
+      "thSize": "尺寸",
+      "thEngrave": "雕刻窗口",
+      "measureTitle": "自己测量",
+      "contributeTitle": "贡献预设"
+    }
+  }
+}

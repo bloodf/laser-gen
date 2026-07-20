@@ -1,0 +1,545 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "studio": "スタジオ",
+    "library": "ライブラリ",
+    "settings": "設定",
+    "docs": "ドキュメント"
+  },
+  "common": {
+    "save": "保存",
+    "export": "エクスポート",
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "delete": "削除",
+    "newProject": "新規プロジェクト"
+  },
+  "hero": {
+    "tagline": "カップ、マグ、ボトルの360°ラップアートをブラウザだけでデザイン。"
+  },
+  "presets": {
+    "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
+    "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
+    "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "wineTumbler12oz": "ワインタンブラー 12oz",
+    "sportsBottle32oz": "スポーツボトル 32oz",
+    "genericCylinder80mm": "直円筒 80mm"
+  },
+  "viewer": {
+    "finish": "仕上げ",
+    "finishes": {
+      "cream": "粉体塗装クリーム",
+      "sage": "粉体塗装セージ",
+      "black": "粉体塗装ブラック",
+      "pink": "粉体塗装ピンク",
+      "stainless": "ステンレス素地"
+    },
+    "turntable": "ターンテーブル",
+    "laserSweep": "レーザースイープ",
+    "seam": "シーム",
+    "safeZone": "ハンドル安全ゾーン",
+    "loading": "3Dプレビューを読み込み中…",
+    "webglUnavailable": "このブラウザではWebGLが利用できないため、3Dプレビューを開始できません。",
+    "categories": {
+      "tumbler": "タンブラー",
+      "mug": "マグ",
+      "bottle": "ボトル",
+      "cup": "カップ",
+      "cylinder": "円筒"
+    },
+    "dimensions": "Ø {min}–{max} mm × {height} mm"
+  },
+  "editor": {
+    "undo": "取り消し",
+    "redo": "やり直し",
+    "stroke": "線",
+    "strokeColor": "線の色",
+    "strokeWidth": "線幅 (mm)",
+    "fill": "塗りつぶし",
+    "snap": "スナップ",
+    "grid": "グリッド",
+    "rulers": "ルーラー",
+    "zoomReset": "ズームをリセット",
+    "tabEditor": "エディター",
+    "tabPreview": "3Dプレビュー",
+    "textPlaceholder": "テキストを入力…",
+    "align": {
+      "title": "整列",
+      "left": "左揃え",
+      "centerX": "水平中央揃え",
+      "right": "右揃え",
+      "top": "上揃え",
+      "centerY": "垂直中央揃え",
+      "bottom": "下揃え",
+      "relativeTo": "整列基準を切り替え",
+      "toArtboard": "アートボード",
+      "toSelection": "選択範囲",
+      "distributeH": "水平に分布",
+      "distributeV": "垂直に分布",
+      "flipH": "水平反転",
+      "flipV": "垂直反転"
+    },
+    "import": {
+      "svg": "SVGを読み込む",
+      "image": "画像を読み込む",
+      "empty": "このSVGには読み込み可能な図形が見つかりませんでした。"
+    }
+  },
+  "export": {
+    "button": "書き出し",
+    "title": "レーザー用に書き出し",
+    "tabSvg": "SVG",
+    "tabRaster": "ラスター PNG",
+    "tabProject": "プロジェクト",
+    "program": "出力先プログラム",
+    "programs": {
+      "lightburn": {
+        "name": "LightBurn",
+        "notes": "ファイル → インポートの後、ツール → Rotary Setup でロータリーを有効にし、対象物の直径を入力してください。"
+      },
+      "xtool": {
+        "name": "xTool Creative Space",
+        "notes": "SVG を XCS にインポートし、円筒（ロータリー）加工を選んで対象物の直径を入力してください。"
+      },
+      "lasergrbl": {
+        "name": "LaserGRBL",
+        "notes": "SVG を開き、ロータリー軸を有効にして、機械のドキュメントに従って 1 回転あたりのステップ数を設定してください。"
+      },
+      "generic": {
+        "name": "汎用 SVG",
+        "notes": "物理サイズは実際のミリメートルです — 100% のスケールでインポートし、ロータリーを手動で設定してください。"
+      }
+    },
+    "flattenShapes": "シェイプをパスに変換",
+    "flattenShapesHint": "長方形・楕円・多角形を SVG パスに変換します（簡易インポーター向け）。",
+    "embedMetadata": "ロータリー設定メタデータを埋め込む",
+    "embedMetadataHint": "対象物の直径と設定メモをコメントとしてファイルに追加します。",
+    "layerMode": "レイヤー",
+    "layerPreserve": "名前付きグループとして保持",
+    "layerMerge": "1 つのグループに統合",
+    "warningsTitle": "注意点",
+    "warnings": {
+      "textFontsLightburn": "テキストは編集可能なままです — LightBurn に同じフォントがインストールされている必要があります。先にパスへ変換してください。",
+      "textFonts": "テキストは編集可能なままです — 出力先プログラムに同じフォントが必要です。",
+      "imagesEmbedded": "ラスター画像は data URI として埋め込まれるため、SVG が大きくなる場合があります。",
+      "rasterFonts": "テキストはこのデバイスのフォントで PNG にレンダリングされます。",
+      "transparentBg": "透明背景：一部のレーザーソフトは透明部分を黒として描画します。"
+    },
+    "sizeEstimate": "推定サイズ：{size}",
+    "dpi": "解像度 (DPI)",
+    "pixelSize": "{w} × {h} px",
+    "background": "背景",
+    "bgWhite": "白",
+    "bgTransparent": "透明",
+    "exportNow": "書き出し",
+    "exporting": "書き出し中…",
+    "done": "{filename} を書き出しました",
+    "rotaryReminder": "ロータリーの確認：レーザーソフトに対象物の直径 {diameter} mm を入力してください。",
+    "projectDownload": "プロジェクトファイルをダウンロード",
+    "projectDownloadHint": "laser-gen に再インポートできる .lasergen.json バックアップです。",
+    "saveCopy": "ライブラリにコピーを保存",
+    "savedCopy": "ライブラリに保存しました",
+    "untitled": "無題"
+  },
+  "tools": {
+    "select": "選択",
+    "pen": "ペン",
+    "rect": "長方形",
+    "ellipse": "楕円",
+    "polygon": "多角形",
+    "star": "星形",
+    "freehand": "フリーハンド",
+    "text": "テキスト",
+    "pan": "パン",
+    "options": {
+      "sides": "辺の数",
+      "points": "頂点の数",
+      "innerRatio": "内径比",
+      "font": "フォント",
+      "fontSize": "サイズ (mm)",
+      "tolerance": "スムージング (mm)"
+    },
+    "fonts": {
+      "sans": "サンセリフ",
+      "serif": "セリフ",
+      "mono": "等幅",
+      "cursive": "手書き"
+    }
+  },
+  "layers": {
+    "title": "レイヤー",
+    "add": "レイヤーを追加",
+    "remove": "レイヤーを削除",
+    "up": "レイヤーを上へ",
+    "down": "レイヤーを下へ",
+    "duplicate": "レイヤーを複製",
+    "visible": "表示の切り替え",
+    "locked": "ロックの切り替え",
+    "opacity": "不透明度",
+    "elements": "{count} 個の要素"
+  },
+  "vectorize": {
+    "title": "ベクター化",
+    "source": "ソース",
+    "upload": "アップロード…",
+    "uploadReady": "アップロードした画像の準備ができました ({width} × {height} px)。",
+    "noSource": "アートボードに画像を読み込むか、アップロードしてトレースしてください。",
+    "mode": "モード",
+    "modeMono": "モノクロ",
+    "modeColor": "カラー",
+    "threshold": "しきい値",
+    "colors": "色数",
+    "smoothing": "スムージング",
+    "simplification": "簡略化",
+    "run": "トレース",
+    "running": "トレース中…",
+    "cancel": "キャンセル",
+    "done": "トレースしたレイヤーを追加しました。",
+    "error": "トレースに失敗しました。",
+    "empty": "トレース結果に図形がありませんでした。",
+    "layerName": "ベクター化",
+    "artboardImage": "アートボード画像 {id}"
+  },
+  "photo": {
+    "title": "写真の準備",
+    "selectHint": "アートボード上の画像を選択するか、追加して、彫刻用に準備します。",
+    "add": "写真を追加",
+    "material": "素材プリセット",
+    "materialCustom": "カスタム",
+    "brightness": "明るさ",
+    "contrast": "コントラスト",
+    "gamma": "ガンマ",
+    "grayscale": "グレースケール",
+    "invert": "反転",
+    "sharpen": "シャープ",
+    "mode": "モード",
+    "modeNone": "オリジナル",
+    "modeThreshold": "しきい値",
+    "modeFloyd": "Floyd–Steinberg",
+    "modeBayer4": "秩序 4×4",
+    "modeBayer8": "秩序 8×8",
+    "modeHalftone": "ハーフトーン",
+    "modeStipple": "スティップル",
+    "threshold": "しきい値",
+    "cellSizeMm": "セルサイズ (mm)",
+    "maxDotMm": "最大ドット半径 (mm、0 = 自動)",
+    "stippleDensity": "密度",
+    "before": "処理前",
+    "after": "処理後",
+    "removeBg": "背景を除去",
+    "removingBg": "除去中…",
+    "bgTolerance": "背景の許容差",
+    "reset": "元の画像に戻す",
+    "processing": "処理中…",
+    "cancel": "キャンセル",
+    "error": "処理に失敗しました。",
+    "toVectors": "ハーフトーンをベクター化",
+    "tooManyDots": "ドット数が多すぎます（{count}）— セルサイズを大きくしてください。",
+    "vectorize": "ベクター化…",
+    "layerName": "ハーフトーンドット",
+    "resolutionNote": "処理は長辺 {px} px に制限されます。"
+  },
+  "materials": {
+    "powderCoatedSteel": {
+      "name": "粉体塗装スチール",
+      "note": "レーザーが塗装を焼き払い明るい金属面が出るため、暗部は暗いままにします（反転なし）。高めのコントラストと Floyd–Steinberg で階調をくっきりさせます。"
+    },
+    "bareStainless": {
+      "name": "無垢ステンレス",
+      "note": "マーキングは鋼材を黒く変色させます。控えめなコントラスト強化と Floyd–Steinberg でグラデーションを滑らかに保ちます。"
+    },
+    "wood": {
+      "name": "木材",
+      "note": "木材は濃く焦げ、にじみやすい素材です。柔らかめのコントラストと秩序 8×8 ディザで、ぼやけた焦げすぎを防ぎます。"
+    },
+    "glass": {
+      "name": "ガラス",
+      "note": "ガラスはビームが当たった部分が白く曇るため、画像を反転します。Floyd–Steinberg ですりガラス調の細部を保ちます。"
+    },
+    "coatedCeramic": {
+      "name": "コーティングセラミック",
+      "note": "粉体塗装と同様に釉薬は明るく焼けます。中程度のコントラストと Floyd–Steinberg がコーティングマグやタイルに適しています。"
+    }
+  },
+  "library": {
+    "searchPlaceholder": "プロジェクトを検索…",
+    "filterStatus": "ステータスで絞り込み",
+    "allStatuses": "すべてのステータス",
+    "filterSort": "並び順",
+    "sortUpdated": "更新順",
+    "sortName": "名前順",
+    "sortCreated": "作成順",
+    "gridView": "グリッド表示",
+    "listView": "リスト表示",
+    "import": "ライブラリをインポート",
+    "export": "ライブラリをエクスポート",
+    "importMergePrompt": "既存のライブラリにマージしますか？OKでマージ、キャンセルで全て置き換えます。",
+    "importDone": "プロジェクト {projects} 件とアセット {assets} 件をインポートしました。",
+    "importError": "このファイルは有効な laser-gen ライブラリのエクスポートではありません。",
+    "tabProjects": "プロジェクト",
+    "status": {
+      "draft": "下書き",
+      "ready": "準備完了",
+      "engraved": "彫刻済み"
+    },
+    "open": "開く",
+    "duplicate": "複製",
+    "rename": "名前を変更",
+    "details": "詳細",
+    "confirmDelete": "「{name}」を削除しますか？この操作は取り消せません。",
+    "emptyTitle": "まだプロジェクトがありません",
+    "emptyHint": "スタジオでラップアートをデザインし、ツールバーの保存ボタンでライブラリに保存しましょう。",
+    "noMatches": "条件に合うプロジェクトがありません。",
+    "saveToLibrary": "ライブラリに保存",
+    "saved": "保存しました",
+    "namePrompt": "このプロジェクトに名前を付けてください",
+    "defaultName": "無題のプロジェクト",
+    "recent": "最近のプロジェクト",
+    "rel": {
+      "justNow": "たった今",
+      "minutes": "{count} 分前",
+      "hours": "{count} 時間前",
+      "days": "{count} 日前"
+    },
+    "detail": {
+      "name": "名前",
+      "tags": "タグ",
+      "tagsPlaceholder": "タグを, カンマで, 区切る",
+      "status": "ステータス"
+    }
+  },
+  "jobs": {
+    "title": "ジョブトラッカー",
+    "empty": "まだ加工の記録がありません。",
+    "add": "メモを追加",
+    "material": "素材",
+    "materialNone": "—",
+    "power": "出力 %",
+    "speed": "速度 mm/s",
+    "passes": "パス数",
+    "notePlaceholder": "仕上がりはどうでしたか？設定、問題、結果など…",
+    "attachPhoto": "結果の写真を添付",
+    "removeNote": "メモを削除"
+  },
+  "assets": {
+    "title": "アセット",
+    "addFromCurrent": "現在のプロジェクトをアセットとして保存",
+    "namePrompt": "このアセットに名前を付けてください",
+    "defaultName": "無題のアセット",
+    "insert": "プロジェクトに挿入",
+    "emptyTitle": "まだアセットがありません",
+    "emptyHint": "アートをここに保存して、複数のプロジェクトで再利用しましょう。"
+  },
+  "ai": {
+    "title": "AIアシスタント",
+    "noProvider": "AIアシスタントにはプロバイダーが必要です。設定で自分のAPIキーを追加してください — キーは選択したプロバイダー以外に送信されません。",
+    "setupCta": "AIプロバイダーを設定",
+    "using": "{label}（{model}）を使用中",
+    "generating": "生成中…",
+    "generatingHint": "モデルにSVGアートをリクエストしています — 数秒かかることがあります。",
+    "retry": "再試行",
+    "saveToAssets": "アセットに保存",
+    "saved": "保存しました",
+    "svg": {
+      "title": "プロンプトからSVG",
+      "placeholder": "跳ねるキツネ、幾何学ラインアート…",
+      "generate": "SVGを生成",
+      "layerName": "AI",
+      "failed": "モデルが使用可能なSVGを返しませんでした。",
+      "styles": {
+        "line-art": "ラインアート",
+        "mandala": "曼荼羅",
+        "monogram": "モノグラム",
+        "geometric": "幾何学パターン",
+        "halftone-friendly": "ハーフトーン向け"
+      }
+    },
+    "image": {
+      "title": "プロンプトから画像",
+      "placeholder": "山の風景、大胆な白黒…",
+      "generate": "画像を生成",
+      "vectorize": "ベクター化…",
+      "vectorizeHint": "画像がアートボードに配置されました — ベクター化を実行すると彫刻用のパスになります。",
+      "assetName": "AI画像"
+    },
+    "copilot": {
+      "title": "デザインコパイロット",
+      "hint": "レイアウトや彫刻適性について尋ねたり、デザインの調整を任せたりできます。",
+      "placeholder": "コパイロットに聞く…",
+      "send": "送信",
+      "sending": "送信中…",
+      "clear": "クリア",
+      "unknownAction": "不明なアクション「{action}」— 無視しました。"
+    }
+  },
+  "settings": {
+    "ai": {
+      "title": "AIプロバイダー",
+      "add": "プロバイダーを追加",
+      "kind": "種類",
+      "kinds": {
+        "anthropic": "Anthropic (Claude)",
+        "openai": "OpenAI (GPT)",
+        "openai-compatible": "カスタム（OpenAI互換）"
+      },
+      "label": "名前",
+      "labelPlaceholder": "例: マイ Claude",
+      "baseUrl": "ベースURL",
+      "baseUrlHint": "任意のOpenAI互換エンドポイント: Ollama、LM Studio、OpenRouter、vLLM… ブラウザからのリクエスト（CORS）を許可する必要があります。",
+      "apiKey": "APIキー",
+      "apiKeyOptional": "ローカルサーバーでは省略可",
+      "model": "モデル",
+      "save": "プロバイダーを保存",
+      "saving": "保存中…",
+      "errorLabel": "プロバイダーに名前を付けてください。",
+      "errorBaseUrl": "カスタムエンドポイントにはベースURLが必須です。",
+      "errorKey": "このプロバイダーにはAPIキーが必須です。",
+      "errorModel": "モデルIDが必須です。",
+      "empty": "AIプロバイダーがまだ設定されていません。追加するとスタジオのAIアシスタントが有効になります — キーはこのデバイスに保存されます。",
+      "test": "接続をテスト",
+      "testing": "テスト中…",
+      "latency": "{ms} ms",
+      "setDefault": "デフォルトに設定",
+      "default": "デフォルト",
+      "privacyTitle": "プライバシー",
+      "privacyBody": "キーはこのデバイス上にのみ暗号化して保存され（IndexedDB内のAES-GCM）、保存後に再表示されることはありません。リクエストはブラウザからプロバイダーへ直接送信されます — プロキシなし、テレメトリなし。注: これは保存時のキーを保護するものであり、侵害されたデバイスからは保護しません。"
+    }
+  },
+  "pages": {
+    "settings": {
+      "placeholder": "アプリの設定とAIプロバイダーのキー（このデバイスにのみ保存）はここに表示されます。"
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "laser-gen — レーザー彫刻用360°ラップアート",
+      "description": "カップ、マグ、ボトルのラップアートをブラウザでデザイン:ベクターエディター、ライブ3Dプレビュー、写真から彫刻へ、AIアシスタント、LightBurn/xTool/LaserGRBL へのエクスポート。無料・オープンソース・オフライン対応。"
+    },
+    "hero": {
+      "eyebrow": "無料 · オープンソース · 完全ブラウザ動作",
+      "sub": "完全クライアントサイドのレーザー彫刻PWA:描く、トレース、生成したアートを3Dの器にライブプレビューし、ミリ単位で正確なファイルをレーザーソフトへエクスポート。",
+      "ctaStudio": "Studioを開く",
+      "ctaHow": "使い方を見る",
+      "github": "GitHubでスター"
+    },
+    "features": {
+      "title": "写真から彫刻まで、すべて",
+      "subtitle": "ラップ作業の全工程を1つのツールで — インストール不要、アカウント不要、アップロード不要。",
+      "wrap360": {
+        "title": "360°ラップエディター",
+        "body": "器の全周をミリ精度でマッピングするアートボード。シームと安全ゾーンのガイド付き。"
+      },
+      "preview3d": {
+        "title": "ライブ3Dプレビュー",
+        "body": "デザインが器に巻き付く様子をリアルタイムで確認。レーザースイープシェーダーがビームの軌跡を正確に表示します。"
+      },
+      "photo": {
+        "title": "写真から彫刻へ",
+        "body": "明るさ・コントラスト・ガンマに加え、Floyd–Steinberg、秩序ディザ、ハーフトーン、点描 — 素材ごとに最適化。"
+      },
+      "vectorize": {
+        "title": "ベクタライザー",
+        "body": "ラスター画像をブラウザ内でクリーンなベクターパスに変換。スムージングと簡略化の調整付き。"
+      },
+      "ai": {
+        "title": "AIアシスタント(BYOK)",
+        "body": "プロンプトからSVG、プロンプトから画像、そしてデザインコパイロット。Anthropic・OpenAI・互換APIの自分のキーで利用でき、キーは選択したプロバイダー以外に送信されません。"
+      },
+      "library": {
+        "title": "ライブラリとジョブ",
+        "body": "プロジェクトや再利用アセットをローカルに保存。パワー・速度・パス数で彫刻ログを記録し、結果写真を添付できます。"
+      },
+      "export": {
+        "title": "レーザーへエクスポート",
+        "body": "実寸SVGとDPI正確なPNG。LightBurn、xTool Creative Space、LaserGRBLのプリセットとロータリー設定ヒント付き。"
+      }
+    },
+    "howItWorks": {
+      "title": "使い方",
+      "pick": {
+        "title": "器を選ぶ",
+        "body": "プリセットから選択 — Stanley Quencher、キャンプマグ、ワインタンブラーなど — または自分で採寸。"
+      },
+      "design": {
+        "title": "デザイン/トレース",
+        "body": "ベクターを描き、SVGを読み込み、写真を整え、またはAIアシスタントに下絵を頼みます。"
+      },
+      "export": {
+        "title": "エクスポートして彫刻",
+        "body": "ミリ精度のファイルをダウンロードし、ロータリーを設定して彫刻を見守ります。"
+      }
+    },
+    "vessels": {
+      "title": "実際の器のために",
+      "subtitle": "実寸データ入りのプリセット — 彫刻ウィンドウをハイライト表示。",
+      "disclaimer": "プリセットの寸法はコミュニティによる概測値で、メーカー仕様ではありません。本番彫刻の前にご自身の器を採寸してください。"
+    },
+    "openSource": {
+      "title": "オープンソース、MITライセンス",
+      "body": "laser-genはコミュニティプロジェクトです。バックエンドなし、テレメトリなし、ペイウォールなし — 全行を監査するもよし、ロードマップ作りに参加するもよし。",
+      "contribute": "GitHubで貢献",
+      "license": "MITライセンス",
+      "stackTitle": "使用技術"
+    },
+    "footer": {
+      "tagline": "レーザー彫刻用360°ラップアート、完全ブラウザ動作。",
+      "docsHeading": "ドキュメント",
+      "projectHeading": "プロジェクト",
+      "contributing": "貢献",
+      "license": "ライセンス(MIT)",
+      "mit": "MITライセンス · 完全クライアントサイド · テレメトリなし"
+    },
+    "offline": "オフラインです — laser-genは動作し続けます。すべてこのデバイスに保存されます。"
+  },
+  "docsPages": {
+    "title": "ドキュメント",
+    "intro": "短く実践的なガイド — 初めての彫刻からAIプロバイダーの追加まで。",
+    "moreOnGithub": "コントリビューター向け完全ドキュメントはリポジトリにあります:",
+    "backToDocs": "ドキュメント一覧",
+    "pages": {
+      "gettingStarted": {
+        "title": "はじめに",
+        "description": "60秒ツアー:器を選び、デザインし、エクスポートして彫刻。"
+      },
+      "aiProviders": {
+        "title": "AIプロバイダー",
+        "description": "BYOKの設定、プライバシーモデル、CORSに関する注意。"
+      },
+      "vessels": {
+        "title": "器",
+        "description": "内蔵プリセットとその寸法、貢献方法。"
+      }
+    },
+    "gettingStarted": {
+      "intro": "ゼロから最初の彫刻まで約5分 — すべてブラウザ内でローカルに動作します。",
+      "quickTitle": "クイックスタート",
+      "wrapTitle": "ラップの概念",
+      "diagramAlt": "図:彫刻バンドの付いた円柱を、シームを破線で示した平面の長方形に展開した様子。",
+      "diagramVessel": "器",
+      "diagramUnwrap": "360°展開",
+      "diagramArtboard": "アートボード(全周)",
+      "diagramSeam": "シーム = シーム",
+      "offlineTitle": "オフラインで動作"
+    },
+    "aiProviders": {
+      "intro": "AIアシスタントはBYOK(自分のキーを使用)方式:ブラウザが設定したプロバイダーと直接通信します。",
+      "modelTitle": "BYOKモデル",
+      "providersTitle": "対応プロバイダー",
+      "thProvider": "プロバイダー",
+      "thApi": "API",
+      "thNotes": "備考",
+      "customName": "カスタム(OpenAI互換)",
+      "corsTitle": "CORSに関する注意",
+      "securityTitle": "セキュリティ"
+    },
+    "vessels": {
+      "intro": "プリセットがあればノギス不要:器を選ぶと、そのプロファイルが3Dプレビューとアートボードを駆動します。",
+      "thName": "プリセット",
+      "thCategory": "カテゴリ",
+      "thSize": "寸法",
+      "thEngrave": "彫刻ウィンドウ",
+      "measureTitle": "自分で採寸",
+      "contributeTitle": "プリセットを貢献"
+    }
+  }
+}

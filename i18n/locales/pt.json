@@ -1,0 +1,545 @@
+{
+  "nav": {
+    "home": "Início",
+    "studio": "Estúdio",
+    "library": "Biblioteca",
+    "settings": "Configurações",
+    "docs": "Docs"
+  },
+  "common": {
+    "save": "Salvar",
+    "export": "Exportar",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "delete": "Excluir",
+    "newProject": "Novo projeto"
+  },
+  "hero": {
+    "tagline": "Crie arte envolvente de 360° para copos, canecas e garrafas — direto no navegador."
+  },
+  "presets": {
+    "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
+    "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
+    "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "wineTumbler12oz": "Copo de vinho 12oz",
+    "sportsBottle32oz": "Garrafa esportiva 32oz",
+    "genericCylinder80mm": "Cilindro reto 80mm"
+  },
+  "viewer": {
+    "finish": "Acabamento",
+    "finishes": {
+      "cream": "Pintura eletrostática creme",
+      "sage": "Pintura eletrostática sálvia",
+      "black": "Pintura eletrostática preta",
+      "pink": "Pintura eletrostática rosa",
+      "stainless": "Aço inox escovado"
+    },
+    "turntable": "Rotação automática",
+    "laserSweep": "Varredura do laser",
+    "seam": "Emenda",
+    "safeZone": "Zona segura da alça",
+    "loading": "Carregando pré-visualização 3D…",
+    "webglUnavailable": "WebGL não está disponível neste navegador, então a pré-visualização 3D não pode iniciar.",
+    "categories": {
+      "tumbler": "Copo térmico",
+      "mug": "Caneca",
+      "bottle": "Garrafa",
+      "cup": "Copo",
+      "cylinder": "Cilindro"
+    },
+    "dimensions": "Ø {min}–{max} mm × {height} mm"
+  },
+  "editor": {
+    "undo": "Desfazer",
+    "redo": "Refazer",
+    "stroke": "Contorno",
+    "strokeColor": "Cor do contorno",
+    "strokeWidth": "Espessura (mm)",
+    "fill": "Preenchimento",
+    "snap": "Atrair",
+    "grid": "Grade",
+    "rulers": "Réguas",
+    "zoomReset": "Redefinir zoom",
+    "tabEditor": "Editor",
+    "tabPreview": "Prévia 3D",
+    "textPlaceholder": "Digite o texto…",
+    "align": {
+      "title": "Alinhar",
+      "left": "Alinhar à esquerda",
+      "centerX": "Centralizar horizontalmente",
+      "right": "Alinhar à direita",
+      "top": "Alinhar ao topo",
+      "centerY": "Centralizar verticalmente",
+      "bottom": "Alinhar à base",
+      "relativeTo": "Alternar referência de alinhamento",
+      "toArtboard": "Prancheta",
+      "toSelection": "Seleção",
+      "distributeH": "Distribuir H",
+      "distributeV": "Distribuir V",
+      "flipH": "Inverter H",
+      "flipV": "Inverter V"
+    },
+    "import": {
+      "svg": "Importar SVG",
+      "image": "Importar imagem",
+      "empty": "Nenhuma forma importável encontrada nesse SVG."
+    }
+  },
+  "export": {
+    "button": "Exportar",
+    "title": "Exportar para a sua laser",
+    "tabSvg": "SVG",
+    "tabRaster": "PNG raster",
+    "tabProject": "Projeto",
+    "program": "Programa de destino",
+    "programs": {
+      "lightburn": {
+        "name": "LightBurn",
+        "notes": "Arquivo → Importar, depois ative o rotativo em Ferramentas → Rotary Setup e informe o diâmetro do objeto."
+      },
+      "xtool": {
+        "name": "xTool Creative Space",
+        "notes": "Importe o SVG no XCS, escolha o processamento cilíndrico (rotativo) e informe o diâmetro do objeto."
+      },
+      "lasergrbl": {
+        "name": "LaserGRBL",
+        "notes": "Abra o SVG, ative o eixo rotativo e configure os passos por rotação conforme a documentação da sua máquina."
+      },
+      "generic": {
+        "name": "SVG genérico",
+        "notes": "O tamanho físico é em milímetros reais — importe em escala 100% e configure o rotativo manualmente."
+      }
+    },
+    "flattenShapes": "Achatar formas em paths",
+    "flattenShapesHint": "Converte retângulos, elipses e polígonos em paths SVG para importadores mais simples.",
+    "embedMetadata": "Incorporar metadados do rotativo",
+    "embedMetadataHint": "Adiciona um comentário com o diâmetro do objeto e notas de configuração ao arquivo.",
+    "layerMode": "Camadas",
+    "layerPreserve": "Manter como grupos nomeados",
+    "layerMerge": "Mesclar em um único grupo",
+    "warningsTitle": "Atenção",
+    "warnings": {
+      "textFontsLightburn": "O texto permanece editável — o LightBurn precisa da mesma fonte instalada, ou converta o texto em paths antes.",
+      "textFonts": "O texto permanece editável — o programa de destino precisa da mesma fonte instalada.",
+      "imagesEmbedded": "Imagens raster são incorporadas como data URI, o que pode deixar o SVG grande.",
+      "rasterFonts": "O texto é renderizado no PNG com as fontes deste dispositivo.",
+      "transparentBg": "Fundo transparente: alguns programas de laser renderizam transparência como preto."
+    },
+    "sizeEstimate": "Tamanho estimado: {size}",
+    "dpi": "Resolução (DPI)",
+    "pixelSize": "{w} × {h} px",
+    "background": "Fundo",
+    "bgWhite": "Branco",
+    "bgTransparent": "Transparente",
+    "exportNow": "Exportar",
+    "exporting": "Exportando…",
+    "done": "{filename} exportado",
+    "rotaryReminder": "Lembrete do rotativo: informe o diâmetro do objeto {diameter} mm no seu software de laser.",
+    "projectDownload": "Baixar arquivo do projeto",
+    "projectDownloadHint": "Um backup .lasergen.json que pode ser reimportado no laser-gen.",
+    "saveCopy": "Salvar cópia na biblioteca",
+    "savedCopy": "Salvo na biblioteca",
+    "untitled": "sem-título"
+  },
+  "tools": {
+    "select": "Selecionar",
+    "pen": "Caneta",
+    "rect": "Retângulo",
+    "ellipse": "Elipse",
+    "polygon": "Polígono",
+    "star": "Estrela",
+    "freehand": "Mão livre",
+    "text": "Texto",
+    "pan": "Mover",
+    "options": {
+      "sides": "Lados",
+      "points": "Pontas",
+      "innerRatio": "Proporção interna",
+      "font": "Fonte",
+      "fontSize": "Tamanho (mm)",
+      "tolerance": "Suavização (mm)"
+    },
+    "fonts": {
+      "sans": "Sem serifa",
+      "serif": "Com serifa",
+      "mono": "Monoespaçada",
+      "cursive": "Manuscrita"
+    }
+  },
+  "layers": {
+    "title": "Camadas",
+    "add": "Adicionar camada",
+    "remove": "Excluir camada",
+    "up": "Mover camada para cima",
+    "down": "Mover camada para baixo",
+    "duplicate": "Duplicar camada",
+    "visible": "Alternar visibilidade",
+    "locked": "Alternar bloqueio",
+    "opacity": "Opacidade",
+    "elements": "nenhum elemento | {count} elemento | {count} elementos"
+  },
+  "vectorize": {
+    "title": "Vetorizar",
+    "source": "Origem",
+    "upload": "Enviar…",
+    "uploadReady": "Imagem enviada pronta ({width} × {height} px).",
+    "noSource": "Importe uma imagem para a prancheta ou envie uma para vetorizar.",
+    "mode": "Modo",
+    "modeMono": "Monocromático",
+    "modeColor": "Colorido",
+    "threshold": "Limiar",
+    "colors": "Cores",
+    "smoothing": "Suavização",
+    "simplification": "Simplificar",
+    "run": "Vetorizar",
+    "running": "Vetorizando…",
+    "cancel": "Cancelar",
+    "done": "Camada vetorizada adicionada.",
+    "error": "Falha ao vetorizar.",
+    "empty": "A vetorização não gerou formas.",
+    "layerName": "Vetorizada",
+    "artboardImage": "Imagem da prancheta {id}"
+  },
+  "photo": {
+    "title": "Preparar foto",
+    "selectHint": "Selecione uma imagem na prancheta — ou adicione uma — para prepará-la para a gravação.",
+    "add": "Adicionar foto",
+    "material": "Predefinição de material",
+    "materialCustom": "Personalizado",
+    "brightness": "Brilho",
+    "contrast": "Contraste",
+    "gamma": "Gama",
+    "grayscale": "Tons de cinza",
+    "invert": "Inverter",
+    "sharpen": "Nitidez",
+    "mode": "Modo",
+    "modeNone": "Original",
+    "modeThreshold": "Limiar",
+    "modeFloyd": "Floyd–Steinberg",
+    "modeBayer4": "Ordenado 4×4",
+    "modeBayer8": "Ordenado 8×8",
+    "modeHalftone": "Meio-tom",
+    "modeStipple": "Pontilhado",
+    "threshold": "Limiar",
+    "cellSizeMm": "Célula (mm)",
+    "maxDotMm": "Raio máx. do ponto (mm, 0 = auto)",
+    "stippleDensity": "Densidade",
+    "before": "Antes",
+    "after": "Depois",
+    "removeBg": "Remover fundo",
+    "removingBg": "Removendo…",
+    "bgTolerance": "Tolerância do fundo",
+    "reset": "Restaurar original",
+    "processing": "Processando…",
+    "cancel": "Cancelar",
+    "error": "Falha no processamento.",
+    "toVectors": "Converter meio-tom em vetores",
+    "tooManyDots": "Pontos demais ({count}) — aumente o tamanho da célula.",
+    "vectorize": "Vetorizar…",
+    "layerName": "Pontos de meio-tom",
+    "resolutionNote": "O processamento é limitado a {px} px na maior aresta."
+  },
+  "materials": {
+    "powderCoatedSteel": {
+      "name": "Aço com pintura eletrostática",
+      "note": "O laser queima a pintura e expõe o metal claro, então os tons escuros permanecem escuros (sem inversão). Contraste extra e Floyd–Steinberg mantêm os tons nítidos."
+    },
+    "bareStainless": {
+      "name": "Inox puro",
+      "note": "A marcação escurece o aço puro; um leve aumento de contraste com Floyd–Steinberg mantém os gradientes suaves."
+    },
+    "wood": {
+      "name": "Madeira",
+      "note": "A madeira queima escura e borra um pouco; contraste mais suave e pontilhado ordenado 8×8 evitam manchas turvas e queimadas demais."
+    },
+    "glass": {
+      "name": "Vidro",
+      "note": "O vidro grava claro onde o feixe atinge, então a imagem é invertida; Floyd–Steinberg mantém o fosco detalhado."
+    },
+    "coatedCeramic": {
+      "name": "Cerâmica esmaltada",
+      "note": "Assim como a pintura eletrostática, o esmalte queima para um tom claro; contraste moderado com Floyd–Steinberg serve bem para canecas e azulejos revestidos."
+    }
+  },
+  "library": {
+    "searchPlaceholder": "Buscar projetos…",
+    "filterStatus": "Filtro de status",
+    "allStatuses": "Todos os status",
+    "filterSort": "Ordenação",
+    "sortUpdated": "Atualizados recentemente",
+    "sortName": "Nome",
+    "sortCreated": "Criados recentemente",
+    "gridView": "Grade",
+    "listView": "Lista",
+    "import": "Importar biblioteca",
+    "export": "Exportar biblioteca",
+    "importMergePrompt": "Mesclar com sua biblioteca atual? OK para mesclar, Cancelar para substituir tudo.",
+    "importDone": "{projects} projetos e {assets} artes importados.",
+    "importError": "Este arquivo não é uma exportação válida de biblioteca do laser-gen.",
+    "tabProjects": "Projetos",
+    "status": {
+      "draft": "Rascunho",
+      "ready": "Pronto",
+      "engraved": "Gravado"
+    },
+    "open": "Abrir",
+    "duplicate": "Duplicar",
+    "rename": "Renomear",
+    "details": "Detalhes",
+    "confirmDelete": "Excluir “{name}”? Esta ação não pode ser desfeita.",
+    "emptyTitle": "Nenhum projeto ainda",
+    "emptyHint": "Crie uma arte no estúdio e salve-a na biblioteca com o botão de salvar da barra de ferramentas.",
+    "noMatches": "Nenhum projeto corresponde aos filtros.",
+    "saveToLibrary": "Salvar na biblioteca",
+    "saved": "Salvo",
+    "namePrompt": "Nomeie este projeto",
+    "defaultName": "Projeto sem título",
+    "recent": "Projetos recentes",
+    "rel": {
+      "justNow": "agora mesmo",
+      "minutes": "há {count} min",
+      "hours": "há {count} h",
+      "days": "há {count} d"
+    },
+    "detail": {
+      "name": "Nome",
+      "tags": "Etiquetas",
+      "tagsPlaceholder": "etiquetas, separadas, por vírgula",
+      "status": "Status"
+    }
+  },
+  "jobs": {
+    "title": "Registro de gravações",
+    "empty": "Nenhuma gravação registrada ainda.",
+    "add": "Adicionar nota",
+    "material": "Material",
+    "materialNone": "—",
+    "power": "Potência %",
+    "speed": "Velocidade mm/s",
+    "passes": "Passadas",
+    "notePlaceholder": "Como ficou a gravação? Ajustes, problemas, resultados…",
+    "attachPhoto": "Anexar foto do resultado",
+    "removeNote": "Excluir nota"
+  },
+  "assets": {
+    "title": "Artes",
+    "addFromCurrent": "Salvar projeto atual como arte",
+    "namePrompt": "Nomeie esta arte",
+    "defaultName": "Arte sem título",
+    "insert": "Inserir no projeto",
+    "emptyTitle": "Nenhuma arte ainda",
+    "emptyHint": "Salve artes aqui para reutilizá-las em outros projetos."
+  },
+  "ai": {
+    "title": "Assistente de IA",
+    "noProvider": "O assistente de IA precisa de um provedor. Adicione sua própria chave de API nas Configurações — ela nunca sai deste dispositivo, exceto para o provedor que você escolher.",
+    "setupCta": "Configurar um provedor de IA",
+    "using": "Usando {label} ({model})",
+    "generating": "Gerando…",
+    "generatingHint": "Pedindo arte SVG ao modelo — pode levar alguns segundos.",
+    "retry": "Tentar novamente",
+    "saveToAssets": "Salvar nos recursos",
+    "saved": "Salvo",
+    "svg": {
+      "title": "Texto para SVG",
+      "placeholder": "Uma raposa saltando, arte geométrica em linhas…",
+      "generate": "Gerar SVG",
+      "layerName": "IA",
+      "failed": "O modelo não retornou um SVG utilizável.",
+      "styles": {
+        "line-art": "Arte em linhas",
+        "mandala": "Mandala",
+        "monogram": "Monograma",
+        "geometric": "Padrão geométrico",
+        "halftone-friendly": "Adequado a meio-tom"
+      }
+    },
+    "image": {
+      "title": "Texto para imagem",
+      "placeholder": "Uma paisagem de montanhas, preto e branco marcante…",
+      "generate": "Gerar imagem",
+      "vectorize": "Vetorizar…",
+      "vectorizeHint": "A imagem está na prancheta — execute Vetorizar nela para obter traçados prontos para gravação.",
+      "assetName": "Imagem de IA"
+    },
+    "copilot": {
+      "title": "Copiloto de design",
+      "hint": "Pergunte sobre layout, adequação à gravação, ou deixe-o ajustar o design.",
+      "placeholder": "Pergunte ao copiloto…",
+      "send": "Enviar",
+      "sending": "Enviando…",
+      "clear": "Limpar",
+      "unknownAction": "Ação desconhecida \"{action}\" — ignorada."
+    }
+  },
+  "settings": {
+    "ai": {
+      "title": "Provedores de IA",
+      "add": "Adicionar provedor",
+      "kind": "Tipo",
+      "kinds": {
+        "anthropic": "Anthropic (Claude)",
+        "openai": "OpenAI (GPT)",
+        "openai-compatible": "Personalizado (compatível com OpenAI)"
+      },
+      "label": "Nome",
+      "labelPlaceholder": "ex.: Meu Claude",
+      "baseUrl": "URL base",
+      "baseUrlHint": "Qualquer endpoint compatível com OpenAI: Ollama, LM Studio, OpenRouter, vLLM… Precisa permitir requisições do navegador (CORS).",
+      "apiKey": "Chave de API",
+      "apiKeyOptional": "opcional para servidores locais",
+      "model": "Modelo",
+      "save": "Salvar provedor",
+      "saving": "Salvando…",
+      "errorLabel": "Dê um nome ao provedor.",
+      "errorBaseUrl": "Uma URL base é obrigatória para endpoints personalizados.",
+      "errorKey": "Uma chave de API é obrigatória para este provedor.",
+      "errorModel": "Um identificador de modelo é obrigatório.",
+      "empty": "Nenhum provedor de IA configurado ainda. Adicione um para ativar o assistente de IA do estúdio — sua chave fica neste dispositivo.",
+      "test": "Testar conexão",
+      "testing": "Testando…",
+      "latency": "{ms} ms",
+      "setDefault": "Definir padrão",
+      "default": "Padrão",
+      "privacyTitle": "Privacidade",
+      "privacyBody": "As chaves são armazenadas criptografadas somente neste dispositivo (AES-GCM no IndexedDB) e nunca são exibidas novamente após salvas. As requisições vão diretamente do seu navegador ao provedor — sem proxy, sem telemetria. Atenção: isso protege as chaves em repouso, não contra um dispositivo comprometido."
+    }
+  },
+  "pages": {
+    "settings": {
+      "placeholder": "As preferências do app e as chaves de provedores de IA (armazenadas apenas neste dispositivo) ficarão aqui."
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "laser-gen — arte wrap 360° para gravação a laser",
+      "description": "Crie arte wrap para copos, canecas e garrafas no navegador: editor vetorial, pré-visualização 3D ao vivo, foto para gravação, assistente de IA, exportação para LightBurn/xTool/LaserGRBL. Gratuito, open source, funciona offline."
+    },
+    "hero": {
+      "eyebrow": "Gratuito · Open source · 100% no navegador",
+      "sub": "Uma PWA totalmente client-side para gravação a laser: desenhe, vetorize ou gere arte, visualize ao vivo em um recipiente 3D e exporte arquivos perfeitos em milímetros para o software do seu laser.",
+      "ctaStudio": "Abrir o Studio",
+      "ctaHow": "Veja como funciona",
+      "github": "Estrela no GitHub"
+    },
+    "features": {
+      "title": "Tudo entre a foto e a gravação",
+      "subtitle": "Uma ferramenta para todo o fluxo de wrap — sem instalação, sem contas, sem uploads.",
+      "wrap360": {
+        "title": "Editor de wrap 360°",
+        "body": "Uma prancheta precisa em milímetros que mapeia toda a circunferência do recipiente, com guias de emenda e zona segura."
+      },
+      "preview3d": {
+        "title": "Pré-visualização 3D ao vivo",
+        "body": "Veja seu design envolvendo o recipiente em tempo real, com um shader de varredura a laser mostrando exatamente por onde o feixe vai passar."
+      },
+      "photo": {
+        "title": "Foto para gravação",
+        "body": "Brilho, contraste e gama, além de Floyd–Steinberg, dither ordenado, meio-tom e pontilhado — ajustados por material."
+      },
+      "vectorize": {
+        "title": "Vetorizador",
+        "body": "Transforme imagens raster em vetores limpos direto no navegador, com controles de suavização e simplificação."
+      },
+      "ai": {
+        "title": "Assistente de IA (BYOK)",
+        "body": "Prompt para SVG, prompt para imagem e um copiloto de design com sua própria chave Anthropic, OpenAI ou compatível. As chaves só saem do dispositivo para o provedor que você escolher."
+      },
+      "library": {
+        "title": "Biblioteca e jobs",
+        "body": "Salve projetos e assets reutilizáveis localmente, registre tentativas de gravação com potência, velocidade e passes, e anexe fotos do resultado."
+      },
+      "export": {
+        "title": "Exporte para o seu laser",
+        "body": "SVG em tamanho físico e PNG com DPI correto, com presets para LightBurn, xTool Creative Space e LaserGRBL, incluindo dicas de configuração do rotary."
+      }
+    },
+    "howItWorks": {
+      "title": "Como funciona",
+      "pick": {
+        "title": "Escolha um recipiente",
+        "body": "Selecione um preset — Stanley Quencher, caneca de acampamento, copo de vinho e mais — ou meça o seu."
+      },
+      "design": {
+        "title": "Desenhe ou vetorize",
+        "body": "Desenhe vetores, importe SVGs, prepare uma foto ou peça uma ideia ao assistente de IA."
+      },
+      "export": {
+        "title": "Exporte e grave",
+        "body": "Baixe um arquivo perfeito em milímetros, configure o rotary e veja a gravação acontecer."
+      }
+    },
+    "vessels": {
+      "title": "Feito para recipientes reais",
+      "subtitle": "Presets prontos com dimensões reais — a janela de gravação em destaque.",
+      "disclaimer": "As dimensões dos presets são medições aproximadas da comunidade, não especificações do fabricante. Meça seu próprio recipiente antes de uma gravação de produção."
+    },
+    "openSource": {
+      "title": "Open source, licença MIT",
+      "body": "laser-gen é um projeto comunitário. Sem backend, sem telemetria, sem paywall — audite cada linha ou ajude a moldar o roadmap.",
+      "contribute": "Contribua no GitHub",
+      "license": "Licença MIT",
+      "stackTitle": "Feito com"
+    },
+    "footer": {
+      "tagline": "Arte wrap 360° para gravação a laser, totalmente no navegador.",
+      "docsHeading": "Docs",
+      "projectHeading": "Projeto",
+      "contributing": "Contribuir",
+      "license": "Licença (MIT)",
+      "mit": "Licença MIT · Totalmente client-side · Sem telemetria"
+    },
+    "offline": "Você está offline — o laser-gen continua funcionando; tudo fica salvo neste dispositivo."
+  },
+  "docsPages": {
+    "title": "Docs",
+    "intro": "Guias curtos e práticos — da primeira gravação ao seu próprio provedor de IA.",
+    "moreOnGithub": "A documentação completa para contribuidores está no repositório:",
+    "backToDocs": "Todos os docs",
+    "pages": {
+      "gettingStarted": {
+        "title": "Primeiros passos",
+        "description": "O tour de 60 segundos: escolha um recipiente, crie, exporte, grave."
+      },
+      "aiProviders": {
+        "title": "Provedores de IA",
+        "description": "Configuração bring-your-own-key, modelo de privacidade e notas de CORS."
+      },
+      "vessels": {
+        "title": "Recipientes",
+        "description": "Presets prontos, suas dimensões e como contribuir com um."
+      }
+    },
+    "gettingStarted": {
+      "intro": "Do zero à primeira gravação em cerca de cinco minutos — tudo roda localmente no navegador.",
+      "quickTitle": "Início rápido",
+      "wrapTitle": "O conceito de wrap",
+      "diagramAlt": "Diagrama: um cilindro com sua faixa de gravação, desenrolado em um retângulo plano cujas bordas tracejadas marcam a emenda.",
+      "diagramVessel": "Recipiente",
+      "diagramUnwrap": "desenrolar 360°",
+      "diagramArtboard": "Prancheta (circunferência total)",
+      "diagramSeam": "emenda = emenda",
+      "offlineTitle": "Funciona offline"
+    },
+    "aiProviders": {
+      "intro": "O assistente de IA é bring-your-own-key: o navegador fala diretamente com o provedor que você configurar.",
+      "modelTitle": "O modelo BYOK",
+      "providersTitle": "Provedores suportados",
+      "thProvider": "Provedor",
+      "thApi": "API",
+      "thNotes": "Observações",
+      "customName": "Personalizado (compatível com OpenAI)",
+      "corsTitle": "Notas de CORS",
+      "securityTitle": "Segurança"
+    },
+    "vessels": {
+      "intro": "Os presets poupam o paquímetro: escolha um recipiente e o perfil dele controla a pré-visualização 3D e a prancheta.",
+      "thName": "Preset",
+      "thCategory": "Categoria",
+      "thSize": "Tamanho",
+      "thEngrave": "Janela de gravação",
+      "measureTitle": "Meça o seu",
+      "contributeTitle": "Contribua com um preset"
+    }
+  }
+}

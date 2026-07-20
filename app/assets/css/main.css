@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+@theme {
+  /* Laser accent — a hot red-orange, in OKLCH for perceptual uniformity */
+  --color-laser: oklch(0.68 0.23 38);
+  --color-laser-bright: oklch(0.78 0.2 45);
+  --color-laser-dim: oklch(0.52 0.18 35);
+  --color-laser-glow: oklch(0.75 0.19 42 / 0.35);
+
+  /* Dark "ink" neutrals with a cool tint */
+  --color-ink-950: oklch(0.15 0.01 260);
+  --color-ink-900: oklch(0.19 0.012 260);
+  --color-ink-850: oklch(0.215 0.013 260);
+  --color-ink-800: oklch(0.24 0.015 260);
+  --color-ink-700: oklch(0.32 0.015 260);
+  --color-ink-500: oklch(0.6 0.02 260);
+  --color-ink-400: oklch(0.65 0.02 260);
+  --color-ink-300: oklch(0.75 0.015 260);
+  --color-ink-100: oklch(0.93 0.01 260);
+
+  /* Refined marketing type scale (on top of Tailwind's defaults) */
+  --text-display: clamp(2.75rem, 6vw + 1rem, 5rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.03em;
+
+  /* Site spacing rhythm */
+  --spacing-section: clamp(4rem, 10vw, 8rem);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-ink-100);
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Balanced multi-line headings by default */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Consistent, high-contrast keyboard focus on the dark theme */
+  :focus-visible {
+    outline: 2px solid var(--color-laser-bright);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm, 0.375rem);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--color-laser) 55%, transparent);
+  }
+}
+
+@layer components {
+  /* --- Tinted surfaces via color-mix() (graceful: plain colors in old browsers
+     simply ignore the tint and use the fallback declared first) ------------- */
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-ink-700);
+    background-color: var(--color-ink-900);
+    background-color: color-mix(in oklch, var(--color-ink-900) 82%, var(--color-laser) 18%);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-ink-300);
+  }
+
+  /* --- Scroll-reveal: scroll-driven animations as pure enhancement ---------
+     Default (and `@supports` fallback) state is fully visible — the animation
+     only exists where `animation-timeline: view()` is understood, so content
+     can never be stuck invisible in older browsers. --------------------------- */
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .scroll-reveal {
+        animation: scroll-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+      }
+
+      .scroll-reveal-late {
+        animation: scroll-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 15% entry 60%;
+      }
+    }
+  }
+
+  /* --- Interactive cards: :has() elevates the card when its link/btn has
+     keyboard focus; unsupported browsers keep the hover-only styling. -------- */
+
+  .site-card {
+    border: 1px solid var(--color-ink-800);
+    background-color: var(--color-ink-900);
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .site-card:hover {
+    border-color: var(--color-ink-700);
+    background-color: var(--color-ink-850);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-card:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .site-card:has(:focus-visible) {
+    border-color: var(--color-laser-dim);
+    background-color: color-mix(in oklch, var(--color-ink-900) 88%, var(--color-laser) 12%);
+  }
+
+  /* --- Docs prose (in-app documentation pages) ------------------------------ */
+
+  .prose-docs {
+    max-width: 65ch;
+    color: var(--color-ink-300);
+    line-height: 1.75;
+  }
+
+  .prose-docs h2 {
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ink-100);
+  }
+
+  .prose-docs h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ink-100);
+  }
+
+  .prose-docs p {
+    margin-block: 0.75rem;
+  }
+
+  .prose-docs ul,
+  .prose-docs ol {
+    margin-block: 0.75rem;
+    padding-inline-start: 1.5rem;
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  .prose-docs ul {
+    list-style: disc;
+  }
+
+  .prose-docs ol {
+    list-style: decimal;
+  }
+
+  .prose-docs a {
+    color: var(--color-laser-bright);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-docs code {
+    border-radius: 0.25rem;
+    background-color: var(--color-ink-800);
+    padding: 0.1rem 0.35rem;
+    font-size: 0.875em;
+    color: var(--color-ink-100);
+  }
+
+  .prose-docs table {
+    margin-block: 1rem;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .prose-docs th,
+  .prose-docs td {
+    border-bottom: 1px solid var(--color-ink-800);
+    padding: 0.5rem 0.75rem;
+    text-align: start;
+  }
+
+  .prose-docs th {
+    color: var(--color-ink-100);
+    font-weight: 600;
+  }
+
+  .prose-docs strong {
+    color: var(--color-ink-100);
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* --- View Transitions (Nuxt experimental.viewTransition): subtle cross-fade.
+   Skipped entirely in browsers without the API. ------------------------------ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 160ms;
+  animation-timing-function: ease-out;
+}
+
+/* --- Reduced motion: one switch disables every enhancement above ------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "laser-gen",
+  "packageManager": "pnpm@11.13.1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fully client-side PWA for creating 360° wrap art for laser engraving",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxi typecheck",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "i18n:check": "node scripts/check-i18n.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.112.3",
+    "@tresjs/cientos": "^5.8.1",
+    "@tresjs/core": "^5.8.3",
+    "@tresjs/nuxt": "^5.6.3",
+    "idb-keyval": "^6.3.0",
+    "imagetracerjs": "^1.2.6",
+    "nuxt": "^4.5.0",
+    "openai": "^6.48.0",
+    "pinia": "^4.0.2",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "three": "^0.185.1",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@nuxt/eslint": "^1.16.0",
+    "@nuxtjs/i18n": "^10.4.1",
+    "@nuxtjs/tailwindcss": "7.0.0-beta.1",
+    "@pinia/nuxt": "^1.0.1",
+    "@playwright/test": "^1.61.1",
+    "@types/three": "^0.185.1",
+    "@vite-pwa/nuxt": "^1.1.1",
+    "eslint": "^10.7.0",
+    "happy-dom": "^20.11.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "vue-tsc": "^3.3.7"
+  }
+}

@@ -1,0 +1,545 @@
+{
+  "nav": {
+    "home": "Start",
+    "studio": "Studio",
+    "library": "Bibliothek",
+    "settings": "Einstellungen",
+    "docs": "Doku"
+  },
+  "common": {
+    "save": "Speichern",
+    "export": "Exportieren",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "delete": "Löschen",
+    "newProject": "Neues Projekt"
+  },
+  "hero": {
+    "tagline": "Gestalte 360°-Rundum-Designs für Becher, Tassen und Flaschen – direkt im Browser."
+  },
+  "presets": {
+    "stanleyQuencher40oz": "Stanley Quencher H2.0 40oz",
+    "stanleyQuencher30oz": "Stanley Quencher H2.0 30oz",
+    "stanleyCampMug24oz": "Stanley Classic Camp Mug 24oz",
+    "wineTumbler12oz": "Weinbecher 12oz",
+    "sportsBottle32oz": "Sportflasche 32oz",
+    "genericCylinder80mm": "Gerader Zylinder 80 mm"
+  },
+  "viewer": {
+    "finish": "Oberfläche",
+    "finishes": {
+      "cream": "Pulverbeschichtet Creme",
+      "sage": "Pulverbeschichtet Salbei",
+      "black": "Pulverbeschichtet Schwarz",
+      "pink": "Pulverbeschichtet Rosa",
+      "stainless": "Edelstahl blank"
+    },
+    "turntable": "Drehteller",
+    "laserSweep": "Laser-Sweep",
+    "seam": "Naht",
+    "safeZone": "Henkel-Schutzzone",
+    "loading": "3D-Vorschau wird geladen …",
+    "webglUnavailable": "WebGL ist in diesem Browser nicht verfügbar, daher kann die 3D-Vorschau nicht starten.",
+    "categories": {
+      "tumbler": "Thermobecher",
+      "mug": "Tasse",
+      "bottle": "Flasche",
+      "cup": "Becher",
+      "cylinder": "Zylinder"
+    },
+    "dimensions": "Ø {min}–{max} mm × {height} mm"
+  },
+  "editor": {
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "stroke": "Kontur",
+    "strokeColor": "Konturfarbe",
+    "strokeWidth": "Stärke (mm)",
+    "fill": "Füllung",
+    "snap": "Einrasten",
+    "grid": "Raster",
+    "rulers": "Lineale",
+    "zoomReset": "Zoom zurücksetzen",
+    "tabEditor": "Editor",
+    "tabPreview": "3D-Vorschau",
+    "textPlaceholder": "Text eingeben …",
+    "align": {
+      "title": "Ausrichten",
+      "left": "Linksbündig",
+      "centerX": "Horizontal zentrieren",
+      "right": "Rechtsbündig",
+      "top": "Oben ausrichten",
+      "centerY": "Vertikal zentrieren",
+      "bottom": "Unten ausrichten",
+      "relativeTo": "Ausrichtungsreferenz wechseln",
+      "toArtboard": "Zeichenfläche",
+      "toSelection": "Auswahl",
+      "distributeH": "Horizontal verteilen",
+      "distributeV": "Vertikal verteilen",
+      "flipH": "Horizontal spiegeln",
+      "flipV": "Vertikal spiegeln"
+    },
+    "import": {
+      "svg": "SVG importieren",
+      "image": "Bild importieren",
+      "empty": "Keine importierbaren Formen in dieser SVG gefunden."
+    }
+  },
+  "export": {
+    "button": "Exportieren",
+    "title": "Für deinen Laser exportieren",
+    "tabSvg": "SVG",
+    "tabRaster": "Raster-PNG",
+    "tabProject": "Projekt",
+    "program": "Zielprogramm",
+    "programs": {
+      "lightburn": {
+        "name": "LightBurn",
+        "notes": "Datei → Importieren, dann den Rotary unter Werkzeuge → Rotary Setup aktivieren und den Objektdurchmesser eingeben."
+      },
+      "xtool": {
+        "name": "xTool Creative Space",
+        "notes": "SVG in XCS importieren, zylindrische (Rotary-)Bearbeitung wählen und den Objektdurchmesser eingeben."
+      },
+      "lasergrbl": {
+        "name": "LaserGRBL",
+        "notes": "SVG öffnen, die Rotationsachse aktivieren und die Schritte pro Umdrehung laut Maschinendokumentation einstellen."
+      },
+      "generic": {
+        "name": "Generisches SVG",
+        "notes": "Die physische Größe ist in echten Millimetern — mit 100 % Skalierung importieren und den Rotary manuell einrichten."
+      }
+    },
+    "flattenShapes": "Formen in Pfade umwandeln",
+    "flattenShapesHint": "Wandelt Rechtecke, Ellipsen und Polygone in SVG-Pfade für einfachere Importeure um.",
+    "embedMetadata": "Rotary-Metadaten einbetten",
+    "embedMetadataHint": "Fügt der Datei einen Kommentar mit Objektdurchmesser und Einrichtungshinweisen hinzu.",
+    "layerMode": "Ebenen",
+    "layerPreserve": "Als benannte Gruppen beibehalten",
+    "layerMerge": "Zu einer Gruppe zusammenführen",
+    "warningsTitle": "Hinweise",
+    "warnings": {
+      "textFontsLightburn": "Text bleibt editierbar — LightBurn benötigt dieselbe installierte Schrift, sonst Text vorher in Pfade umwandeln.",
+      "textFonts": "Text bleibt editierbar — das Zielprogramm benötigt dieselbe installierte Schrift.",
+      "imagesEmbedded": "Rasterbilder werden als Daten-URIs eingebettet, was die SVG stark vergrößern kann.",
+      "rasterFonts": "Text wird mit den Schriften dieses Geräts in das PNG gerendert.",
+      "transparentBg": "Transparenter Hintergrund: Manche Laserprogramme rendern Transparenz als Schwarz."
+    },
+    "sizeEstimate": "Geschätzte Größe: {size}",
+    "dpi": "Auflösung (DPI)",
+    "pixelSize": "{w} × {h} px",
+    "background": "Hintergrund",
+    "bgWhite": "Weiß",
+    "bgTransparent": "Transparent",
+    "exportNow": "Exportieren",
+    "exporting": "Exportiere …",
+    "done": "{filename} exportiert",
+    "rotaryReminder": "Rotary-Hinweis: Objektdurchmesser {diameter} mm in deiner Laser-Software eingeben.",
+    "projectDownload": "Projektdatei herunterladen",
+    "projectDownloadHint": "Ein .lasergen.json-Backup, das sich wieder in laser-gen importieren lässt.",
+    "saveCopy": "Kopie in der Bibliothek speichern",
+    "savedCopy": "In der Bibliothek gespeichert",
+    "untitled": "unbenannt"
+  },
+  "tools": {
+    "select": "Auswählen",
+    "pen": "Stift",
+    "rect": "Rechteck",
+    "ellipse": "Ellipse",
+    "polygon": "Polygon",
+    "star": "Stern",
+    "freehand": "Freihand",
+    "text": "Text",
+    "pan": "Verschieben",
+    "options": {
+      "sides": "Seiten",
+      "points": "Zacken",
+      "innerRatio": "Innenverhältnis",
+      "font": "Schriftart",
+      "fontSize": "Größe (mm)",
+      "tolerance": "Glättung (mm)"
+    },
+    "fonts": {
+      "sans": "Serifenlos",
+      "serif": "Mit Serifen",
+      "mono": "Festbreite",
+      "cursive": "Handschrift"
+    }
+  },
+  "layers": {
+    "title": "Ebenen",
+    "add": "Ebene hinzufügen",
+    "remove": "Ebene löschen",
+    "up": "Ebene nach oben",
+    "down": "Ebene nach unten",
+    "duplicate": "Ebene duplizieren",
+    "visible": "Sichtbarkeit umschalten",
+    "locked": "Sperre umschalten",
+    "opacity": "Deckkraft",
+    "elements": "keine Elemente | {count} Element | {count} Elemente"
+  },
+  "vectorize": {
+    "title": "Vektorisieren",
+    "source": "Quelle",
+    "upload": "Hochladen …",
+    "uploadReady": "Hochgeladenes Bild bereit ({width} × {height} px).",
+    "noSource": "Importiere ein Bild auf die Zeichenfläche oder lade eines zum Vektorisieren hoch.",
+    "mode": "Modus",
+    "modeMono": "Monochrom",
+    "modeColor": "Farbe",
+    "threshold": "Schwellenwert",
+    "colors": "Farben",
+    "smoothing": "Glättung",
+    "simplification": "Vereinfachen",
+    "run": "Vektorisieren",
+    "running": "Vektorisiere …",
+    "cancel": "Abbrechen",
+    "done": "Vektorisierte Ebene hinzugefügt.",
+    "error": "Vektorisierung fehlgeschlagen.",
+    "empty": "Die Vektorisierung hat keine Formen erzeugt.",
+    "layerName": "Vektorisiert",
+    "artboardImage": "Zeichenflächen-Bild {id}"
+  },
+  "photo": {
+    "title": "Foto vorbereiten",
+    "selectHint": "Wähle ein Bild auf der Zeichenfläche — oder füge eines hinzu — um es für die Gravur vorzubereiten.",
+    "add": "Foto hinzufügen",
+    "material": "Materialvorgabe",
+    "materialCustom": "Benutzerdefiniert",
+    "brightness": "Helligkeit",
+    "contrast": "Kontrast",
+    "gamma": "Gamma",
+    "grayscale": "Graustufen",
+    "invert": "Invertieren",
+    "sharpen": "Schärfen",
+    "mode": "Modus",
+    "modeNone": "Original",
+    "modeThreshold": "Schwellwert",
+    "modeFloyd": "Floyd–Steinberg",
+    "modeBayer4": "Geordnet 4×4",
+    "modeBayer8": "Geordnet 8×8",
+    "modeHalftone": "Halbton",
+    "modeStipple": "Stipple",
+    "threshold": "Schwellwert",
+    "cellSizeMm": "Zellgröße (mm)",
+    "maxDotMm": "Max. Punktradius (mm, 0 = auto)",
+    "stippleDensity": "Dichte",
+    "before": "Vorher",
+    "after": "Nachher",
+    "removeBg": "Hintergrund entfernen",
+    "removingBg": "Entfernen…",
+    "bgTolerance": "Hintergrundtoleranz",
+    "reset": "Auf Original zurücksetzen",
+    "processing": "Verarbeitung…",
+    "cancel": "Abbrechen",
+    "error": "Verarbeitung fehlgeschlagen.",
+    "toVectors": "Halbton in Vektoren umwandeln",
+    "tooManyDots": "Zu viele Punkte ({count}) — Zellgröße erhöhen.",
+    "vectorize": "Vektorisieren…",
+    "layerName": "Halbtonpunkte",
+    "resolutionNote": "Die Verarbeitung ist auf {px} px an der langen Kante begrenzt."
+  },
+  "materials": {
+    "powderCoatedSteel": {
+      "name": "Pulverbeschichteter Stahl",
+      "note": "Der Laser brennt die Beschichtung bis zum hellen Metall ab, dunkle Töne bleiben also dunkel (keine Invertierung). Extra Kontrast und Floyd–Steinberg sorgen für klare Töne."
+    },
+    "bareStainless": {
+      "name": "Blanker Edelstahl",
+      "note": "Die Markierung dunkelt den Stahl ab; ein milder Kontrastschub mit Floyd–Steinberg hält Verläufe glatt."
+    },
+    "wood": {
+      "name": "Holz",
+      "note": "Holz brennt dunkel und verläuft leicht; weicherer Kontrast und eine geordnete 8×8-Rasterung vermeiden matschige, überbrannte Stellen."
+    },
+    "glass": {
+      "name": "Glas",
+      "note": "Glas ätzt hell, wo der Strahl auftrifft — darum wird das Bild invertiert; Floyd–Steinberg hält die Mattierung detailreich."
+    },
+    "coatedCeramic": {
+      "name": "Beschichtete Keramik",
+      "note": "Wie Pulverbeschichtung brennt die Glasur hell; moderater Kontrast mit Floyd–Steinberg passt zu beschichteten Tassen und Fliesen."
+    }
+  },
+  "library": {
+    "searchPlaceholder": "Projekte suchen…",
+    "filterStatus": "Statusfilter",
+    "allStatuses": "Alle Status",
+    "filterSort": "Sortierung",
+    "sortUpdated": "Zuletzt aktualisiert",
+    "sortName": "Name",
+    "sortCreated": "Zuletzt erstellt",
+    "gridView": "Raster",
+    "listView": "Liste",
+    "import": "Bibliothek importieren",
+    "export": "Bibliothek exportieren",
+    "importMergePrompt": "Mit deiner bestehenden Bibliothek zusammenführen? OK zum Zusammenführen, Abbrechen zum Ersetzen.",
+    "importDone": "{projects} Projekte und {assets} Motive importiert.",
+    "importError": "Diese Datei ist kein gültiger laser-gen-Bibliotheksexport.",
+    "tabProjects": "Projekte",
+    "status": {
+      "draft": "Entwurf",
+      "ready": "Bereit",
+      "engraved": "Graviert"
+    },
+    "open": "Öffnen",
+    "duplicate": "Duplizieren",
+    "rename": "Umbenennen",
+    "details": "Details",
+    "confirmDelete": "„{name}“ löschen? Das kann nicht rückgängig gemacht werden.",
+    "emptyTitle": "Noch keine Projekte",
+    "emptyHint": "Gestalte eine Banderole im Studio und speichere sie mit dem Speichern-Button in der Werkzeugleiste in deiner Bibliothek.",
+    "noMatches": "Keine Projekte passen zu deinen Filtern.",
+    "saveToLibrary": "In Bibliothek speichern",
+    "saved": "Gespeichert",
+    "namePrompt": "Benenne dieses Projekt",
+    "defaultName": "Unbenanntes Projekt",
+    "recent": "Zuletzt geöffnete Projekte",
+    "rel": {
+      "justNow": "gerade eben",
+      "minutes": "vor {count} Min.",
+      "hours": "vor {count} Std.",
+      "days": "vor {count} T."
+    },
+    "detail": {
+      "name": "Name",
+      "tags": "Schlagworte",
+      "tagsPlaceholder": "Schlagworte, durch, Kommas",
+      "status": "Status"
+    }
+  },
+  "jobs": {
+    "title": "Gravurprotokoll",
+    "empty": "Noch keine Gravurversuche protokolliert.",
+    "add": "Notiz hinzufügen",
+    "material": "Material",
+    "materialNone": "—",
+    "power": "Leistung %",
+    "speed": "Geschwindigkeit mm/s",
+    "passes": "Durchgänge",
+    "notePlaceholder": "Wie ist die Gravur geworden? Einstellungen, Probleme, Ergebnisse…",
+    "attachPhoto": "Ergebnisfoto anhängen",
+    "removeNote": "Notiz löschen"
+  },
+  "assets": {
+    "title": "Motive",
+    "addFromCurrent": "Aktuelles Projekt als Motiv speichern",
+    "namePrompt": "Benenne dieses Motiv",
+    "defaultName": "Unbenanntes Motiv",
+    "insert": "In Projekt einfügen",
+    "emptyTitle": "Noch keine Motive",
+    "emptyHint": "Speichere Motive hier, um sie in anderen Projekten wiederzuverwenden."
+  },
+  "ai": {
+    "title": "KI-Assistent",
+    "noProvider": "Der KI-Assistent benötigt einen Anbieter. Füge deinen eigenen API-Schlüssel in den Einstellungen hinzu — er verlässt dieses Gerät nur in Richtung des von dir gewählten Anbieters.",
+    "setupCta": "KI-Anbieter einrichten",
+    "using": "Verwendet {label} ({model})",
+    "generating": "Wird erzeugt…",
+    "generatingHint": "Das Modell wird um SVG-Grafik gebeten — das kann einige Sekunden dauern.",
+    "retry": "Erneut versuchen",
+    "saveToAssets": "In Assets speichern",
+    "saved": "Gespeichert",
+    "svg": {
+      "title": "Text zu SVG",
+      "placeholder": "Ein springender Fuchs, geometrische Strichzeichnung…",
+      "generate": "SVG erzeugen",
+      "layerName": "KI",
+      "failed": "Das Modell hat kein verwertbares SVG geliefert.",
+      "styles": {
+        "line-art": "Strichzeichnung",
+        "mandala": "Mandala",
+        "monogram": "Monogramm",
+        "geometric": "Geometrisches Muster",
+        "halftone-friendly": "Rasterungstauglich"
+      }
+    },
+    "image": {
+      "title": "Text zu Bild",
+      "placeholder": "Eine Berglandschaft, kräftiges Schwarz-Weiß…",
+      "generate": "Bild erzeugen",
+      "vectorize": "Vektorisieren…",
+      "vectorizeHint": "Das Bild liegt auf der Zeichenfläche — führe Vektorisieren darauf aus, um gravierfertige Pfade zu erhalten.",
+      "assetName": "KI-Bild"
+    },
+    "copilot": {
+      "title": "Design-Copilot",
+      "hint": "Frage zu Layout, Gravurtauglichkeit — oder lass den Copiloten das Design anpassen.",
+      "placeholder": "Frag den Copiloten…",
+      "send": "Senden",
+      "sending": "Wird gesendet…",
+      "clear": "Leeren",
+      "unknownAction": "Unbekannte Aktion \"{action}\" — ignoriert."
+    }
+  },
+  "settings": {
+    "ai": {
+      "title": "KI-Anbieter",
+      "add": "Anbieter hinzufügen",
+      "kind": "Typ",
+      "kinds": {
+        "anthropic": "Anthropic (Claude)",
+        "openai": "OpenAI (GPT)",
+        "openai-compatible": "Benutzerdefiniert (OpenAI-kompatibel)"
+      },
+      "label": "Name",
+      "labelPlaceholder": "z. B. Mein Claude",
+      "baseUrl": "Basis-URL",
+      "baseUrlHint": "Jeder OpenAI-kompatible Endpunkt: Ollama, LM Studio, OpenRouter, vLLM… Muss Browser-Anfragen erlauben (CORS).",
+      "apiKey": "API-Schlüssel",
+      "apiKeyOptional": "optional für lokale Server",
+      "model": "Modell",
+      "save": "Anbieter speichern",
+      "saving": "Wird gespeichert…",
+      "errorLabel": "Gib dem Anbieter einen Namen.",
+      "errorBaseUrl": "Für benutzerdefinierte Endpunkte ist eine Basis-URL erforderlich.",
+      "errorKey": "Für diesen Anbieter ist ein API-Schlüssel erforderlich.",
+      "errorModel": "Eine Modell-ID ist erforderlich.",
+      "empty": "Noch keine KI-Anbieter konfiguriert. Füge einen hinzu, um den KI-Assistenten im Studio zu aktivieren — dein Schlüssel bleibt auf diesem Gerät.",
+      "test": "Verbindung testen",
+      "testing": "Wird getestet…",
+      "latency": "{ms} ms",
+      "setDefault": "Als Standard festlegen",
+      "default": "Standard",
+      "privacyTitle": "Datenschutz",
+      "privacyBody": "Schlüssel werden nur auf diesem Gerät verschlüsselt gespeichert (AES-GCM in IndexedDB) und nach dem Speichern nie wieder angezeigt. Anfragen gehen direkt von deinem Browser an den Anbieter — kein Proxy, keine Telemetrie. Hinweis: Das schützt Schlüssel im Ruhezustand, nicht vor einem kompromittierten Gerät."
+    }
+  },
+  "pages": {
+    "settings": {
+      "placeholder": "App-Einstellungen und KI-Anbieter-Schlüssel (nur auf diesem Gerät gespeichert) entstehen hier."
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "laser-gen — 360°-Wrap-Art für Lasergravur",
+      "description": "Entwirf Wrap-Art für Becher, Tassen und Flaschen im Browser: Vektoreditor, Live-3D-Vorschau, Foto-zu-Gravur, KI-Assistent, Export für LightBurn/xTool/LaserGRBL. Kostenlos, Open Source, offlinefähig."
+    },
+    "hero": {
+      "eyebrow": "Kostenlos · Open Source · 100 % im Browser",
+      "sub": "Eine vollständig clientseitige PWA für Lasergravur: zeichnen, vektorisieren oder generieren, live am 3D-Gefäß ansehen und millimetergenaue Dateien für deine Laser-Software exportieren.",
+      "ctaStudio": "Studio öffnen",
+      "ctaHow": "So funktioniert’s",
+      "github": "Stern auf GitHub"
+    },
+    "features": {
+      "title": "Alles zwischen Foto und Gravur",
+      "subtitle": "Ein Werkzeug für den gesamten Wrap-Workflow — ohne Installation, ohne Konten, ohne Uploads.",
+      "wrap360": {
+        "title": "360°-Wrap-Editor",
+        "body": "Eine millimetergenaue Zeichenfläche, die den gesamten Umfang deines Gefäßes abbildet — mit Naht- und Sicherheitszonen-Hilfslinien."
+      },
+      "preview3d": {
+        "title": "Live-3D-Vorschau",
+        "body": "Sieh dein Design in Echtzeit um das Gefäß gewickelt, mit einem Laser-Sweep-Shader, der genau zeigt, wo der Strahl entlangfährt."
+      },
+      "photo": {
+        "title": "Foto zu Gravur",
+        "body": "Helligkeit, Kontrast und Gamma plus Floyd–Steinberg, geordnetes Dithering, Halbton und Stipple — abgestimmt aufs Material."
+      },
+      "vectorize": {
+        "title": "Vektorisierer",
+        "body": "Wandle Rasterbilder direkt im Browser in saubere Vektorpfade um, mit Glättungs- und Vereinfachungsreglern."
+      },
+      "ai": {
+        "title": "KI-Assistent (BYOK)",
+        "body": "Prompt-zu-SVG, Prompt-zu-Bild und ein Design-Copilot mit deinem eigenen Anthropic-, OpenAI- oder kompatiblem Schlüssel. Schlüssel verlassen dein Gerät nur zum gewählten Anbieter."
+      },
+      "library": {
+        "title": "Bibliothek & Jobs",
+        "body": "Speichere Projekte und wiederverwendbare Assets lokal, protokolliere Gravurversuche mit Leistung, Geschwindigkeit und Durchgängen und hänge Ergebnisfotos an."
+      },
+      "export": {
+        "title": "Export für deinen Laser",
+        "body": "SVG in Originalgröße und DPI-korrektes PNG mit Presets für LightBurn, xTool Creative Space und LaserGRBL, inklusive Rotary-Hinweisen."
+      }
+    },
+    "howItWorks": {
+      "title": "So funktioniert’s",
+      "pick": {
+        "title": "Gefäß wählen",
+        "body": "Wähle ein Preset — Stanley Quencher, Campingbecher, Weinbecher und mehr — oder miss dein eigenes."
+      },
+      "design": {
+        "title": "Gestalten oder vektorisieren",
+        "body": "Zeichne Vektoren, importiere SVGs, bereite ein Foto auf oder lass dir vom KI-Assistenten etwas skizzieren."
+      },
+      "export": {
+        "title": "Exportieren & gravieren",
+        "body": "Lade eine millimetergenaue Datei herunter, richte deinen Rotary ein und sieh der Gravur zu."
+      }
+    },
+    "vessels": {
+      "title": "Gemacht für echte Gefäße",
+      "subtitle": "Integrierte Presets mit realen Maßen — das Gravurfenster hervorgehoben.",
+      "disclaimer": "Die Preset-Maße sind ungefähre Community-Messungen, keine Herstellerangaben. Miss dein eigenes Gefäß vor einer Produktionsgravur."
+    },
+    "openSource": {
+      "title": "Open Source, MIT-lizenziert",
+      "body": "laser-gen ist ein Community-Projekt. Kein Backend, keine Telemetrie, keine Paywall — prüfe jede Zeile oder hilf mit, die Roadmap zu gestalten.",
+      "contribute": "Auf GitHub mitmachen",
+      "license": "MIT-Lizenz",
+      "stackTitle": "Gebaut mit"
+    },
+    "footer": {
+      "tagline": "360°-Wrap-Art für Lasergravur, komplett im Browser.",
+      "docsHeading": "Doku",
+      "projectHeading": "Projekt",
+      "contributing": "Mitmachen",
+      "license": "Lizenz (MIT)",
+      "mit": "MIT-lizenziert · Vollständig clientseitig · Keine Telemetrie"
+    },
+    "offline": "Du bist offline — laser-gen funktioniert weiter; alles wird auf diesem Gerät gespeichert."
+  },
+  "docsPages": {
+    "title": "Doku",
+    "intro": "Kurze, praktische Anleitungen — von der ersten Gravur bis zum eigenen KI-Anbieter.",
+    "moreOnGithub": "Die vollständige Contributor-Dokumentation liegt im Repository:",
+    "backToDocs": "Alle Doku-Seiten",
+    "pages": {
+      "gettingStarted": {
+        "title": "Erste Schritte",
+        "description": "Die 60-Sekunden-Tour: Gefäß wählen, gestalten, exportieren, gravieren."
+      },
+      "aiProviders": {
+        "title": "KI-Anbieter",
+        "description": "Bring-your-own-key-Einrichtung, Datenschutzmodell und CORS-Hinweise."
+      },
+      "vessels": {
+        "title": "Gefäße",
+        "description": "Integrierte Presets, ihre Maße und wie du eines beisteuerst."
+      }
+    },
+    "gettingStarted": {
+      "intro": "Von null zur ersten Gravur in etwa fünf Minuten — alles läuft lokal in deinem Browser.",
+      "quickTitle": "Schnellstart",
+      "wrapTitle": "Das Wrap-Konzept",
+      "diagramAlt": "Diagramm: Ein Zylinder mit seinem Gravurband, abgewickelt zu einem flachen Rechteck, dessen gestrichelte Kanten die Naht markieren.",
+      "diagramVessel": "Gefäß",
+      "diagramUnwrap": "abwickeln 360°",
+      "diagramArtboard": "Zeichenfläche (voller Umfang)",
+      "diagramSeam": "Naht = Naht",
+      "offlineTitle": "Funktioniert offline"
+    },
+    "aiProviders": {
+      "intro": "Der KI-Assistent ist Bring-your-own-key: Dein Browser spricht direkt mit dem Anbieter, den du konfigurierst.",
+      "modelTitle": "Das BYOK-Modell",
+      "providersTitle": "Unterstützte Anbieter",
+      "thProvider": "Anbieter",
+      "thApi": "API",
+      "thNotes": "Hinweise",
+      "customName": "Benutzerdefiniert (OpenAI-kompatibel)",
+      "corsTitle": "CORS-Hinweise",
+      "securityTitle": "Sicherheit"
+    },
+    "vessels": {
+      "intro": "Presets ersparen dir den Messschieber: Wähle ein Gefäß und sein Profil steuert 3D-Vorschau und Zeichenfläche.",
+      "thName": "Preset",
+      "thCategory": "Kategorie",
+      "thSize": "Maße",
+      "thEngrave": "Gravurfenster",
+      "measureTitle": "Selbst messen",
+      "contributeTitle": "Preset beisteuern"
+    }
+  }
+}
