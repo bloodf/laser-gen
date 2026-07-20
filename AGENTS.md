@@ -122,5 +122,12 @@ test/                Vitest tests (unit tests also live beside core modules)
   as DOM/three-free functions over plain arrays, with unit tests beside it.
 - Package manager is **pnpm**; keep the lockfile updated and don't introduce npm/yarn
   artifacts.
+- **Dependency pins to respect**: `typescript` stays on `^5.9.3` — TS 7.x is the native
+  (Go) port and vue-tsc (even latest) cannot load it (`ERR_PACKAGE_PATH_NOT_EXPORTED`);
+  revisit when vue-tsc gains TS 7 support. `@nuxtjs/tailwindcss` stays on
+  `7.0.0-beta.1` — the 6.x "latest" line bundles Tailwind 3; 7.x beta is the Tailwind 4
+  line and the newest published release. `pnpm-workspace.yaml` holds an
+  `oxc-parser: ^0.140.0` override required by `unctx@3` (pnpm 11 reads overrides there,
+  not from package.json).
 - Keep changes minimal and scoped; match the existing file's style. Update docs when you
   change conventions described here or in `docs/`.
