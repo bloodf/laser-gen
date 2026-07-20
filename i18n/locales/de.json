@@ -712,5 +712,8 @@
     "linkedVessel": "Gefäß verknüpft",
     "rename": "Umbenennen",
     "deleteConfirm": "„{name}“ löschen? Das verknüpfte eigene Gefäß wird ebenfalls entfernt."
+  },
+  "languageSwitcher": {
+    "label": "Sprache wählen"
   }
 }

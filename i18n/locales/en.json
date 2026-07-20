@@ -735,5 +735,8 @@
     "linkedVessel": "Vessel linked",
     "rename": "Rename",
     "deleteConfirm": "Delete “{name}”? Its linked custom vessel is removed too."
+  },
+  "languageSwitcher": {
+    "label": "Choose language"
   }
 }

@@ -712,5 +712,8 @@
     "linkedVessel": "已关联容器",
     "rename": "重命名",
     "deleteConfirm": "删除“{name}”？其关联的自定义容器也会被移除。"
+  },
+  "languageSwitcher": {
+    "label": "选择语言"
   }
 }

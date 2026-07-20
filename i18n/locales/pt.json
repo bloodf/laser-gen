@@ -712,5 +712,8 @@
     "linkedVessel": "Recipiente vinculado",
     "rename": "Renomear",
     "deleteConfirm": "Excluir “{name}”? O recipiente personalizado vinculado também será removido."
+  },
+  "languageSwitcher": {
+    "label": "Escolher idioma"
   }
 }

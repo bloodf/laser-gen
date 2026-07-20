@@ -712,5 +712,8 @@
     "linkedVessel": "容器とリンク済み",
     "rename": "名前を変更",
     "deleteConfirm": "「{name}」を削除しますか？リンクされたカスタム容器も削除されます。"
+  },
+  "languageSwitcher": {
+    "label": "言語を選択"
   }
 }

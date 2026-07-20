@@ -14,8 +14,9 @@ test.describe('landing page', () => {
     const tagline = page.getByTestId('hero-tagline')
     await expect(tagline).toContainText('Design 360° wrap art')
 
-    // Header + footer both render a switcher — drive the header one.
-    await page.getByTestId('language-switcher').first().selectOption('pt')
+    // Header + footer both render a switcher — drive the header one (flag dropdown).
+    await page.getByTestId('language-switcher').first().click()
+    await page.locator('[data-locale="pt"]').first().click()
     await page.waitForURL('**/pt**')
     await expect(page.getByTestId('hero-tagline')).toContainText('Crie arte envolvente de 360°')
   })
