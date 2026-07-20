@@ -39,7 +39,7 @@ function endSplit(): void {
 </script>
 
 <template>
-  <section class="flex h-[calc(100dvh-7.5rem)] flex-col lg:h-[calc(100dvh-4rem)]">
+  <section class="flex h-full flex-col">
     <h1 class="sr-only">
       {{ t('nav.studio') }}
     </h1>

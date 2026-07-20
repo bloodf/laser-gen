@@ -46,11 +46,11 @@ const wide = computed(() => route.meta.wide === true)
 </script>
 
 <template>
-  <div class="flex min-h-dvh bg-ink-950 text-ink-100">
+  <div class="flex h-dvh overflow-hidden bg-ink-950 text-ink-100">
     <!-- desktop icon sidebar -->
     <nav
       :aria-label="t('nav.appSections')"
-      class="sticky top-0 hidden h-dvh w-16 shrink-0 flex-col items-center gap-1 border-r border-ink-800 py-3 lg:flex"
+      class="hidden h-dvh w-16 shrink-0 flex-col items-center gap-1 overflow-y-auto border-r border-ink-800 py-3 lg:flex"
     >
       <NuxtLink
         :to="localePath('/')"
@@ -79,9 +79,9 @@ const wide = computed(() => route.meta.wide === true)
       </NuxtLink>
     </nav>
 
-    <div class="flex min-h-dvh min-w-0 flex-1 flex-col">
+    <div class="flex h-dvh min-w-0 flex-1 flex-col">
       <!-- top bar -->
-      <header class="sticky top-0 z-30 flex h-12 items-center gap-3 border-b border-ink-800 bg-ink-950/90 px-4 backdrop-blur">
+      <header class="z-30 flex h-12 shrink-0 items-center gap-3 border-b border-ink-800 bg-ink-950/90 px-4 backdrop-blur">
         <p class="truncate text-sm font-semibold tracking-wide text-ink-200">
           {{ sectionTitle }}
         </p>
@@ -98,7 +98,7 @@ const wide = computed(() => route.meta.wide === true)
 
       <main
         class="min-h-0 w-full flex-1"
-        :class="wide ? 'p-2' : 'mx-auto max-w-5xl px-4 pb-24 pt-8 lg:pb-8'"
+        :class="wide ? 'overflow-hidden p-2' : 'mx-auto max-w-5xl overflow-y-auto px-4 pb-24 pt-8 lg:pb-8'"
       >
         <slot />
       </main>
@@ -106,7 +106,7 @@ const wide = computed(() => route.meta.wide === true)
       <!-- mobile bottom tab bar -->
       <nav
         :aria-label="t('nav.appSections')"
-        class="sticky bottom-0 z-30 flex border-t border-ink-800 bg-ink-950/95 backdrop-blur lg:hidden"
+        class="z-30 flex shrink-0 border-t border-ink-800 bg-ink-950/95 backdrop-blur lg:hidden"
       >
         <NuxtLink
           v-for="section in SECTIONS"
