@@ -14,8 +14,9 @@
  * profile max radius (for user uploads those come from the calibration form,
  * not bounding-box guessing), the body axis is centered on x/z with the base
  * at the profile's first y — then `cylindricalUVs` are baked onto the body
- * mesh so the shared artboard CanvasTexture maps exactly like it does on the
- * lathe geometry.
+ * mesh (v spanning the profile's full height, like the lathe) so the shared
+ * artboard CanvasTexture maps exactly like it does on the lathe geometry:
+ * the art lands in the engrave band, caps and base sample plain body color.
  *
  * Only the body mesh gets a new material (artboard texture); GLB handle/lid
  * meshes keep their original materials. The parametric lathe profile stays
@@ -245,7 +246,8 @@ export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Tex
       wrapper.updateWorldMatrix(true, true)
 
       // Bake cylindrical UVs from world positions (y = mm above the base),
-      // matching the lathe convention so the artboard texture aligns.
+      // matching the lathe convention: v spans the vessel's full height so
+      // the artboard texture (which paints the engrave band only) aligns.
       const geometry = bodyMesh.geometry
       const positions = geometry.attributes.position
       if (!positions) throw new Error(`body mesh in ${label} has no position attribute`)
@@ -259,8 +261,8 @@ export function useGlbVessel(profile: Readonly<Ref<VesselProfile>>, texture: Tex
       }
       geometry.setAttribute('uv', new BufferAttribute(cylindricalUVs(world, {
         seamAngleDeg: vessel.seamAngleDeg,
-        engraveBottom: vessel.engraveBottom,
-        engraveTop: vessel.engraveTop,
+        yMin: firstY,
+        yMax: lastY,
       }), 2))
 
       // Body gets the shared artboard texture; all other meshes (handle, lid)

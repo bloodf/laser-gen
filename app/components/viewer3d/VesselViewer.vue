@@ -37,7 +37,7 @@ const { model: glbModel } = useGlbVessel(profile, texture)
 const modelCredit = computed(() => profile.value.model?.credit ?? null)
 
 // M4: the editor's SvgDocument drives the texture (debounced live sync).
-useDocumentTexture(artboardTexture, baseColor)
+useDocumentTexture(artboardTexture, baseColor, profile)
 
 // --- Materials (stable instances; scalars mutate on finish change) ---------
 

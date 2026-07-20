@@ -2,11 +2,19 @@
  * Canvas2D renderer: paint an `SvgDocument` onto any 2D context.
  *
  * Used to draw the live design onto the 3D preview's artboard texture
- * (`useArtboardTexture`). The canvas maps the full artboard: mm are scaled
- * to pixels by `widthPx / widthMm` and `heightPx / heightMm` (x and y scales
- * may differ when the canvas aspect differs from the artboard's — stroke
- * widths then distort slightly, acceptable for a preview and documented
- * here).
+ * (`useArtboardTexture`). By default the canvas maps the full artboard: mm
+ * are scaled to pixels by `widthPx / widthMm` and `heightPx / heightMm`
+ * (x and y scales may differ when the canvas aspect differs from the
+ * artboard's — stroke widths then distort slightly, acceptable for a preview
+ * and documented here).
+ *
+ * With `engraveBand` set (from `engraveVBand`), the canvas instead represents
+ * the vessel's FULL height — matching the full-height `v` convention of
+ * `cylindricalUVs`/`latheSurfaceUVs`: the background fills the whole canvas
+ * while document content is clipped and mapped into the band
+ * `[v0, v1]` (canvas y ∈ [heightPx·(1−v1), heightPx·(1−v0)] — v = 0 is the
+ * canvas bottom under three.js `flipY`). Caps, rims, and base then sample
+ * plain background color instead of smeared art edges.
  *
  * Seam-crossing elements are drawn multiple times via `wrappedOffsets` so
  * the wrap is continuous on the vessel. The function is written against the
@@ -39,6 +47,14 @@ export interface RenderCanvasOptions {
    * the wrap is continuous. Default `true`.
    */
   wrapSeam?: boolean
+  /**
+   * Texture-space v-band the artboard content occupies (see `engraveVBand`).
+   * When set, the canvas represents the vessel's full height: the background
+   * fills everything and the document is clipped + mapped into `[v0, v1]`.
+   * Omit for consumers whose canvas maps the artboard 1:1 (exports,
+   * thumbnails).
+   */
+  engraveBand?: { v0: number, v1: number }
 }
 
 /**
@@ -63,8 +79,18 @@ export function renderDocumentToCanvas(
   else {
     ctx.clearRect(0, 0, widthPx, heightPx)
   }
-  // mm → px for the whole artboard.
-  ctx.scale(widthPx / doc.widthMm, heightPx / doc.heightMm)
+  // mm → px. With an engrave band, the document maps into the band's canvas
+  // rows (v = 0 at the canvas bottom) and content is clipped to it.
+  const band = opts.engraveBand
+  const bandTopPx = band ? heightPx * (1 - band.v1) : 0
+  const bandHeightPx = band ? heightPx * (band.v1 - band.v0) : heightPx
+  if (band) {
+    ctx.beginPath()
+    ctx.rect(0, bandTopPx, widthPx, bandHeightPx)
+    ctx.clip()
+    ctx.translate(0, bandTopPx)
+  }
+  ctx.scale(widthPx / doc.widthMm, bandHeightPx / doc.heightMm)
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 

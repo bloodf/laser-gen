@@ -3,9 +3,10 @@
  *
  * The body is a `LatheGeometry` revolved from `lathePoints()`; its default
  * UVs (v spanning every profile point including caps) are replaced with
- * `latheSurfaceUVs()` so the artboard texture's vertical span aligns exactly
- * with `[engraveBottom, engraveTop]` and `u = 0` sits at `seamAngleDeg`.
- * UVs are remapped *before* the geometry is recentered around mid-height.
+ * `latheSurfaceUVs()` so `v` spans the vessel's full profile height (the
+ * texture paints the artboard into the engrave band only) and `u = 0` sits
+ * at `seamAngleDeg`. UVs are remapped *before* the geometry is recentered
+ * around mid-height.
  *
  * Mug handles are a 270° torus arc (6 mm tube) whose 90° gap faces the body,
  * centered on `handle.angleDeg` at mid-body height and radius; `handle.ringMm`

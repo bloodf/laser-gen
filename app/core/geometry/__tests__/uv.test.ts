@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { GENERIC_CYLINDER_80MM } from '../presets'
 import type { VesselProfile } from '../types'
-import { latheSurfaceUVs } from '../uv'
+import { engraveVBand, latheSurfaceUVs } from '../uv'
 
-// Cylinder: engrave zone y ∈ [5, 95], seam at 0°.
+// Cylinder: profile y ∈ [0, 100], engrave zone y ∈ [5, 95], seam at 0°.
 const CYL = GENERIC_CYLINDER_80MM
 
 /** Pack flat x,y,z triplets the way a three.js position attribute does. */
@@ -26,24 +26,26 @@ describe('latheSurfaceUVs', () => {
     expect(uvs[6]).toBeCloseTo(0.75)
   })
 
-  it('maps v linearly across the engrave zone', () => {
+  it('maps v linearly across the FULL profile height (not the engrave zone)', () => {
     const uvs = latheSurfaceUVs(CYL, pos(
-      40, 5, 0, // engraveBottom → 0
-      40, 50, 0, // mid-zone → 0.5
-      40, 95, 0, // engraveTop → 1
+      40, 0, 0, // base → 0
+      40, 50, 0, // mid-height → 0.5
+      40, 100, 0, // rim → 1
     ))
     expect(uvs[1]).toBeCloseTo(0)
     expect(uvs[3]).toBeCloseTo(0.5)
     expect(uvs[5]).toBeCloseTo(1)
   })
 
-  it('clamps v outside the engrave zone (caps and non-engrave bands)', () => {
+  it('maps the engrave zone to the [v0, v1] sub-band of the texture', () => {
+    // Engrave [5, 95] within height 100 → v ∈ [0.05, 0.95].
     const uvs = latheSurfaceUVs(CYL, pos(
-      40, 0, 0, // base below the zone
-      40, 100, 0, // rim above the zone
+      40, 5, 0,
+      40, 95, 0,
     ))
-    expect(uvs[1]).toBe(0)
-    expect(uvs[3]).toBe(1)
+    const band = engraveVBand(CYL)
+    expect(uvs[1]).toBeCloseTo(band.v0)
+    expect(uvs[3]).toBeCloseTo(band.v1)
   })
 
   it('shifts u so u = 0 sits at a non-zero seamAngleDeg', () => {
@@ -59,5 +61,41 @@ describe('latheSurfaceUVs', () => {
   it('returns one uv pair per vertex triplet', () => {
     const uvs = latheSurfaceUVs(CYL, pos(1, 2, 3, 4, 5, 6, 7, 8, 9))
     expect(uvs.length).toBe(6)
+  })
+})
+
+describe('engraveVBand', () => {
+  it('spans the whole texture when the engrave zone spans the full height', () => {
+    const full: VesselProfile = { ...CYL, engraveBottom: 0, engraveTop: 100 }
+    expect(engraveVBand(full)).toEqual({ v0: 0, v1: 1 })
+  })
+
+  it('is a sub-band for a cylinder with non-engrave margins', () => {
+    const band = engraveVBand(CYL)
+    expect(band.v0).toBeCloseTo(0.05)
+    expect(band.v1).toBeCloseTo(0.95)
+  })
+
+  it('is a narrower sub-band for a bottle with shoulder, neck and caps', () => {
+    const bottle: VesselProfile = {
+      ...CYL,
+      id: 'test-bottle',
+      points: [
+        { r: 35, y: 0 },
+        { r: 35, y: 120 },
+        { r: 15, y: 150 }, // shoulder
+        { r: 15, y: 180 }, // neck
+      ],
+      engraveBottom: 20,
+      engraveTop: 110,
+    }
+    const band = engraveVBand(bottle)
+    expect(band.v0).toBeCloseTo(20 / 180)
+    expect(band.v1).toBeCloseTo(110 / 180)
+  })
+
+  it('falls back to the full range for degenerate (empty) profiles', () => {
+    const empty: VesselProfile = { ...CYL, points: [] }
+    expect(engraveVBand(empty)).toEqual({ v0: 0, v1: 1 })
   })
 })

@@ -6,11 +6,14 @@ import { renderDocumentToCanvas } from '../renderCanvas'
 /** Minimal mock of the CanvasRenderingContext2D surface the renderer uses. */
 function mockCtx() {
   const calls: string[] = []
-  const record = (name: string) => (..._args: unknown[]) => {
+  const argsByCall: Record<string, unknown[][]> = {}
+  const record = (name: string) => (...args: unknown[]) => {
     calls.push(name)
+    ;(argsByCall[name] ??= []).push(args)
   }
   const ctx = {
     calls,
+    argsByCall,
     fillStyle: '',
     strokeStyle: '',
     lineWidth: 1,
@@ -29,6 +32,8 @@ function mockCtx() {
     moveTo: record('moveTo'),
     lineTo: record('lineTo'),
     closePath: record('closePath'),
+    rect: record('rect'),
+    clip: record('clip'),
     ellipse: record('ellipse'),
     fill: record('fill'),
     stroke: record('stroke'),
@@ -100,5 +105,34 @@ describe('renderDocumentToCanvas', () => {
     renderDocumentToCanvas(asCtx(ctx), doc, { widthPx: 600, heightPx: 400 })
     expect(ctx.calls).toContain('stroke')
     expect(ctx.strokeStyle).toBe('#000000')
+  })
+
+  it('maps the document into the engrave band when one is given', () => {
+    const doc = createDocument(300, 200)
+    const ctx = mockCtx()
+    // Band [0.25, 0.75] of a 400 px canvas → rows 100..300 (v = 0 at the
+    // canvas bottom under three.js flipY).
+    renderDocumentToCanvas(asCtx(ctx), doc, {
+      widthPx: 600,
+      heightPx: 400,
+      baseColor: '#123456',
+      engraveBand: { v0: 0.25, v1: 0.75 },
+    })
+    // Background still covers the FULL canvas (caps/base get plain color).
+    expect(ctx.argsByCall.fillRect?.[0]).toEqual([0, 0, 600, 400])
+    // Content is clipped to the band…
+    expect(ctx.argsByCall.rect?.[0]).toEqual([0, 100, 600, 200])
+    expect(ctx.calls).toContain('clip')
+    // …and mapped into it: translate to the band top, scale mm → band px.
+    expect(ctx.argsByCall.translate?.[0]).toEqual([0, 100])
+    expect(ctx.argsByCall.scale?.[0]).toEqual([2, 1])
+  })
+
+  it('draws unclipped across the full canvas when no engraveBand is set', () => {
+    const doc = createDocument(300, 200)
+    const ctx = mockCtx()
+    renderDocumentToCanvas(asCtx(ctx), doc, { widthPx: 600, heightPx: 400 })
+    expect(ctx.calls).not.toContain('clip')
+    expect(ctx.argsByCall.translate).toBeUndefined()
   })
 })
