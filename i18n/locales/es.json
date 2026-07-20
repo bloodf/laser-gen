@@ -325,6 +325,17 @@
       "note": "Al igual que el recubrimiento en polvo, el esmalte quema a un tono claro; un contraste moderado con Floyd–Steinberg va bien para tazas y azulejos."
     }
   },
+  "pack": {
+    "open": "Abrir .laserpack",
+    "download": "Descargar .laserpack",
+    "downloadHint": "Archivo de proyecto autocontenido: incluye las imágenes, el modelo 3D subido y los ajustes del recipiente.",
+    "legacyJson": "JSON heredado (.lasergen.json)",
+    "confirmReplace": "Abrir este archivo reemplazará el proyecto actual. ¿Continuar?",
+    "openError": "No se pudo abrir el archivo: no es un proyecto .laserpack válido.",
+    "importProject": "Importar proyecto",
+    "importProjectDone": "Proyecto «{name}» importado.",
+    "importProjectError": "Ese archivo no es un proyecto .laserpack válido."
+  },
   "library": {
     "searchPlaceholder": "Buscar proyectos…",
     "filterStatus": "Filtro de estado",

@@ -179,7 +179,7 @@ export const useLibraryStore = defineStore('library', () => {
   }
 
   /** Save an arbitrary asset (e.g. an AI generation from the studio AI panel). */
-  async function saveAsset(input: { name: string, kind: LibraryAsset['kind'], dataUrl?: string, svgFragment?: string, blob?: Blob, blobName?: string }): Promise<LibraryAsset> {
+  async function saveAsset(input: { id?: string, name: string, kind: LibraryAsset['kind'], dataUrl?: string, svgFragment?: string, blob?: Blob, blobName?: string }): Promise<LibraryAsset> {
     const asset = await core.saveAsset(input)
     await refresh()
     return asset
@@ -193,6 +193,16 @@ export const useLibraryStore = defineStore('library', () => {
   async function deleteAsset(id: string): Promise<void> {
     await core.deleteAsset(id)
     await refresh()
+  }
+
+  /**
+   * Save a project record from raw data (e.g. a `.laserpack` import) without
+   * touching the studio's working document.
+   */
+  async function importProjectRecord(input: { name: string, vesselId: string, docJson: string, thumbnailDataUrl?: string }): Promise<LibraryProject> {
+    const saved = await core.saveProject(input)
+    await refresh()
+    return saved
   }
 
   /**
@@ -296,6 +306,7 @@ export const useLibraryStore = defineStore('library', () => {
     saveAsset,
     renameAsset,
     deleteAsset,
+    importProjectRecord,
     insertAssetIntoCurrent,
     exportToFile,
     importFromFile,

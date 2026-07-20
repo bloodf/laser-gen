@@ -6,6 +6,7 @@
  */
 import { applyProjectQuery } from '~/core/library'
 import type { LibraryAsset, LibraryProject, LibrarySort, ProjectStatus } from '~/core/library'
+import { LASERPACK_ACCEPT, useLaserpack } from '~/composables/useLaserpack'
 import { useLibraryStore } from '~/stores/library'
 import { useVesselStore } from '~/stores/vessel'
 
@@ -15,6 +16,7 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const library = useLibraryStore()
 const vesselStore = useVesselStore()
+const { importPackToLibrary } = useLaserpack()
 
 // --- Filters -------------------------------------------------------------------
 
@@ -66,6 +68,7 @@ function confirmDelete(project: LibraryProject): void {
 // --- Import / export -------------------------------------------------------------
 
 const importInput = ref<HTMLInputElement | null>(null)
+const importProjectInput = ref<HTMLInputElement | null>(null)
 const importMessage = ref('')
 
 function onImportFile(e: Event): void {
@@ -76,6 +79,17 @@ function onImportFile(e: Event): void {
   library.importFromFile(file, mode)
     .then(counts => importMessage.value = t('library.importDone', counts))
     .catch(() => importMessage.value = t('library.importError'))
+}
+
+/** Import a `.laserpack` as a new library project (model blob included). */
+function onImportProjectFile(e: Event): void {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  ;(e.target as HTMLInputElement).value = ''
+  if (!file) return
+  file.arrayBuffer()
+    .then(buffer => importPackToLibrary(new Uint8Array(buffer)))
+    .then(name => importMessage.value = t('pack.importProjectDone', { name }))
+    .catch(() => importMessage.value = t('pack.importProjectError'))
 }
 
 // --- Assets -----------------------------------------------------------------------
@@ -138,6 +152,14 @@ function confirmDeleteModel(asset: LibraryAsset): void {
       <button
         type="button"
         class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
+        data-testid="import-project-button"
+        @click="importProjectInput?.click()"
+      >
+        {{ t('pack.importProject') }}
+      </button>
+      <button
+        type="button"
+        class="rounded-md border border-ink-700 px-4 py-2 text-sm text-ink-100 transition-colors hover:bg-ink-800"
         @click="importInput?.click()"
       >
         {{ t('library.import') }}
@@ -150,6 +172,7 @@ function confirmDeleteModel(asset: LibraryAsset): void {
         {{ t('library.export') }}
       </button>
       <input ref="importInput" type="file" accept="application/json,.json" class="hidden" @change="onImportFile">
+      <input ref="importProjectInput" type="file" :accept="LASERPACK_ACCEPT" class="hidden" data-testid="import-project-input" @change="onImportProjectFile">
     </header>
 
     <p v-if="importMessage" class="text-sm text-ink-300">

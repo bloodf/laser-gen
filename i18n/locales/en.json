@@ -325,6 +325,17 @@
       "note": "Like powder coat, the glaze burns to bright; moderate contrast with Floyd–Steinberg suits coated mugs and tiles."
     }
   },
+  "pack": {
+    "open": "Open .laserpack",
+    "download": "Download .laserpack",
+    "downloadHint": "Self-contained project file — images, an uploaded 3D model and vessel settings travel inside.",
+    "legacyJson": "Legacy JSON (.lasergen.json)",
+    "confirmReplace": "Opening this file replaces the current project. Continue?",
+    "openError": "Couldn't open that file — it isn't a valid .laserpack project.",
+    "importProject": "Import project",
+    "importProjectDone": "Imported project \"{name}\".",
+    "importProjectError": "That file isn't a valid .laserpack project."
+  },
   "library": {
     "searchPlaceholder": "Search projects…",
     "filterStatus": "Status filter",
@@ -825,7 +836,7 @@
         "programGeneric": "Exported as-is.",
         "svg2": "Options: flatten shapes to paths, embed rotary metadata as a comment, and override the layer mode. The dialog shows live warnings (live text needs the font on the laser PC; rasters embed as data URIs) and a file-size estimate.",
         "raster": "The flat artboard rendered at 254/300/600 DPI with the DPI embedded as a pHYs chunk — programs that honor PNG resolution import at the correct physical size. The right choice when the design relies on dithered photos.",
-        "project": "Download the working document as .lasergen.json, or save a copy to the library. Re-import project files from the Library page.",
+        "project": "Download the project as a self-contained .laserpack (a small zip: the document, every embedded image, your uploaded 3D model and its vessel calibration, plus a thumbnail), or as a legacy .lasergen.json. Open .laserpack files from the studio toolbar, drop them on the artboard, or import them on the Library page — the browser unzips and restores everything. You can also save a copy to the library.",
         "rotaryIntro": "The Rotary tab computes everything your laser software’s rotary setup asks for — and the same numbers are embedded in the SVG metadata comment. For LightBurn:",
         "rotary1": "Note the object diameter and circumference shown in the Rotary tab (or download the .txt summary).",
         "rotary2": "In LightBurn: Laser Tools → Rotary Setup, enable the rotary and choose roller or chuck.",
@@ -859,7 +870,7 @@
         "projects": "Save from the studio toolbar, then search, tag, duplicate, rename and set a status. Each card shows a live-rendered thumbnail of the wrap.",
         "jobs": "Open a project to log burn attempts: material, power, speed, passes, notes and result photos. The tracker is where “which settings worked on the black Stanley?” gets answered once, permanently.",
         "assets": "Reusable art: imported SVGs, photos, AI generations and your uploaded 3D models. Insert them into any project, or send a model to the studio as your active vessel.",
-        "transfer": "Export the whole library as one versioned JSON file and import it on another device. Photos and SVGs travel inside the JSON; 3D model blobs do not — re-upload those after an import."
+        "transfer": "For single projects use Import project with a .laserpack file — it is fully self-contained: images, an uploaded 3D model and its vessel calibration are restored along with the document. For whole shelves, export the library as one versioned JSON file and import it on another device. Photos and SVGs travel inside the JSON; 3D model blobs do not — use .laserpack (or re-upload) for those."
       }
     }
   },

@@ -325,6 +325,17 @@
       "note": "Assim como a pintura eletrostática, o esmalte queima para um tom claro; contraste moderado com Floyd–Steinberg serve bem para canecas e azulejos revestidos."
     }
   },
+  "pack": {
+    "open": "Abrir .laserpack",
+    "download": "Baixar .laserpack",
+    "downloadHint": "Arquivo de projeto autocontido — inclui as imagens, o modelo 3D enviado e as configurações do recipiente.",
+    "legacyJson": "JSON legado (.lasergen.json)",
+    "confirmReplace": "Abrir este arquivo substitui o projeto atual. Continuar?",
+    "openError": "Não foi possível abrir o arquivo — ele não é um projeto .laserpack válido.",
+    "importProject": "Importar projeto",
+    "importProjectDone": "Projeto \"{name}\" importado.",
+    "importProjectError": "Esse arquivo não é um projeto .laserpack válido."
+  },
   "library": {
     "searchPlaceholder": "Buscar projetos…",
     "filterStatus": "Filtro de status",

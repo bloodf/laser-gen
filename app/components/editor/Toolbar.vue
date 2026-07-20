@@ -7,16 +7,21 @@
  * current document in the library (M6).
  */
 import { RASTER_ACCEPT, useRasterImport } from '~/composables/useRasterImport'
+import { LASERPACK_ACCEPT, useLaserpack } from '~/composables/useLaserpack'
 import { useEditorStore } from '~/stores/editor'
 import type { ToolId } from '~/stores/editor'
 import { useLibraryStore } from '~/stores/library'
+import { useProjectStore } from '~/stores/project'
 
 const { t } = useI18n()
 const editor = useEditorStore()
 const library = useLibraryStore()
+const project = useProjectStore()
 const { importRasterFile } = useRasterImport()
+const { openPackIntoStudio } = useLaserpack()
 
 const photoInput = ref<HTMLInputElement | null>(null)
+const packInput = ref<HTMLInputElement | null>(null)
 
 /** Whether the M8 export dialog is open. */
 const showExport = ref(false)
@@ -47,6 +52,20 @@ async function onPhotoFile(e: Event): Promise<void> {
   }
   catch {
     // Undecodable file — ignore (the import menu reports errors for picks).
+  }
+}
+
+/** Open a .laserpack picked from the file dialog (confirms when dirty). */
+async function onPackFile(e: Event): Promise<void> {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  ;(e.target as HTMLInputElement).value = ''
+  if (!file) return
+  if (project.dirty && !window.confirm(t('pack.confirmReplace'))) return
+  try {
+    await openPackIntoStudio(new Uint8Array(await file.arrayBuffer()))
+  }
+  catch {
+    window.alert(t('pack.openError'))
   }
 }
 
@@ -113,6 +132,21 @@ const tools: Array<{ id: ToolId, icon: string }> = [
         <path v-else d="M5 4 H19 V20 H5 Z M5 8 H19 M9 4 V8 M9 13 H15" />
       </svg>
     </button>
+
+    <!-- open .laserpack action -->
+    <button
+      type="button"
+      class="grid size-8 place-items-center rounded-md text-ink-300 transition-colors hover:bg-ink-800 hover:text-ink-100"
+      :title="t('pack.open')"
+      :aria-label="t('pack.open')"
+      data-testid="open-pack-button"
+      @click="packInput?.click()"
+    >
+      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 14 V3 M12 3 L8 7 M12 3 L16 7 M5 17 V19 H19 V17" />
+      </svg>
+    </button>
+    <input ref="packInput" type="file" :accept="LASERPACK_ACCEPT" class="hidden" data-testid="open-pack-input" @change="onPackFile">
 
     <!-- export action (M8) -->
     <button

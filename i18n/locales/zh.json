@@ -325,6 +325,17 @@
       "note": "与粉末涂层类似，釉面烧后呈亮色；中等对比度配合 Floyd–Steinberg 适合涂层马克杯和瓷砖。"
     }
   },
+  "pack": {
+    "open": "打开 .laserpack",
+    "download": "下载 .laserpack",
+    "downloadHint": "自包含项目文件——图片、已上传的 3D 模型和器皿设置全部打包在内。",
+    "legacyJson": "旧版 JSON（.lasergen.json）",
+    "confirmReplace": "打开此文件将替换当前项目。是否继续？",
+    "openError": "无法打开该文件——它不是有效的 .laserpack 项目。",
+    "importProject": "导入项目",
+    "importProjectDone": "已导入项目“{name}”。",
+    "importProjectError": "该文件不是有效的 .laserpack 项目。"
+  },
   "library": {
     "searchPlaceholder": "搜索项目…",
     "filterStatus": "状态筛选",

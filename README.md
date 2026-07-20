@@ -26,6 +26,7 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
 | **Vectorize** | In-browser raster→vector tracing (imagetracerjs in a Web Worker) with threshold, smoothing, and simplify controls |
 | **Photo prep** | Grayscale, levels/contrast, sharpening, dithering (Floyd–Steinberg, ordered, halftone, stipple), material presets, corner flood-fill background removal, halftone→vector dots |
 | **Export** | Physical-size SVG with per-program presets for LightBurn, xTool Creative Space, and LaserGRBL; DPI-correct raster PNG (pHYs chunk); rotary setup metadata embedded in the file plus a copy/download rotary-setup panel |
+| **Project packs** | `.laserpack` — a zip-based, fully self-contained project file (document, images, uploaded 3D model, vessel calibration, thumbnail) that unzips in the browser on open/import; share or back up a whole project as one file |
 | **Library** | Local-first project library (IndexedDB): thumbnails, tags, status, job tracker with burn attempts, reusable assets, versioned JSON import/export |
 | **AI (BYOK)** | Optional assistant — Anthropic, OpenAI, or any OpenAI-compatible endpoint: prompt→SVG, prompt→image, design copilot. Keys are encrypted at rest and never leave your device |
 | **PWA** | Offline-first installable app (Workbox, auto-update) |
@@ -44,7 +45,9 @@ No accounts. No servers. No uploads. Your projects and your API keys never leave
   artboard texture (no separate handle/lid materials), and the model is assumed Z-up
   (converted on load); GLB uploads may use multi-part materials like the built-ins.
 - **Model Blobs don't travel with the library JSON export** — model assets keep their
-  thumbnail but must be re-uploaded after an import on another device.
+  thumbnail but must be re-uploaded after an import on another device. (Single-project
+  `.laserpack` files *do* embed the model blob — use those to move model-backed
+  projects between devices.)
 - **Vectorizer is imagetracerjs (JS)** — a WASM potrace/vtracer-class upgrade is planned.
 
 ## Quickstart

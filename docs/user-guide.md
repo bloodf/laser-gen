@@ -245,10 +245,27 @@ The flat artboard rendered at 254/300/600 DPI with the DPI embedded as a pHYs ch
 programs that honor PNG resolution import at the correct physical size. The right choice
 when the design relies on dithered photos.
 
-### Project backup
+### Project backup (.laserpack)
 
-Download the working document as `.lasergen.json`, or save a copy to the library.
-Re-import project files from the Library page.
+The primary project download is a **`.laserpack`** — a small zip file that is fully
+self-contained:
+
+```
+manifest.json          format marker + table of contents
+project.json           your document, with images referenced as pack://assets/…
+assets/images/…        every embedded photo/dither as a binary file
+assets/models/…        your uploaded 3D model (GLB/STL), when the vessel uses one
+project-vessel.json    the custom vessel's calibration for that model
+thumbnail.png          a rendered preview
+```
+
+Share it, back it up, move it between devices — opening it restores everything:
+the document (images included), and for uploaded-model vessels the model blob is
+re-stored as a library asset with its linked custom vessel. Open a `.laserpack`
+from the studio toolbar, drop it onto the artboard, or use **Import project** on
+the Library page. The browser unzips the file locally (nothing is uploaded) and
+refuses corrupt or oversized archives. A legacy `.lasergen.json` download
+(document JSON only, images inlined) is still available as a secondary option.
 
 ### Rotary setup
 
@@ -339,6 +356,8 @@ IndexedDB on this device.
 - **Assets.** Reusable art: imported SVGs, photos, AI generations and your uploaded 3D
   models. Insert them into any project, or send a model to the studio as your active
   vessel.
-- **Backup & transfer.** Export the whole library as one versioned JSON file and import
-  it on another device. Photos and SVGs travel inside the JSON; 3D model blobs do not —
-  re-upload those after an import.
+- **Backup & transfer.** For single projects, **Import project** takes a `.laserpack`
+  file and restores everything inside it — document, images, uploaded 3D model and
+  vessel calibration. For whole shelves, export the library as one versioned JSON
+  file and import it on another device. Photos and SVGs travel inside the JSON;
+  3D model blobs do not — use `.laserpack` (or re-upload) for those.

@@ -325,6 +325,17 @@
       "note": "Wie Pulverbeschichtung brennt die Glasur hell; moderater Kontrast mit Floyd–Steinberg passt zu beschichteten Tassen und Fliesen."
     }
   },
+  "pack": {
+    "open": ".laserpack öffnen",
+    "download": ".laserpack herunterladen",
+    "downloadHint": "Eigenständige Projektdatei — Bilder, ein hochgeladenes 3D-Modell und die Gefäßeinstellungen sind enthalten.",
+    "legacyJson": "Legacy-JSON (.lasergen.json)",
+    "confirmReplace": "Das Öffnen dieser Datei ersetzt das aktuelle Projekt. Fortfahren?",
+    "openError": "Die Datei konnte nicht geöffnet werden — sie ist kein gültiges .laserpack-Projekt.",
+    "importProject": "Projekt importieren",
+    "importProjectDone": "Projekt „{name}“ importiert.",
+    "importProjectError": "Diese Datei ist kein gültiges .laserpack-Projekt."
+  },
   "library": {
     "searchPlaceholder": "Projekte suchen…",
     "filterStatus": "Statusfilter",

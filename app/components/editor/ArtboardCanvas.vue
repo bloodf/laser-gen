@@ -34,6 +34,7 @@ import {
   decomposeMatrix,
 } from '~/core/svg'
 import type { Bounds, Point, SvgElement, Transform } from '~/core/svg'
+import { useLaserpack } from '~/composables/useLaserpack'
 import { useRasterImport } from '~/composables/useRasterImport'
 import { useEditorStore } from '~/stores/editor'
 import { useProjectStore } from '~/stores/project'
@@ -43,6 +44,7 @@ const { t } = useI18n()
 const project = useProjectStore()
 const editor = useEditorStore()
 const vessel = useVesselStore()
+const { openPackIntoStudio } = useLaserpack()
 
 const doc = computed(() => project.doc)
 
@@ -121,10 +123,25 @@ function mmToPx(p: Point): Point {
 
 const { importRasterFile } = useRasterImport()
 
-/** Drop a JPG/PNG onto the artboard → image element centered on the drop point. */
+/**
+ * Drop a file onto the artboard: `.laserpack` opens the packed project
+ * (confirming unsaved changes first); JPG/PNG imports as an image element
+ * centered on the drop point.
+ */
 async function onDrop(e: DragEvent): Promise<void> {
   const file = e.dataTransfer?.files?.[0]
-  if (!file || (file.type !== 'image/png' && file.type !== 'image/jpeg')) return
+  if (!file) return
+  if (file.name.toLowerCase().endsWith('.laserpack')) {
+    if (project.dirty && !window.confirm(t('pack.confirmReplace'))) return
+    try {
+      await openPackIntoStudio(new Uint8Array(await file.arrayBuffer()))
+    }
+    catch {
+      window.alert(t('pack.openError'))
+    }
+    return
+  }
+  if (file.type !== 'image/png' && file.type !== 'image/jpeg') return
   const rect = svgEl.value?.getBoundingClientRect()
   const center = rect
     ? { x: editor.panX + (e.clientX - rect.left) / pxPerMm.value, y: editor.panY + (e.clientY - rect.top) / pxPerMm.value }

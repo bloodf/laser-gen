@@ -24,6 +24,7 @@
     "@tresjs/cientos": "^5.8.1",
     "@tresjs/core": "^5.8.3",
     "@tresjs/nuxt": "^5.6.3",
+    "fflate": "^0.8.3",
     "idb-keyval": "^6.3.0",
     "imagetracerjs": "^1.2.6",
     "nuxt": "^4.5.0",

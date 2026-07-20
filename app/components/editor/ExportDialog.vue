@@ -17,6 +17,7 @@ import {
 } from '~/core/export'
 import type { ExportProgram, ExportResult, RasterDpi } from '~/core/export'
 import { artboardSize, rotaryMetadata, rotarySetupText } from '~/core/geometry'
+import { useLaserpack } from '~/composables/useLaserpack'
 import { useLibraryStore } from '~/stores/library'
 import { useProjectStore } from '~/stores/project'
 import { useVesselStore } from '~/stores/vessel'
@@ -27,6 +28,7 @@ const { t } = useI18n()
 const project = useProjectStore()
 const vessel = useVesselStore()
 const library = useLibraryStore()
+const { buildPack } = useLaserpack()
 
 type TabId = 'svg' | 'raster' | 'rotary' | 'project'
 const tab = ref<TabId>('svg')
@@ -147,6 +149,23 @@ async function doExportRaster(): Promise<void> {
       mode: 'as-designed',
       projectName: projectName.value,
     }))
+  }
+  finally {
+    busy.value = false
+  }
+}
+
+async function doExportPack(): Promise<void> {
+  busy.value = true
+  try {
+    const bytes = await buildPack(projectName.value)
+    const copy = new Uint8Array(bytes.length)
+    copy.set(bytes)
+    download({
+      blob: new Blob([copy.buffer as ArrayBuffer], { type: 'application/zip' }),
+      filename: buildFilename(projectName.value, vessel.activeVesselId, 'laserpack'),
+      warnings: [],
+    })
   }
   finally {
     busy.value = false
@@ -424,12 +443,28 @@ function formatBytes(n: number): string {
         <div v-else class="grid gap-4">
           <div class="flex items-center justify-between gap-3">
             <div class="text-sm text-ink-300">
-              {{ t('export.projectDownload') }}
+              {{ t('pack.download') }}
+              <span class="block text-xs text-ink-500">{{ t('pack.downloadHint') }}</span>
+            </div>
+            <button
+              type="button"
+              class="shrink-0 rounded-md bg-laser px-4 py-1.5 text-sm font-medium text-ink-950 transition-opacity hover:opacity-90 disabled:opacity-50"
+              :disabled="busy"
+              data-testid="export-pack-button"
+              @click="doExportPack"
+            >
+              {{ busy ? t('export.exporting') : t('export.exportNow') }}
+            </button>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-sm text-ink-300">
+              {{ t('pack.legacyJson') }}
               <span class="block text-xs text-ink-500">{{ t('export.projectDownloadHint') }}</span>
             </div>
             <button
               type="button"
-              class="shrink-0 rounded-md bg-laser px-4 py-1.5 text-sm font-medium text-ink-950 transition-opacity hover:opacity-90"
+              class="shrink-0 rounded-md border border-ink-700 px-4 py-1.5 text-sm text-ink-300 transition-colors hover:bg-ink-800"
+              data-testid="export-legacy-button"
               @click="doExportProject"
             >
               {{ t('export.exportNow') }}

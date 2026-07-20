@@ -325,6 +325,17 @@
       "note": "粉体塗装と同様に釉薬は明るく焼けます。中程度のコントラストと Floyd–Steinberg がコーティングマグやタイルに適しています。"
     }
   },
+  "pack": {
+    "open": ".laserpack を開く",
+    "download": ".laserpack をダウンロード",
+    "downloadHint": "画像・アップロードした3Dモデル・ベッセル設定をすべて同梱した自己完結型のプロジェクトファイルです。",
+    "legacyJson": "旧形式 JSON（.lasergen.json）",
+    "confirmReplace": "このファイルを開くと現在のプロジェクトが置き換えられます。続行しますか？",
+    "openError": "ファイルを開けませんでした。有効な .laserpack プロジェクトではありません。",
+    "importProject": "プロジェクトをインポート",
+    "importProjectDone": "プロジェクト「{name}」をインポートしました。",
+    "importProjectError": "このファイルは有効な .laserpack プロジェクトではありません。"
+  },
   "library": {
     "searchPlaceholder": "プロジェクトを検索…",
     "filterStatus": "ステータスで絞り込み",

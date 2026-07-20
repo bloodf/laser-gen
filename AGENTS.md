@@ -54,7 +54,9 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      useArtboardTexture (CanvasTexture artboard + demo pattern),
                      useDocumentTexture (project doc → texture live sync),
                      useRasterImport (shared PNG/JPG → image element import),
-                     useModelThumbnail (M13 offscreen WebGL model thumbnails)
+                     useModelThumbnail (M13 offscreen WebGL model thumbnails),
+                     useLaserpack (M16 .laserpack build/open/import bridge —
+                     embedded vessel restore with id-collision remap)
   core/              pure-TS domain logic — no Vue/DOM/Nuxt imports here:
                      geometry/ (profiles, unwrap math, lathe, presets — incl.
                      M12/M13 optional `model` (GLB ref + CC-BY credit, or
@@ -78,7 +80,11 @@ app/                 Nuxt 4 app dir (components, layouts, pages, stores, assets)
                      command parser/executor);
                      export/ (physical-size SVG with per-program presets
                      for LightBurn/xTool/LaserGRBL, DPI-correct raster PNG
-                     with pHYs injection, dated slugified filenames)
+                     with pHYs injection, dated slugified filenames);
+                     pack/ (M16 .laserpack: fflate zip engine with zip-bomb
+                     guard, manifest, image/model/thumbnail embedding with
+                     pack:// refs, PackError codes — notZip/badManifest/
+                     unsupportedVersion/missingProject/tooLarge)
   stores/            Pinia stores (vessel: active preset + persisted custom
                      vessels/colors + viewer prefs; project: SvgDocument +
                      undo/redo + IndexedDB
