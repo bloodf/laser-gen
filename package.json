@@ -44,11 +44,11 @@
     "@playwright/test": "^1.61.1",
     "@types/three": "^0.185.1",
     "@vite-pwa/nuxt": "^1.1.1",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.0",
     "happy-dom": "^20.11.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10",
-    "vue-tsc": "^3.3.7"
+    "vue-tsc": "^3.3.8"
   }
 }
