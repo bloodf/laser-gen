@@ -28,7 +28,7 @@
     "idb-keyval": "^6.3.0",
     "imagetracerjs": "^1.2.6",
     "nuxt": "^4.5.0",
-    "openai": "^6.48.0",
+    "openai": "^7.3.0",
     "pinia": "^4.0.2",
     "pinia-plugin-persistedstate": "^4.7.1",
     "three": "^0.185.1",
