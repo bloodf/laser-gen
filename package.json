@@ -45,7 +45,7 @@
     "@types/three": "^0.185.1",
     "@vite-pwa/nuxt": "^1.1.1",
     "eslint": "^10.7.0",
-    "happy-dom": "^20.11.0",
+    "happy-dom": "^21.0.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10",
